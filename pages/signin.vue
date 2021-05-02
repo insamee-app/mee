@@ -24,7 +24,7 @@
     >
       <template #label> Vérification du mot de passe </template>
     </AppInput>
-    <AppButton class="w-full mb-8">S'inscrire</AppButton>
+    <AppButton large class="w-full mb-8">S'inscrire</AppButton>
     <AppFrame class="w-full mb-8">
       <span
         >Déjà un comptes ?

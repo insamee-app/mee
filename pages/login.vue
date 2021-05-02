@@ -17,7 +17,7 @@
       <template #label> Mot de passe </template>
       <template #addon> Oublié ? </template>
     </AppInput>
-    <AppButton class="w-full mb-8">Se connecter</AppButton>
+    <AppButton large class="w-full mb-8">Se connecter</AppButton>
     <AppFrame class="w-full mb-8">
       <span
         >Pas encore de compte ?
