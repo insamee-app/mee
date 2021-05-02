@@ -1,6 +1,6 @@
 <template>
   <section
-    class="h-screen flex flex-col overflow-x-hidden relative"
+    class="h-screen flex flex-col overflow-x-hidden relative pb-2"
     :class="around ? 'justify-around' : 'justify-center'"
   >
     <slot></slot>

@@ -14,5 +14,10 @@ module.exports = {
       white: '#FCFCFC',
       black: '#221B1B',
     },
+    extend: {
+      animation: {
+        'bounce-slow': 'bounce 2s ease-in-out infinite',
+      },
+    },
   },
 }
