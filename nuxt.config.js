@@ -35,6 +35,7 @@ export default {
     '~/components/atoms/graphics',
     '~/components/atoms/icons',
     '~/components/atoms',
+    '~/components/organisms',
   ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
