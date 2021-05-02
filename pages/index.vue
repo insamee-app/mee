@@ -49,7 +49,6 @@
         >Une idée d'entreprise ou d'association ? Besoin de personnes
         talentueuses pour monter ton business ?</HomeContainerTitle
       >
-      <GraphicBusiness class="w-full" />
       <div class="flex justify-end">
         <HomeContainerText class="px-4 text-right w-8/12"
           >Avec <span class="text-primary-base">INSAMEE</span>, trouve tes
@@ -57,6 +56,7 @@
           !</HomeContainerText
         >
       </div>
+      <GraphicBusiness class="w-full" />
     </HomeContainer>
   </div>
 </template>
