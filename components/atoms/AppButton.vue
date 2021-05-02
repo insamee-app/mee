@@ -1,7 +1,12 @@
 <template>
-  <button class="bg-primary-base text-white rounded" :class="classButton">
+  <component
+    :is="to ? 'NuxtLink' : 'button'"
+    class="rounded"
+    :class="classButton"
+    :to="to"
+  >
     <slot></slot>
-  </button>
+  </component>
 </template>
 
 <script>
@@ -12,6 +17,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    border: {
+      type: Boolean,
+      default: false,
+    },
+    to: {
+      type: Object,
+      default: undefined,
+    },
   },
   computed: {
     classButton() {
@@ -19,6 +32,10 @@ export default {
 
       if (this.large) classNames.push('p-2')
       else classNames.push('py-1 px-2')
+
+      if (this.border)
+        classNames.push('border border-primary-dark text-primary-base')
+      else classNames.push('bg-primary-base text-white')
 
       return classNames.join(' ')
     },
