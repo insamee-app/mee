@@ -15,6 +15,9 @@ export default {
       { hid: 'description', name: 'description', content: '' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    bodyAttrs: {
+      class: ['text-black'],
+    },
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -28,7 +31,11 @@ export default {
   plugins: [],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
-  components: ['~/components/atoms/icons', '~/components/atoms'],
+  components: [
+    '~/components/atoms/graphics',
+    '~/components/atoms/icons',
+    '~/components/atoms',
+  ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
