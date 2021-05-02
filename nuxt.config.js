@@ -1,5 +1,9 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
+  server: {
+    port: 3000,
+    host: '0.0.0.0',
+  },
   head: {
     title: 'insamee',
     htmlAttrs: {
@@ -16,11 +20,15 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],
 
+  tailwindcss: {
+    jit: true,
+  },
+
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
+  components: ['~/components/atoms/icons', '~/components/atoms'],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
