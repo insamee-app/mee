@@ -13,7 +13,7 @@
 export default {
   data() {
     return {
-      nav: true,
+      nav: false,
     }
   },
   watch: {
