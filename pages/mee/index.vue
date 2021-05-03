@@ -1,6 +1,11 @@
 <template>
   <section class="pt-16 px-4">
-    <AppCard v-for="value in 3" :key="value" class="w-full">
+    <AppCard
+      v-for="value in 3"
+      :key="value"
+      class="w-full"
+      :to="{ name: 'mee-id', params: { id: value } }"
+    >
       <template #avatar>
         <AppCardAvatar />
       </template>
@@ -12,9 +17,9 @@
       </template>
       <template #associations>
         <AppCardAssociations>
-          <AppCardAssociation />
-          <AppCardAssociation />
-          <AppCardAssociation />
+          <AppAssociation />
+          <AppAssociation />
+          <AppAssociation />
         </AppCardAssociations>
       </template>
       <template #chips>

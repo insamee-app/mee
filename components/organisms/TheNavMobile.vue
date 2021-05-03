@@ -25,7 +25,7 @@ export default {
         },
         {
           name: 'Trouver des Mee',
-          path: '',
+          path: 'mee',
         },
         {
           name: 'Contact',
