@@ -16,6 +16,11 @@ export default {
       nav: true,
     }
   },
+  watch: {
+    $route(a) {
+      this.nav = false
+    },
+  },
   methods: {
     toggleNav(state) {
       this.nav = state

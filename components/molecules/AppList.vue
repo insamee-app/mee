@@ -15,7 +15,7 @@ export default {
   name: 'AppList',
   props: {
     list: {
-      type: Object,
+      type: Array,
       required: true,
     },
   },
