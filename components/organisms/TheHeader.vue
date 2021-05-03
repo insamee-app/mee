@@ -10,9 +10,22 @@
       <AppButton border class="mr-8" :to="{ name: 'signin' }"
         >S'incrire</AppButton
       >
-      <IconLineHorizontal
-        class="w-8 h-8 text-primary-base fill-current cursor-pointer"
-      />
+      <div @click="open">
+        <IconLineHorizontal
+          class="w-8 h-8 text-primary-base fill-current cursor-pointer"
+        />
+      </div>
     </div>
   </header>
 </template>
+
+<script>
+export default {
+  name: 'TheHeader',
+  methods: {
+    open() {
+      this.$emit('open', true)
+    },
+  },
+}
+</script>
