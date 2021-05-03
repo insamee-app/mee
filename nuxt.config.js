@@ -35,6 +35,7 @@ export default {
     '~/components/atoms/graphics',
     '~/components/atoms/icons',
     '~/components/atoms',
+    '~/components/molecules',
     '~/components/organisms',
   ],
 

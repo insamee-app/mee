@@ -5,6 +5,7 @@
         <IconDismiss class="text-primary-base h-8 w-8 fill-current" />
       </div>
     </div>
+    <AppList class="px-4 mb-8" :list="nav"></AppList>
     <div class="flex justify-center">
       <AppButton class="mr-6" :to="{ name: 'login' }">Se connecter</AppButton>
       <AppButton border :to="{ name: 'signin' }">S'inscrire</AppButton>
@@ -15,6 +16,24 @@
 <script>
 export default {
   name: 'TheNavMobile',
+  data() {
+    return {
+      nav: [
+        {
+          name: 'Accueil',
+          path: 'index',
+        },
+        {
+          name: 'Trouver des Mee',
+          path: '',
+        },
+        {
+          name: 'Contact',
+          path: 'contact',
+        },
+      ],
+    }
+  },
   methods: {
     close() {
       this.$emit('close', false)
