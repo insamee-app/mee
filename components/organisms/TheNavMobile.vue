@@ -5,6 +5,10 @@
         <IconDismiss class="text-primary-base h-8 w-8 fill-current" />
       </div>
     </div>
+    <div class="flex justify-center">
+      <AppButton class="mr-6" :to="{ name: 'login' }">Se connecter</AppButton>
+      <AppButton border :to="{ name: 'signin' }">S'inscrire</AppButton>
+    </div>
   </div>
 </template>
 
