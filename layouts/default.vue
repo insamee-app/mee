@@ -1,7 +1,7 @@
 <template>
   <div>
     <TheHeader @open="toggleNav" />
-    <TheNavMobile v-if="nav" @close="toggleNav" />
+    <TheNavMobile v-model="nav" />
     <main>
       <Nuxt />
     </main>
