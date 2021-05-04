@@ -4,6 +4,7 @@
     class="rounded"
     :class="classButton"
     :to="to"
+    @click="to ? '' : $emit('click', $event)"
   >
     <slot></slot>
   </component>
