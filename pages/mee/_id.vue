@@ -7,23 +7,14 @@
     <AppModal v-model="dialog">
       <div class="bg-grey-light rounded p-4">
         <div class="flex flex-row justify-between mb-2">
-          <div class="text-xl font-bold">lorem ipsum</div>
+          <div class="text-xl font-bold">Contacter X</div>
           <div @click="dialog = false">
             <IconDismiss
               class="h-8 w-8 fill-current text-primary-dark cursor-pointer"
             />
           </div>
         </div>
-        <AppItemLabeled class="mb-4">
-          <template #label>Téléphone</template>
-          lorem ipsum (component for url)
-        </AppItemLabeled>
-        <AppItemLabeled class="mb-4">
-          <template #label>Facebook Messenger</template>
-        </AppItemLabeled>
-        <AppItemLabeled class="mb-4">
-          <template #label>Instagram</template>
-        </AppItemLabeled>
+        <AppContact :links="links" />
       </div>
     </AppModal>
   </AppContainer>
@@ -34,6 +25,11 @@ export default {
   data() {
     return {
       dialog: false,
+      links: {
+        messenger: 'url',
+        intagram: 'url',
+        twitter: 'url',
+      },
     }
   },
 }
