@@ -7,7 +7,7 @@ export default {
   head: {
     title: 'insamee',
     htmlAttrs: {
-      lang: 'en',
+      lang: 'fr',
     },
     meta: [
       { charset: 'utf-8' },
@@ -56,7 +56,26 @@ export default {
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    proxy: true,
+  },
+
+  proxy: {
+    '/api/': process.env.BROWSER_BASE_URL,
+    '/auth/**': process.env.BROWSER_BASE_URL,
+  },
+
+  publicRuntimeConfig: {
+    axios: {
+      browserBaseURL: process.env.BROWSER_BASE_URL,
+    },
+  },
+
+  privateRuntimeConfig: {
+    axios: {
+      baseURL: process.env.BASE_URL,
+    },
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},

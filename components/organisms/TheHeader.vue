@@ -7,7 +7,10 @@
       <div class="self-center">INSAMEE</div>
     </div>
     <div class="flex flex-row">
-      <AppButton border class="mr-8" :to="{ name: 'signin' }"
+      <AppButton v-if="loggedIn()" class="mr-8" :to="{ name: 'mee' }"
+        >Trouver des mee</AppButton
+      >
+      <AppButton v-else border class="mr-8" :to="{ name: 'signin' }"
         >S'incrire</AppButton
       >
       <div @click="open">
@@ -20,9 +23,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'TheHeader',
   methods: {
+    ...mapGetters({ loggedIn: 'auth/loggedIn' }),
     open() {
       this.$emit('open', true)
     },

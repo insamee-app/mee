@@ -23,19 +23,20 @@
         </div>
       </AppModal>
     </div>
+    <pre>{{ users }}</pre>
     <AppCard
-      v-for="value in 3"
-      :key="value"
+      v-for="user in users"
+      :key="user.id"
       class="w-full"
-      :to="{ name: 'mee-id', params: { id: value } }"
+      :to="{ name: 'mee-id', params: { id: user.id } }"
     >
       <template #avatar>
         <AppCardAvatar />
       </template>
       <template #title>
         <AppCardTitle>
-          <span>lorem ipsum</span>
-          <span>lorem ipsum</span>
+          <span>{{ user.first_name }}</span>
+          <span>{{ user.last_name }}</span>
         </AppCardTitle>
       </template>
       <template #associations>
@@ -46,15 +47,12 @@
         </AppCardAssociations>
       </template>
       <template #chips>
-        <AppCardActions><AppChips /></AppCardActions>
+        <AppCardActions v-if="user.skills.length"
+          ><AppChips :texts="getSkills(user)"
+        /></AppCardActions>
       </template>
       <template #text>
-        <AppCardText
-          >Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur
-          voluptatum porro, repellat autem aliquam eius mollitia itaque error
-          repudiandae illo aut amet explicabo cumque laborum, praesentium quas
-          nobis odio! Suscipit?</AppCardText
-        >
+        <AppCardText>{{ user.text }}</AppCardText>
       </template>
     </AppCard>
   </section>
@@ -62,6 +60,20 @@
 
 <script>
 export default {
+  async asyncData({ $axios }) {
+    let data = false
+    try {
+      const response = await $axios.get('/api/v1/users', {
+        withCredentials: true,
+      })
+      data = response.data
+    } catch (error) {
+      console.error(error)
+    }
+    return {
+      users: data,
+    }
+  },
   data() {
     return {
       filterDialog: false,
@@ -84,6 +96,13 @@ export default {
         },
       ],
     }
+  },
+  methods: {
+    getSkills(user) {
+      const skills = []
+      user.skills.forEach((skill) => skills.push(skill.name))
+      return skills
+    },
   },
 }
 </script>
