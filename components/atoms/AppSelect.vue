@@ -1,18 +1,20 @@
 <template>
   <div class="flex flex-col">
-    <label :for="name" class="mb-1"><slot></slot></label>
+    <AppLabel :name="name" :text="label" />
     <select
       :id="name"
       :name="name"
       class="py-1 px-2 border border-primary-dark rounded bg-grey-light"
+      @input="$emit('input', $event.target.value)"
     >
       <option
         v-for="item in selectItems"
         :key="item.id"
         :value="item.id"
+        :selected="isSelected(item.id, value)"
         class="hover:bg-primary-dark"
       >
-        {{ item.name }}
+        <slot name="option" :item="item"> {{ item.name }}</slot>
       </option>
     </select>
   </div>
@@ -22,7 +24,15 @@
 export default {
   name: 'AppSelect',
   props: {
+    value: {
+      type: String,
+      required: true,
+    },
     name: {
+      type: String,
+      required: true,
+    },
+    label: {
       type: String,
       required: true,
     },
@@ -37,6 +47,11 @@ export default {
       const items = this.items.slice()
       items.unshift(item)
       return items
+    },
+  },
+  methods: {
+    isSelected(id, value) {
+      return String(id) === String(value)
     },
   },
 }

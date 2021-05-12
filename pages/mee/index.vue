@@ -6,25 +6,31 @@
         <div class="bg-grey-light rounded p-4">
           <div class="flex flex-row justify-between mb-2">
             <div class="text-xl font-bold">Filtres</div>
-            <div @click="filterDialog = false">
+            <button @click="filterDialog = false">
               <IconDismiss
                 class="h-8 w-8 fill-current text-primary-dark cursor-pointer"
               />
-            </div>
+            </button>
           </div>
           <div class="mb-4">
-            <AppSelect name="focusInterest" :items="focusInterestItems"
-              >Centre d'interêt</AppSelect
-            >
+            <FiltersUsers />
           </div>
           <div class="flex flex-row justify-end">
-            <AppButton>Valider</AppButton>
+            <AppButton @click="fetch">Valider</AppButton>
           </div>
         </div>
       </AppModal>
     </div>
-    <pre>{{ users }}</pre>
-    <AppCard
+    <span v-if="$fetchState.pending">loading...</span>
+    <span v-else-if="$fetchState.error">
+      <pre>{{ $fetchState.error }}</pre>
+    </span>
+    <div v-else>
+      <pre>{{ data.data }}</pre>
+      <PaginateData :meta="data.meta" @change="$fetch" />
+    </div>
+    <!-- faire un dossier template pour mettre cette card -->
+    <!-- <AppCard
       v-for="user in users"
       :key="user.id"
       class="w-full"
@@ -54,54 +60,36 @@
       <template #text>
         <AppCardText>{{ user.text }}</AppCardText>
       </template>
-    </AppCard>
+    </AppCard> -->
   </section>
 </template>
 
 <script>
 export default {
-  async asyncData({ $axios }) {
-    let data = false
-    try {
-      const response = await $axios.get('/api/v1/users', {
-        withCredentials: true,
-      })
-      data = response.data
-    } catch (error) {
-      console.error(error)
-    }
-    return {
-      users: data,
-    }
-  },
   data() {
     return {
+      data: {},
       filterDialog: false,
-      focusInterestItems: [
-        {
-          id: 1,
-          name: 'talent',
-        },
-        {
-          id: 1,
-          name: 'talent',
-        },
-        {
-          id: 1,
-          name: 'talent',
-        },
-        {
-          id: 1,
-          name: 'talent',
-        },
-      ],
     }
+  },
+  async fetch() {
+    const path = '/api/v1/users'
+    const params = this.$store.getters['filters/getUsersSearchParams']
+    const response = await this.$axios.get(`${path}?${params}`, {
+      withCredentials: true,
+    })
+
+    this.data = response.data
   },
   methods: {
     getSkills(user) {
       const skills = []
       user.skills.forEach((skill) => skills.push(skill.name))
       return skills
+    },
+    fetch() {
+      this.$fetch()
+      this.filterDialog = false
     },
   },
 }
