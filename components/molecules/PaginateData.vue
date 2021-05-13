@@ -34,10 +34,10 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      pages: 5,
-    }
+  computed: {
+    pages() {
+      return this.meta.last_page > 5 ? 5 : this.meta.last_page
+    },
   },
   methods: {
     ...mapMutations(['filters/setUsersFilter']),

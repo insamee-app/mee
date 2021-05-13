@@ -1,7 +1,8 @@
 <template>
-  <section class="pt-16 px-4">
+  <AppContainer>
     <div class="flex flex-row justify-end">
       <AppButton large @click="filterDialog = true">Filtrer</AppButton>
+      <!-- TODO: il faut mettre la modale dans le template -->
       <AppModal v-model="filterDialog">
         <div class="bg-grey-light rounded p-4">
           <div class="flex flex-row justify-between mb-2">
@@ -21,47 +22,23 @@
         </div>
       </AppModal>
     </div>
-    <span v-if="$fetchState.pending">loading...</span>
-    <span v-else-if="$fetchState.error">
+    <div v-if="$fetchState.pending">loading...</div>
+    <div v-else-if="$fetchState.error">
       <pre>{{ $fetchState.error }}</pre>
-    </span>
-    <div v-else>
-      <pre>{{ data.data }}</pre>
-      <PaginateData :meta="data.meta" @change="$fetch" />
     </div>
-    <!-- faire un dossier template pour mettre cette card -->
-    <!-- <AppCard
-      v-for="user in users"
-      :key="user.id"
-      class="w-full"
-      :to="{ name: 'mee-id', params: { id: user.id } }"
-    >
-      <template #avatar>
-        <AppCardAvatar />
-      </template>
-      <template #title>
-        <AppCardTitle>
-          <span>{{ user.first_name }}</span>
-          <span>{{ user.last_name }}</span>
-        </AppCardTitle>
-      </template>
-      <template #associations>
-        <AppCardAssociations>
-          <AppAssociation />
-          <AppAssociation />
-          <AppAssociation />
-        </AppCardAssociations>
-      </template>
-      <template #chips>
-        <AppCardActions v-if="user.skills.length"
-          ><AppChips :texts="getSkills(user)"
-        /></AppCardActions>
-      </template>
-      <template #text>
-        <AppCardText>{{ user.text }}</AppCardText>
-      </template>
-    </AppCard> -->
-  </section>
+    <div v-else>
+      <!-- <div v-for="user in data.data" :key="user.id">
+        <ImageShow
+          v-if="user.associations.length"
+          :uuid="user.associations[0].image_id"
+        />
+      </div> -->
+      <!-- <pre>{{ data.data }}</pre> -->
+      <PaginateData :meta="data.meta" @change="$fetch" />
+      <!-- TODO: faire un skeleton avec l'animation tailwind -->
+      <CardUser v-for="user in data.data" :key="user.id" :user="user" />
+    </div>
+  </AppContainer>
 </template>
 
 <script>
@@ -82,11 +59,6 @@ export default {
     this.data = response.data
   },
   methods: {
-    getSkills(user) {
-      const skills = []
-      user.skills.forEach((skill) => skills.push(skill.name))
-      return skills
-    },
     fetch() {
       this.$fetch()
       this.filterDialog = false

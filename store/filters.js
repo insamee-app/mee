@@ -1,6 +1,6 @@
 export const state = () => ({
   users: {
-    limit: 1,
+    limit: 5,
     page: 1,
     currentRole: undefined,
     skill: undefined,

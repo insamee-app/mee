@@ -37,6 +37,7 @@ export default {
     '~/components/atoms',
     '~/components/molecules',
     '~/components/organisms',
+    '~/components/templates',
   ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
@@ -61,7 +62,7 @@ export default {
   },
 
   proxy: {
-    '/api/': process.env.BROWSER_BASE_URL,
+    '/api/**': process.env.BROWSER_BASE_URL,
     '/auth/**': process.env.BROWSER_BASE_URL,
   },
 
