@@ -24,6 +24,7 @@
 
 <script>
 export default {
+  middleware: 'authenticated',
   async asyncData({ params, $axios }) {
     const path = '/api/v1/users'
     const { id } = params
