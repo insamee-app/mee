@@ -1,9 +1,9 @@
 <template>
-  <AppContainer
-    ><AppProfil />
-    <section class="mb-4">
+  <AppContainer>
+    <UserProfil :user="user" />
+    <section v-if="socials.length" class="mb-4">
       <h2 class="text-2xl font-bold mb-2">Moyen pour me contacter</h2>
-      <AppContact :links="links" />
+      <AppContact :links="socials" />
     </section>
     <div class="flex flex-row justify-end sticky bottom-4 mb-4">
       <AppButton large>Editer le profil</AppButton>
@@ -20,14 +20,18 @@
 
 <script>
 export default {
-  data() {
-    return {
-      links: {
-        messenger: 'url',
-        intagram: 'url',
-        twitter: 'url',
-      },
-    }
+  computed: {
+    user() {
+      return this.$store.state.auth.user
+    },
+    socials() {
+      const data = {
+        ...this.user.social_networks,
+      }
+      if (this.user.mobile) data.tel = this.user.mobile
+
+      return data
+    },
   },
 }
 </script>

@@ -3,6 +3,7 @@
     class="flex flex-row justify-between align-middle p-4 absolute w-full z-10"
   >
     <div class="flex flex-row">
+      <!-- TODO: ajouter un lien vers la home page -->
       <Insamee class="h-8 w-8 mr-2" />
       <div class="self-center">INSAMEE</div>
     </div>

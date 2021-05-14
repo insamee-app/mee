@@ -1,6 +1,7 @@
 <template>
   <AppCard class="w-full" :to="{ name: 'mee-id', params: { id: user.id } }">
     <template #avatar>
+      <!-- TODO: il faut se faire les avatars -->
       <AppCardAvatar />
     </template>
     <template #title>
