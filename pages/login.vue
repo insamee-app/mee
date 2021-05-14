@@ -1,6 +1,7 @@
 <template>
   <section>
     <AppInput
+      v-model="email"
       type="email"
       name="email"
       placeholder="exemple@insamee.fr"
@@ -9,6 +10,7 @@
       <template #label> Adresse électronique </template>
     </AppInput>
     <AppInput
+      v-model="password"
       type="password"
       name="password"
       placeholder="*******"
@@ -17,7 +19,9 @@
       <template #label> Mot de passe </template>
       <template #addon> Oublié ? </template>
     </AppInput>
-    <AppButton large class="w-full mb-8">Se connecter</AppButton>
+    <AppButton large class="w-full mb-8" @click="login" @keypress.enter="login"
+      >Se connecter</AppButton
+    >
     <AppFrame class="w-full mb-8">
       <span
         >Pas encore de compte ?
@@ -36,7 +40,35 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   layout: 'minimal',
+  data() {
+    return {
+      email: '',
+      password: '',
+    }
+  },
+  methods: {
+    ...mapActions(['auth/login']),
+    async login() {
+      try {
+        const { data: user } = await this.$axios.post(
+          '/auth/login',
+          {
+            email: this.email,
+            password: this.password,
+            rememberMe: false,
+          },
+          { withCredentials: true }
+        )
+        this['auth/login'](user)
+        this.$router.push({ name: 'mee' })
+      } catch (error) {
+        console.error(error)
+      }
+    },
+  },
 }
 </script>

@@ -12,6 +12,7 @@
       :name="name"
       :placeholder="placeholder"
       class="border border-primary-dark rounded py-1 px-2 w-full placeholder-grey-base"
+      @input="$emit('input', $event.target.value)"
     />
   </div>
 </template>
@@ -20,6 +21,10 @@
 export default {
   name: 'AppInput',
   props: {
+    value: {
+      type: String,
+      required: true,
+    },
     name: {
       type: String,
       required: true,

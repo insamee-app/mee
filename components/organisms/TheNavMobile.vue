@@ -12,14 +12,23 @@
       </div>
       <AppList class="px-4 mb-8" :list="nav"></AppList>
       <div class="flex justify-center">
-        <AppButton class="mr-6" :to="{ name: 'login' }">Se connecter</AppButton>
-        <AppButton border :to="{ name: 'signin' }">S'inscrire</AppButton>
+        <template v-if="loggedIn()">
+          <AppButton class="mr-6" @click="logout">Se déconnecter</AppButton>
+        </template>
+        <template v-else>
+          <AppButton class="mr-6" :to="{ name: 'login' }"
+            >Se connecter</AppButton
+          >
+          <AppButton border :to="{ name: 'signin' }">S'inscrire</AppButton>
+        </template>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   name: 'TheNavMobile',
   props: {
@@ -28,13 +37,9 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      nav: [
-        {
-          name: 'Accueil',
-          path: 'index',
-        },
+  computed: {
+    nav() {
+      const nav = [
         {
           name: 'Trouver des Mee',
           path: 'mee',
@@ -43,10 +48,27 @@ export default {
           name: 'Contact',
           path: 'contact',
         },
-      ],
-    }
+      ]
+      nav.unshift(
+        this.loggedIn()
+          ? { name: 'Mon profil', path: 'me' }
+          : { name: 'Acceuil', path: 'index' }
+      )
+      return nav
+    },
   },
   methods: {
+    ...mapGetters({ loggedIn: 'auth/loggedIn' }),
+    ...mapActions(['auth/logout']),
+    async logout() {
+      try {
+        await this.$axios.post('/auth/logout', {}, { withCredentials: true })
+        this['auth/logout']()
+        this.$router.push({ name: 'index' })
+      } catch (error) {
+        console.error(error)
+      }
+    },
     close() {
       this.$emit('input', false)
     },

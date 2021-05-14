@@ -7,7 +7,7 @@ export default {
   head: {
     title: 'insamee',
     htmlAttrs: {
-      lang: 'en',
+      lang: 'fr',
     },
     meta: [
       { charset: 'utf-8' },
@@ -28,7 +28,7 @@ export default {
   },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ['~/plugins/getUser.server.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: [
@@ -37,6 +37,7 @@ export default {
     '~/components/atoms',
     '~/components/molecules',
     '~/components/organisms',
+    '~/components/templates',
   ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
@@ -56,7 +57,26 @@ export default {
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    proxy: true,
+  },
+
+  proxy: {
+    '/api/**': process.env.BROWSER_BASE_URL,
+    '/auth/**': process.env.BROWSER_BASE_URL,
+  },
+
+  publicRuntimeConfig: {
+    axios: {
+      browserBaseURL: process.env.BROWSER_BASE_URL,
+    },
+  },
+
+  privateRuntimeConfig: {
+    axios: {
+      baseURL: process.env.BASE_URL,
+    },
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},

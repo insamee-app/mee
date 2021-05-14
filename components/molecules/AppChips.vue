@@ -1,19 +1,18 @@
 <template>
   <ul class="flex flex-row w-full overflow-x-auto pb-1">
-    <AppChip>lorem ipsum</AppChip>
-    <AppChip>lorem ipsum</AppChip>
-    <AppChip>lorem ipsum</AppChip>
-    <AppChip>lorem ipsum</AppChip>
-    <AppChip>lorem ipsum</AppChip>
-    <AppChip>lorem ipsum</AppChip>
-    <AppChip>lorem ipsum</AppChip>
-    <AppChip>lorem ipsum</AppChip>
+    <AppChip v-for="text in texts" :key="text">{{ text }}</AppChip>
   </ul>
 </template>
 
 <script>
 export default {
   name: 'AppChips',
+  props: {
+    texts: {
+      type: Array,
+      required: true,
+    },
+  },
 }
 </script>
 
