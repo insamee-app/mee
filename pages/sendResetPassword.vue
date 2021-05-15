@@ -1,6 +1,7 @@
 <template>
   <section>
     <AppInput
+      v-model="email"
       type="email"
       name="email"
       placeholder="exemple@insamee.fr"
@@ -8,7 +9,7 @@
     >
       <template #label> Adresse électronique </template>
     </AppInput>
-    <AppButton large class="w-full"
+    <AppButton large class="w-full" @click="sendMail"
       >Envoyer le couriel de réinitialisation</AppButton
     >
   </section>
@@ -17,5 +18,22 @@
 <script>
 export default {
   layout: 'minimal',
+  data() {
+    return {
+      email: '',
+    }
+  },
+  methods: {
+    async sendMail() {
+      try {
+        const response = await this.$axios.post('/auth/send/resetPassword', {
+          email: this.email,
+        })
+        console.log(response)
+      } catch (error) {
+        console.error(error.response.data)
+      }
+    },
+  },
 }
 </script>

@@ -17,7 +17,9 @@
       class="w-full mb-8"
     >
       <template #label> Mot de passe </template>
-      <template #addon> Oublié ? </template>
+      <template #addon
+        ><NuxtLink :to="{ name: 'sendResetPassword' }"> Oublié ?</NuxtLink>
+      </template>
     </AppInput>
     <AppButton large class="w-full mb-8" @click="login" @keypress.enter="login"
       >Se connecter</AppButton
@@ -32,7 +34,7 @@
     </AppFrame>
     <div class="text-center leading-5">
       <div class="font-light">Besoin de vérifier votre compte ?</div>
-      <AppNuxtLink :to="{ name: 'sendVerifiedEmail' }"
+      <AppNuxtLink :to="{ name: 'sendVerifyEmail' }"
         >Renvoyer le couriel</AppNuxtLink
       >
     </div>
