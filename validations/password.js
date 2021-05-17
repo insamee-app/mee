@@ -18,19 +18,23 @@ export default {
   },
   computed: {
     passwordMessage() {
-      if (!this.$v.password.$dirty) return
+      if (!this.$v.password.$dirty) return ''
 
       if (!this.$v.password.required) return 'Un mot de passe est requis'
       if (!this.$v.password.strength)
         return 'Le mot de passe doit contenir 8 caractères, une majuscule et un chiffre'
+
+      return ''
     },
     passwordConfirmationMessage() {
-      if (!this.$v.password_confirmation.$dirty) return
+      if (!this.$v.password_confirmation.$dirty) return ''
 
       if (!this.$v.password_confirmation.required)
         return 'Un mot de passe de confirmation est requis'
       if (!this.$v.password_confirmation.sameAs)
         return "La confirmation n'est pas identique au mot de passe"
+
+      return ''
     },
   },
 }

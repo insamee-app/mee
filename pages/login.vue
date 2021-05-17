@@ -1,29 +1,33 @@
 <template>
   <section>
-    <AppInput
-      v-model="email"
-      type="email"
-      name="email"
-      placeholder="exemple@insamee.fr"
-      class="w-full mb-2"
-    >
-      <template #label> Adresse électronique </template>
-    </AppInput>
-    <AppInput
-      v-model="password"
-      type="password"
-      name="password"
-      placeholder="*******"
-      class="w-full mb-8"
-    >
-      <template #label> Mot de passe </template>
-      <template #addon
-        ><NuxtLink :to="{ name: 'sendResetPassword' }"> Oublié ?</NuxtLink>
-      </template>
-    </AppInput>
-    <AppButton large class="w-full mb-8" @click="login" @keypress.enter="login"
-      >Se connecter</AppButton
-    >
+    <form action="#" @submit.prevent="login">
+      <AppInput
+        v-model="$v.email.$model"
+        :error-message="mailMessage"
+        type="email"
+        name="email"
+        placeholder="exemple@insamee.fr"
+        class="w-full mb-2"
+      >
+        <template #label> Adresse électronique </template>
+      </AppInput>
+      <AppInput
+        v-model="$v.password.$model"
+        :error-message="passwordMessage"
+        type="password"
+        name="password"
+        placeholder="*******"
+        class="w-full mb-8"
+      >
+        <template #label> Mot de passe </template>
+        <template #addon
+          ><NuxtLink :to="{ name: 'sendResetPassword' }"> Oublié ?</NuxtLink>
+        </template>
+      </AppInput>
+      <AppButton large class="w-full mb-8" type="submit" :disabled="$v.$invalid"
+        >Se connecter</AppButton
+      >
+    </form>
     <AppFrame class="w-full mb-8">
       <span
         >Pas encore de compte ?
@@ -43,14 +47,31 @@
 
 <script>
 import { mapActions } from 'vuex'
+import { required } from 'vuelidate/lib/validators'
+import mailMessages from '@/validations/mail'
 
 export default {
+  mixins: [mailMessages],
   layout: 'minimal',
   data() {
     return {
       email: '',
       password: '',
     }
+  },
+  validations: {
+    password: {
+      required,
+    },
+  },
+  computed: {
+    passwordMessage() {
+      if (!this.$v.password.$dirty) return ''
+
+      if (!this.$v.password.required) return 'Un mot de passe est requis'
+
+      return ''
+    },
   },
   methods: {
     ...mapActions(['auth/login']),
