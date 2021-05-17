@@ -24,11 +24,12 @@
           ><NuxtLink :to="{ name: 'sendResetPassword' }"> Oublié ?</NuxtLink>
         </template>
       </AppInput>
-      <AppButton large class="w-full mb-8" type="submit" :disabled="$v.$invalid"
+      <AppButton large class="w-full" type="submit" :disabled="$v.$invalid"
         >Se connecter</AppButton
       >
+      <AppError :errors="errors" />
     </form>
-    <AppFrame class="w-full mb-8">
+    <AppFrame class="w-full mt-8">
       <span
         >Pas encore de compte ?
         <NuxtLink class="text-primary-base" :to="{ name: 'signin' }"
@@ -36,7 +37,7 @@
         ></span
       >
     </AppFrame>
-    <div class="text-center leading-5">
+    <div class="text-center leading-5 mt-8">
       <div class="font-light">Besoin de vérifier votre compte ?</div>
       <AppNuxtLink :to="{ name: 'sendVerifyEmail' }"
         >Renvoyer le couriel</AppNuxtLink
@@ -55,6 +56,7 @@ export default {
   layout: 'minimal',
   data() {
     return {
+      errors: [],
       email: '',
       password: '',
     }
@@ -86,10 +88,11 @@ export default {
           },
           { withCredentials: true }
         )
+        this.errors = []
         this['auth/login'](user)
         this.$router.push({ name: 'mee' })
       } catch (error) {
-        console.error(error)
+        this.errors = error.response.data.errors
       }
     },
   },
