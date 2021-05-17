@@ -1,44 +1,41 @@
 <template>
   <section>
-    <AppInput
-      v-model="$v.email.$model"
-      :error-message="mailMessage"
-      type="email"
-      name="email"
-      placeholder="exemple@insamee.fr"
-      class="w-full"
-    >
-      <template #label> Adresse électronique </template>
-    </AppInput>
-    <AppInput
-      v-model="$v.password.$model"
-      :error-message="passwordMessage"
-      type="password"
-      name="password"
-      placeholder="*******"
-      class="w-full mt-2"
-    >
-      <template #label> Mot de passe </template>
-    </AppInput>
-    <AppInput
-      v-model="$v.password_confirmation.$model"
-      :error-message="passwordConfirmationMessage"
-      type="password"
-      name="password_confirmation"
-      placeholder="*******"
-      class="w-full mt-2"
-    >
-      <template #label> Vérification du mot de passe </template>
-    </AppInput>
-    <AppButton
-      large
-      class="w-full mt-8"
-      :disabled="$v.$invalid"
-      @click="signin"
-      @keypress.enter="signin"
-      >S'inscrire</AppButton
-    >
-    <AppError :errors="errors" />
+    <form action="#" @submit.prevent="signin">
+      <AppInput
+        v-model="$v.email.$model"
+        :error-message="mailMessage"
+        type="email"
+        name="email"
+        placeholder="exemple@insamee.fr"
+        class="w-full"
+      >
+        <template #label> Adresse électronique </template>
+      </AppInput>
+      <AppInput
+        v-model="$v.password.$model"
+        :error-message="passwordMessage"
+        type="password"
+        name="password"
+        placeholder="*******"
+        class="w-full mt-2"
+      >
+        <template #label> Mot de passe </template>
+      </AppInput>
+      <AppInput
+        v-model="$v.password_confirmation.$model"
+        :error-message="passwordConfirmationMessage"
+        type="password"
+        name="password_confirmation"
+        placeholder="*******"
+        class="w-full mt-2"
+      >
+        <template #label> Vérification du mot de passe </template>
+      </AppInput>
+      <AppButton large class="w-full mt-8" :disabled="$v.$invalid" type="submit"
+        >S'inscrire</AppButton
+      >
+      <AppError :errors="errors" />
+    </form>
     <AppFrame class="w-full mt-8">
       <span
         >Déjà un comptes ?
@@ -76,7 +73,7 @@ export default {
         if (response.status === 200) {
           this.$router.push({ name: 'signin-thanks' })
         }
-        this.errors = undefined
+        this.errors = []
         console.log(response)
       } catch (error) {
         this.errors = error.response.data.errors

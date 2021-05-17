@@ -1,7 +1,7 @@
 <template>
-  <section v-if="errors.length" class="text-sm text-primary-dark text-center">
+  <div v-if="errors.length" class="text-sm text-primary-dark text-center">
     {{ errors[0].message }}
-  </section>
+  </div>
 </template>
 
 <script>

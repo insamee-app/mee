@@ -2,7 +2,7 @@
   <div>
     <div class="mb-1 flex row justify-between">
       <label :for="name"><slot name="label"></slot></label>
-      <span :for="name" class="text-primary-base"
+      <span v-if="$slots.addon" :for="name" class="text-primary-base"
         ><slot name="addon"></slot
       ></span>
     </div>
