@@ -1,7 +1,8 @@
 <template>
   <section>
     <AppInput
-      v-model="password"
+      v-model="$v.password.$model"
+      :error-message="passwordMessage"
       type="password"
       name="password"
       placeholder="*******"
@@ -10,7 +11,8 @@
       <template #label> Mot de passe </template>
     </AppInput>
     <AppInput
-      v-model="password_confirmation"
+      v-model="$v.password_confirmation.$model"
+      :error-message="passwordConfirmationMessage"
       type="password"
       name="password_confirmation"
       placeholder="*******"
@@ -18,14 +20,21 @@
     >
       <template #label> Confirmer le mot de passe </template>
     </AppInput>
-    <AppButton large class="w-full" @click="sendResetPassword"
+    <AppButton
+      large
+      class="w-full"
+      :disabled="$v.$invalid"
+      @click="sendResetPassword"
       >Modifier son mot de passe</AppButton
     >
   </section>
 </template>
 
 <script>
+import passwordMessages from '@/validations/password'
+
 export default {
+  mixins: [passwordMessages],
   layout: 'minimal',
   data() {
     return {

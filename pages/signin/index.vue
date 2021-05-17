@@ -1,7 +1,8 @@
 <template>
   <section>
     <AppInput
-      v-model="email"
+      v-model="$v.email.$model"
+      :error-message="mailMessage"
       type="email"
       name="email"
       placeholder="exemple@insamee.fr"
@@ -10,7 +11,8 @@
       <template #label> Adresse électronique </template>
     </AppInput>
     <AppInput
-      v-model="password"
+      v-model="$v.password.$model"
+      :error-message="passwordMessage"
       type="password"
       name="password"
       placeholder="*******"
@@ -19,7 +21,8 @@
       <template #label> Mot de passe </template>
     </AppInput>
     <AppInput
-      v-model="password_confirmation"
+      v-model="$v.password_confirmation.$model"
+      :error-message="passwordConfirmationMessage"
       type="password"
       name="password_confirmation"
       placeholder="*******"
@@ -30,6 +33,7 @@
     <AppButton
       large
       class="w-full mb-8"
+      :disabled="$v.$invalid"
       @click="signin"
       @keypress.enter="signin"
       >S'inscrire</AppButton
@@ -46,7 +50,11 @@
 </template>
 
 <script>
+import mailMessages from '@/validations/mail'
+import passwordMessages from '@/validations/password'
+
 export default {
+  mixins: [mailMessages, passwordMessages],
   layout: 'minimal',
   data() {
     return {

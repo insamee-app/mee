@@ -28,7 +28,7 @@ export default {
   },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~/plugins/getUser.server.js'],
+  plugins: ['~/plugins/getUser.server.js', '~/plugins/vuelidate.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: [

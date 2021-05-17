@@ -1,7 +1,8 @@
 <template>
   <section>
     <AppInput
-      v-model="email"
+      v-model="$v.email.$model"
+      :error-message="mailMessage"
       type="email"
       name="email"
       placeholder="exemple@insamee.fr"
@@ -9,14 +10,17 @@
     >
       <template #label> Adresse électronique </template>
     </AppInput>
-    <AppButton large class="w-full" @click="sendMail"
+    <AppButton large class="w-full" :disabled="$v.$invalid" @click="sendMail"
       >Envoyer le couriel de vérification</AppButton
     >
   </section>
 </template>
 
 <script>
+import mailMessages from '@/validations/mail'
+
 export default {
+  mixins: [mailMessages],
   layout: 'minimal',
   data() {
     return {
