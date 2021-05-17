@@ -13,6 +13,7 @@
     <AppButton large class="w-full" :disabled="$v.$invalid" @click="sendMail"
       >Envoyer le couriel de réinitialisation</AppButton
     >
+    <AppError :errors="errors" />
   </section>
 </template>
 
@@ -24,6 +25,7 @@ export default {
   layout: 'minimal',
   data() {
     return {
+      errors: [],
       email: '',
     }
   },
@@ -33,9 +35,10 @@ export default {
         const response = await this.$axios.post('/auth/send/resetPassword', {
           email: this.email,
         })
+        this.errors = undefined
         console.log(response)
       } catch (error) {
-        console.error(error.response.data)
+        this.errors = error.response.data.errors
       }
     },
   },

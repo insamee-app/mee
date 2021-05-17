@@ -27,6 +27,7 @@
       @click="sendResetPassword"
       >Modifier son mot de passe</AppButton
     >
+    <AppError :errors="errors" />
   </section>
 </template>
 
@@ -38,6 +39,7 @@ export default {
   layout: 'minimal',
   data() {
     return {
+      errors: [],
       password: '',
       password_confirmation: '',
     }
@@ -55,9 +57,10 @@ export default {
             password_confirmation: this.password_confirmation,
           }
         )
+        this.errors = undefined
         console.log(response)
       } catch (error) {
-        console.error(error.response.data)
+        this.errors = error.response.data.errors
       }
     },
   },

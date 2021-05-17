@@ -6,7 +6,7 @@
       type="email"
       name="email"
       placeholder="exemple@insamee.fr"
-      class="w-full mb-2"
+      class="w-full"
     >
       <template #label> Adresse électronique </template>
     </AppInput>
@@ -16,7 +16,7 @@
       type="password"
       name="password"
       placeholder="*******"
-      class="w-full mb-2"
+      class="w-full mt-2"
     >
       <template #label> Mot de passe </template>
     </AppInput>
@@ -26,19 +26,20 @@
       type="password"
       name="password_confirmation"
       placeholder="*******"
-      class="w-full mb-8"
+      class="w-full mt-2"
     >
       <template #label> Vérification du mot de passe </template>
     </AppInput>
     <AppButton
       large
-      class="w-full mb-8"
+      class="w-full mt-8"
       :disabled="$v.$invalid"
       @click="signin"
       @keypress.enter="signin"
       >S'inscrire</AppButton
     >
-    <AppFrame class="w-full mb-8">
+    <AppError :errors="errors" />
+    <AppFrame class="w-full mt-8">
       <span
         >Déjà un comptes ?
         <NuxtLink class="text-primary-base" :to="{ name: 'login' }"
@@ -58,6 +59,7 @@ export default {
   layout: 'minimal',
   data() {
     return {
+      errors: [],
       email: '',
       password: '',
       password_confirmation: '',
@@ -74,9 +76,10 @@ export default {
         if (response.status === 200) {
           this.$router.push({ name: 'signin-thanks' })
         }
+        this.errors = undefined
         console.log(response)
       } catch (error) {
-        console.error(error)
+        this.errors = error.response.data.errors
       }
     },
   },
