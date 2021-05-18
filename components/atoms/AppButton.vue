@@ -2,13 +2,19 @@
   <!-- TODO: si c'est un href, alors c'est un a, si c'est un to, alors un nuxtlink, sinon, un button -->
   <component
     :is="getComponentType"
-    :disabled="disabled"
-    class="rounded"
+    :disabled="disabled || loading"
+    class="rounded flex justify-center"
     :class="classButton"
     :to="to"
     :href="href"
     @click="to ? '' : $emit('click', $event)"
-    ><slot></slot>
+  >
+    <IconSpinner
+      v-if="loading"
+      class="animate-spin h-6 w-6 fill-current"
+      :class="classSpinner"
+    />
+    <slot></slot>
   </component>
 </template>
 
@@ -36,6 +42,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    loading: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     classButton() {
@@ -48,9 +58,20 @@ export default {
         classNames.push('border border-primary-dark text-primary-base')
       else classNames.push('bg-primary-base text-white')
 
-      if (this.disabled) classNames.push('bg-grey-base')
+      if (this.disabled || this.loading)
+        classNames.push('bg-grey-base cursor-not-allowed')
 
       if (this.to) classNames.push('block text-center')
+
+      return classNames.join(' ')
+    },
+    classSpinner() {
+      const classNames = []
+
+      if (this.border) classNames.push('')
+      else classNames.push('text-white')
+
+      if (this.$slots.default) classNames.push('mr-2')
 
       return classNames.join(' ')
     },

@@ -27,7 +27,12 @@
       >
         <template #label> Confirmer le mot de passe </template>
       </AppInput>
-      <AppButton large class="w-full" :disabled="$v.$invalid" type="submit"
+      <AppButton
+        large
+        class="w-full"
+        :disabled="$v.$invalid"
+        :loading="loading"
+        type="submit"
         >Modifier son mot de passe</AppButton
       >
       <AppError :errors="errors" />
@@ -44,6 +49,7 @@ export default {
   data() {
     return {
       errors: [],
+      loading: false,
       password: '',
       password_confirmation: '',
       ok: false,
@@ -54,6 +60,7 @@ export default {
       const { email } = this.$route.params
       const { signature } = this.$route.query
 
+      this.loading = true
       try {
         await this.$axios.post(
           `/auth/resetPassword/${email}?signature=${signature}`,
@@ -67,6 +74,7 @@ export default {
       } catch (error) {
         this.errors = error.response.data.errors
       }
+      this.loading = false
     },
   },
 }

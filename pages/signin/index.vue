@@ -31,7 +31,12 @@
       >
         <template #label> Vérification du mot de passe </template>
       </AppInput>
-      <AppButton large class="w-full mt-8" :disabled="$v.$invalid" type="submit"
+      <AppButton
+        large
+        class="w-full mt-8"
+        :disabled="$v.$invalid"
+        :loading="loading"
+        type="submit"
         >S'inscrire</AppButton
       >
       <AppError :errors="errors" />
@@ -57,6 +62,7 @@ export default {
   data() {
     return {
       errors: [],
+      loading: false,
       email: '',
       password: '',
       password_confirmation: '',
@@ -64,6 +70,7 @@ export default {
   },
   methods: {
     async signin() {
+      this.loading = true
       try {
         await this.$axios.post('/auth/register', {
           email: this.email,
@@ -75,6 +82,7 @@ export default {
       } catch (error) {
         this.errors = error.response.data.errors
       }
+      this.loading = false
     },
   },
 }

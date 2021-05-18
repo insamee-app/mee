@@ -24,7 +24,12 @@
           ><NuxtLink :to="{ name: 'sendResetPassword' }"> Oublié ?</NuxtLink>
         </template>
       </AppInput>
-      <AppButton large class="w-full" type="submit" :disabled="$v.$invalid"
+      <AppButton
+        large
+        class="w-full"
+        type="submit"
+        :disabled="$v.$invalid"
+        :loading="loading"
         >Se connecter</AppButton
       >
       <AppError :errors="errors" />
@@ -59,6 +64,7 @@ export default {
       errors: [],
       email: '',
       password: '',
+      loading: false,
     }
   },
   validations: {
@@ -78,21 +84,24 @@ export default {
   methods: {
     ...mapActions(['auth/login']),
     async login() {
+      this.loading = true
       try {
         const { data: user } = await this.$axios.post(
           '/auth/login',
           {
             email: this.email,
             password: this.password,
-            rememberMe: false,
+            rememberMe: true,
           },
           { withCredentials: true }
         )
         this.errors = []
+        this.loading = false
         this['auth/login'](user)
         this.$router.push({ name: 'mee' })
       } catch (error) {
         this.errors = error.response.data.errors
+        this.loading = false
       }
     },
   },

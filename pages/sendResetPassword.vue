@@ -14,7 +14,12 @@
       >
         <template #label> Adresse électronique </template>
       </AppInput>
-      <AppButton large class="w-full" :disabled="$v.$invalid" type="submit"
+      <AppButton
+        large
+        class="w-full"
+        :disabled="$v.$invalid"
+        :loading="loading"
+        type="submit"
         >Envoyer le couriel de réinitialisation</AppButton
       >
       <AppError :errors="errors" />
@@ -31,12 +36,14 @@ export default {
   data() {
     return {
       errors: [],
+      loading: false,
       email: '',
       ok: false,
     }
   },
   methods: {
     async sendMail() {
+      this.loading = true
       try {
         await this.$axios.post('/auth/send/resetPassword', {
           email: this.email,
@@ -46,6 +53,7 @@ export default {
       } catch (error) {
         this.errors = error.response.data.errors
       }
+      this.loading = false
     },
   },
 }
