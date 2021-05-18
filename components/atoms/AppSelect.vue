@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col">
-    <AppLabel :name="name" :text="label" />
+    <AppLabel v-if="label" :name="name" :text="label" />
     <select
       :id="name"
       :name="name"
@@ -34,18 +34,24 @@ export default {
     },
     label: {
       type: String,
-      required: true,
+      default: '',
     },
     items: {
       type: Array,
       required: true,
     },
+    chooseText: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     selectItems() {
-      const item = { id: '', name: 'Veuillez choisir une valeur' }
       const items = this.items.slice()
-      items.unshift(item)
+      if (this.chooseText) {
+        const item = { id: '', name: 'Veuillez choisir une valeur' }
+        items.unshift(item)
+      }
       return items
     },
   },

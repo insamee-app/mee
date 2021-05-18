@@ -1,6 +1,11 @@
 <template>
   <AppContainer>
-    <div class="flex flex-row justify-end">
+    <div class="flex flex-row justify-between items-center">
+      <AppSelect
+        v-model="itemPerPage"
+        :items="itemsPerPage"
+        name="itemsPerPage"
+      />
       <AppButton large @click="filterDialog = true">Filtrer</AppButton>
       <!-- TODO: il faut mettre la modale dans le template -->
       <AppModal v-model="filterDialog">
@@ -48,6 +53,11 @@ export default {
     return {
       data: {},
       filterDialog: false,
+      itemsPerPage: [
+        { name: '5', id: 5 },
+        { name: '10', id: 10 },
+        { name: '20', id: 20 },
+      ],
     }
   },
   async fetch() {
@@ -58,6 +68,20 @@ export default {
     })
 
     this.data = response.data
+  },
+  computed: {
+    itemPerPage: {
+      get() {
+        return this.$store.state.filters.users.limit
+      },
+      set(value) {
+        this.$store.commit('filters/setUsersFilter', {
+          name: 'limit',
+          value,
+        })
+        this.$fetch()
+      },
+    },
   },
   methods: {
     fetch() {
