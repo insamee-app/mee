@@ -7,7 +7,7 @@
         type="email"
         name="email"
         placeholder="exemple@insamee.fr"
-        class="w-full mb-2"
+        class="w-full"
       >
         <template #label> Adresse électronique </template>
       </AppInput>
@@ -17,16 +17,19 @@
         type="password"
         name="password"
         placeholder="*******"
-        class="w-full mb-8"
+        class="w-full mt-2"
       >
         <template #label> Mot de passe </template>
         <template #addon
           ><NuxtLink :to="{ name: 'sendResetPassword' }"> Oublié ?</NuxtLink>
         </template>
       </AppInput>
+      <AppCheck v-model="rememberMe" class="mt-2" name="rememberMe"
+        >Se souvenir de moi</AppCheck
+      >
       <AppButton
         large
-        class="w-full"
+        class="w-full mt-8"
         type="submit"
         :disabled="$v.$invalid"
         :loading="loading"
@@ -64,6 +67,7 @@ export default {
       errors: [],
       email: '',
       password: '',
+      rememberMe: false,
       loading: false,
     }
   },
@@ -91,7 +95,7 @@ export default {
           {
             email: this.email,
             password: this.password,
-            rememberMe: true,
+            rememberMe: this.rememberMe,
           },
           { withCredentials: true }
         )
