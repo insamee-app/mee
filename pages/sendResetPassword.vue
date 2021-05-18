@@ -1,6 +1,9 @@
 <template>
   <section>
-    <form action="#" @submit.prevent="sendMail">
+    <h1 v-if="ok" class="text-center text-2xl">
+      Un mail vous a été envoyé afin de réinitialiser votre mot de passe
+    </h1>
+    <form v-else action="#" @submit.prevent="sendMail">
       <AppInput
         v-model="$v.email.$model"
         :error-message="mailMessage"
@@ -29,16 +32,17 @@ export default {
     return {
       errors: [],
       email: '',
+      ok: false,
     }
   },
   methods: {
     async sendMail() {
       try {
-        const response = await this.$axios.post('/auth/send/resetPassword', {
+        await this.$axios.post('/auth/send/resetPassword', {
           email: this.email,
         })
         this.errors = []
-        console.log(response)
+        this.ok = true
       } catch (error) {
         this.errors = error.response.data.errors
       }

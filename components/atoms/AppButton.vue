@@ -50,6 +50,8 @@ export default {
 
       if (this.disabled) classNames.push('bg-grey-base')
 
+      if (this.to) classNames.push('block text-center')
+
       return classNames.join(' ')
     },
     getComponentType() {

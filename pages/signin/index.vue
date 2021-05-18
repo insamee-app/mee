@@ -65,16 +65,13 @@ export default {
   methods: {
     async signin() {
       try {
-        const response = await this.$axios.post('/auth/register', {
+        await this.$axios.post('/auth/register', {
           email: this.email,
           password: this.password,
           password_confirmation: this.password_confirmation,
         })
-        if (response.status === 200) {
-          this.$router.push({ name: 'signin-thanks' })
-        }
         this.errors = []
-        console.log(response)
+        this.$router.push({ name: 'signin-thanks' })
       } catch (error) {
         this.errors = error.response.data.errors
       }

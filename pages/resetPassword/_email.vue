@@ -1,6 +1,12 @@
 <template>
   <section>
-    <form action="#" @submit.prevent="sendResetPassword">
+    <div v-if="ok">
+      <h1 class="text-center text-2xl">Votre mot de passe a bien été changé</h1>
+      <AppButton :to="{ name: 'login' }" large class="mt-8 w-full"
+        >Se connecter</AppButton
+      >
+    </div>
+    <form v-else action="#" @submit.prevent="sendResetPassword">
       <AppInput
         v-model="$v.password.$model"
         :error-message="passwordMessage"
@@ -40,6 +46,7 @@ export default {
       errors: [],
       password: '',
       password_confirmation: '',
+      ok: false,
     }
   },
   methods: {
@@ -48,7 +55,7 @@ export default {
       const { signature } = this.$route.query
 
       try {
-        const response = await this.$axios.post(
+        await this.$axios.post(
           `/auth/resetPassword/${email}?signature=${signature}`,
           {
             password: this.password,
@@ -56,7 +63,7 @@ export default {
           }
         )
         this.errors = []
-        console.log(response)
+        this.ok = true
       } catch (error) {
         this.errors = error.response.data.errors
       }
