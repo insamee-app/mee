@@ -60,6 +60,7 @@ export default {
       ],
     }
   },
+  fetchOnServer: false,
   async fetch() {
     const path = '/api/v1/users'
     const params = this.$store.getters['filters/getUsersSearchParams']
@@ -80,6 +81,7 @@ export default {
           value,
         })
         this.$fetch()
+        this.$router.push({ query: { limit: value } })
       },
     },
   },
