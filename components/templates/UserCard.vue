@@ -15,11 +15,11 @@
     </template>
     <template #chips>
       <AppCardActions v-if="user.skills.length"
-        ><AppChips :texts="getSkills(user)"
+        ><AppChips :texts="getSkills"
       /></AppCardActions>
     </template>
     <template #text>
-      <AppCardText>{{ user.text }}</AppCardText>
+      <AppCardText>{{ user.text | cutText }} </AppCardText>
     </template>
   </AppCard>
 </template>
@@ -27,16 +27,24 @@
 <script>
 export default {
   name: 'CardUser',
+  filters: {
+    cutText(value) {
+      if (!value) return
+      const length = 120
+      const text = value.slice(0, length)
+      return text.length === length ? text + '...' : text
+    },
+  },
   props: {
     user: {
       type: Object,
       required: true,
     },
   },
-  methods: {
-    getSkills(user) {
+  computed: {
+    getSkills() {
       const skills = []
-      user.skills.forEach((skill) => skills.push(skill.name))
+      this.user.skills.forEach((skill) => skills.push(skill.name))
       return skills
     },
   },
