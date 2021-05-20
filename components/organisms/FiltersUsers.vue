@@ -33,8 +33,6 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
-
 export default {
   name: 'FiltersUsers',
   data() {
@@ -58,9 +56,12 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['filters/setUsersFilter']),
     handleSelect(name, value) {
-      this['filters/setUsersFilter']({ name, value })
+      this.$store.commit('filters/setUsersFilter', { name, value })
+      const query = this.$store.getters['filters/getUsersSearchParams']
+      this.$router.push({
+        path: `/mee?${query}`,
+      })
     },
     associationOption(item) {
       let option = item.name

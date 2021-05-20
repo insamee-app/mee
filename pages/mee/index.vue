@@ -81,7 +81,10 @@ export default {
           value,
         })
         this.$fetch()
-        this.$router.push({ query: { limit: value } })
+        const query = this.$store.getters['filters/getUsersSearchParams']
+        this.$router.push({
+          path: `/mee?${query}`,
+        })
       },
     },
   },
