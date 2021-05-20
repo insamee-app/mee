@@ -58,10 +58,6 @@ export default {
   methods: {
     handleSelect(name, value) {
       this.$store.commit('filters/setUsersFilter', { name, value })
-      const query = this.$store.getters['filters/getUsersSearchParams']
-      this.$router.push({
-        path: `/mee?${query}`,
-      })
     },
     associationOption(item) {
       let option = item.name

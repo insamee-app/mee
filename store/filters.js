@@ -11,7 +11,8 @@ export const state = () => ({
 
 export const mutations = {
   setUsersFilter(state, { name, value }) {
-    state.users[name] = value
+    // Avoid unwanted value from url
+    if (Object.keys(state.users).includes(name)) state.users[name] = value
   },
 }
 

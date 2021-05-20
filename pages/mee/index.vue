@@ -22,7 +22,7 @@
             <FiltersUsers />
           </div>
           <div class="flex flex-row justify-end">
-            <AppButton @click="fetch">Valider</AppButton>
+            <AppButton @click="validDialog">Valider</AppButton>
           </div>
         </div>
       </AppModal>
@@ -60,7 +60,6 @@ export default {
       ],
     }
   },
-  fetchOnServer: false,
   async fetch() {
     const path = '/api/v1/users'
     const params = this.$store.getters['filters/getUsersSearchParams']
@@ -88,10 +87,30 @@ export default {
       },
     },
   },
-  methods: {
-    fetch() {
+  watch: {
+    '$route.query'() {
       this.$fetch()
+    },
+  },
+  beforeMount() {
+    this.parseUrl()
+  },
+  fetchOnServer: false,
+  methods: {
+    validDialog() {
+      const query = this.$store.getters['filters/getUsersSearchParams']
+      this.$router.push({
+        path: `/mee?${query}`,
+      })
       this.filterDialog = false
+    },
+    parseUrl() {
+      for (const query in this.$route.query) {
+        this.$store.commit('filters/setUsersFilter', {
+          name: query,
+          value: this.$route.query[query],
+        })
+      }
     },
   },
 }
