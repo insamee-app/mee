@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import mailMessages from '@/validations/mail'
+import mailMessages from '~/mixins/validationsMail'
 
 export default {
   mixins: [mailMessages],

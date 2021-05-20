@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import passwordMessages from '@/validations/password'
+import passwordMessages from '~/mixins/validationPassword'
 
 export default {
   mixins: [passwordMessages],

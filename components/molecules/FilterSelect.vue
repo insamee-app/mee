@@ -1,12 +1,17 @@
 <template>
-  <div>
-    <span v-if="$fetchState.pending">loading</span>
+  <div class="flex flex-col items-center">
+    <IconSpinner
+      v-if="$fetchState.pending"
+      class="animate-spin text-primary-dark fill-current h-6 w-6 my-4"
+    ></IconSpinner>
     <AppSelect
       v-else
       v-model="selected"
+      class="w-full"
       :name="name"
-      :items="data"
+      :items="fetchedData"
       :label="label"
+      choose-text
     >
       <template #option="{ item }">
         <slot name="option" :item="item"></slot>
@@ -16,8 +21,11 @@
 </template>
 
 <script>
+import fetchData from '~/mixins/fetchData'
+
 export default {
   name: 'FilterSelect',
+  mixins: [fetchData],
   props: {
     name: {
       type: String,
@@ -31,22 +39,6 @@ export default {
       type: String,
       required: true,
     },
-  },
-  data() {
-    return {
-      data: undefined,
-    }
-  },
-  async fetch() {
-    // TODO: il n'y a pas besoin du try (because fetch le gère)
-    try {
-      const { data } = await this.$axios.get(`/api/v1/${this.ressource}`, {
-        withCredentials: true,
-      })
-      this.data = data
-    } catch (error) {
-      console.error(error)
-    }
   },
   computed: {
     selected: {

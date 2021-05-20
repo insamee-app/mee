@@ -53,8 +53,8 @@
 </template>
 
 <script>
-import mailMessages from '@/validations/mail'
-import passwordMessages from '@/validations/password'
+import mailMessages from '~/mixins/validationsMail'
+import passwordMessages from '~/mixins/validationPassword'
 
 export default {
   mixins: [mailMessages, passwordMessages],

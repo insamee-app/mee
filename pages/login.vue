@@ -57,7 +57,7 @@
 <script>
 import { mapActions } from 'vuex'
 import { required } from 'vuelidate/lib/validators'
-import mailMessages from '@/validations/mail'
+import mailMessages from '~/mixins/validationsMail'
 
 export default {
   mixins: [mailMessages],
