@@ -1,5 +1,5 @@
 <template>
-  <section class="h-screen w-full">
+  <AppContainer class="h-screen">
     <div class="h-full text-center text-lg flex flex-col justify-center">
       <div class="mb-8">
         <div class="grid gap-2 mb-8">
@@ -8,7 +8,7 @@
           <div>Un <span class="font-bold">bogue</span> trouvé ?</div>
           <div>Un <span class="font-bold">mot</span> gentil ?</div>
         </div>
-        <div>
+        <div class="flex flex-row justify-center">
           <AppButton>Nous contacter</AppButton>
         </div>
       </div>
@@ -16,5 +16,5 @@
         <GraphicMail class="w-full" />
       </div>
     </div>
-  </section>
+  </AppContainer>
 </template>
