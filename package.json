@@ -25,6 +25,7 @@
     "change-case": "^4.1.2",
     "core-js": "^3.9.1",
     "nuxt": "^2.15.3",
+    "vue-multiselect": "^2.1.6",
     "vuelidate": "^0.7.6"
   },
   "devDependencies": {

@@ -8,21 +8,17 @@
 <script>
 export default {
   layout: 'minimal',
-  async asyncData({ store, route, error, $axios }) {
-    const { email } = route.params
-    const { signature } = route.query
+  fetchOnServer: false,
+  async fetch() {
+    const { email } = this.$route.params
+    const { signature } = this.$route.query
 
-    try {
-      const response = await $axios.post(
-        `/auth/verify/${email}?signature=${signature}`,
-        undefined,
-        { withCredentials: true }
-      )
-      store.commit('auth/setUser', response.data)
-    } catch (e) {
-      const { status, message } = e.response.data
-      error({ status, message })
-    }
+    const response = await this.$axios.post(
+      `/auth/verify/${email}?signature=${signature}`,
+      undefined,
+      { withCredentials: true }
+    )
+    this.$store.commit('auth/setUser', response.data)
   },
 }
 </script>

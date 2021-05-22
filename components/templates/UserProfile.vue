@@ -5,11 +5,11 @@
       <div class="flex flex-col justify-between">
         <AppItemLabeled>
           <template #label>NOM</template>
-          {{ user.last_name | handleUndefined }}
+          {{ user.lastName | handleUndefined }}
         </AppItemLabeled>
         <AppItemLabeled>
           <template #label>Prénom</template>
-          {{ user.first_name | handleUndefined }}
+          {{ user.firstName | handleUndefined }}
         </AppItemLabeled>
       </div>
     </div>
@@ -24,7 +24,7 @@
       </AppItemLabeled>
       <AppItemLabeled class="flex-1">
         <template #label>Année de diplomation</template>
-        {{ user.graduation_year | handleUndefined }}
+        {{ user.graduationYear | handleUndefined }}
       </AppItemLabeled>
     </div>
     <AppItemLabeled v-if="user.focusInterests" class="mb-4">

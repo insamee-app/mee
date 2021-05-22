@@ -61,7 +61,7 @@ export default {
       if (this.disabled || this.loading)
         classNames.push('bg-grey-base cursor-not-allowed')
 
-      if (this.to) classNames.push('block text-center')
+      if (this.to) classNames.push('block text-center cursor-pointer')
 
       return classNames.join(' ')
     },

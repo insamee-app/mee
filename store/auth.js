@@ -1,10 +1,19 @@
+import { camelCase } from 'change-case'
+
 export const state = () => ({
   user: undefined,
 })
 
 export const mutations = {
   setUser(state, user) {
-    state.user = user
+    if (!user) state.user = undefined
+    else {
+      const camelUser = {}
+      for (const field in user) {
+        camelUser[camelCase(field)] = user[field]
+      }
+      state.user = camelUser
+    }
   },
 }
 
@@ -18,7 +27,26 @@ export const actions = {
 }
 
 export const getters = {
-  loggedIn(state) {
-    return !!state.user
+  loggedIn({ user }) {
+    return !!user
+  },
+  toUpdateUser({ user }, getters) {
+    return {
+      lastName: user.lastName,
+      firstName: user.firstName,
+      currentRole: user.currentRole,
+      text: user.text,
+      mobile: user.mobile,
+      skills: user.skills,
+      focusInterests: user.focusInterests,
+      associations: user.associations,
+      graduationYear: user.graduationYear,
+      socialNetworks: user.socialNetworks ?? {
+        facebook: '',
+        instagram: '',
+        twitter: '',
+        snapchat: '',
+      },
+    }
   },
 }

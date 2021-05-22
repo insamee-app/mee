@@ -41,7 +41,12 @@
       <!-- <pre>{{ data.data }}</pre> -->
       <PaginateData :meta="data.meta" @change="$fetch" />
       <!-- TODO: faire un skeleton avec l'animation tailwind -->
-      <UserCard v-for="user in data.data" :key="user.id" :user="user" />
+      <UserCard
+        v-for="user in data.data"
+        :key="user.id"
+        :user="user"
+        class="my-8"
+      />
     </div>
   </AppContainer>
 </template>

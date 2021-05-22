@@ -1,12 +1,12 @@
 <template>
   <AppContainer>
-    <UserProfil :user="user" />
+    <UserProfile :user="user" />
     <section v-if="socials.length" class="mb-4">
       <h2 class="text-2xl font-bold mb-2">Moyen pour me contacter</h2>
       <AppContact :links="socials" />
     </section>
     <div class="flex flex-row justify-end sticky bottom-4 mb-4">
-      <AppButton large>Editer le profil</AppButton>
+      <AppButton large @click="editUser = true">Editer le profil</AppButton>
     </div>
     <div class="mb-4">
       <h2 class="text-2xl font-bold mb-4">Zone de danger</h2>
@@ -15,16 +15,24 @@
         <AppButton large border>Supprimer son compte</AppButton>
       </div>
     </div>
+    <AppModal v-model="editUser"
+      ><UserProfileForm :user-id="user.id"
+    /></AppModal>
   </AppContainer>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   middleware: ['authenticated'],
+  data() {
+    return {
+      editUser: false,
+    }
+  },
   computed: {
-    user() {
-      return this.$store.state.auth.user
-    },
+    ...mapState({ user: (state) => state.auth.user }),
     socials() {
       const data = {
         ...this.user.social_networks,

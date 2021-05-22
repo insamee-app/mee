@@ -11,6 +11,7 @@
       :type="type"
       :name="name"
       :placeholder="placeholder"
+      :value="value"
       class="border border-primary-dark rounded py-1 px-2 w-full placeholder-grey-base"
       @input="$emit('input', $event.target.value)"
     />
@@ -25,7 +26,7 @@ export default {
   name: 'AppInput',
   props: {
     value: {
-      type: String,
+      type: [String, Number],
       required: true,
     },
     name: {
