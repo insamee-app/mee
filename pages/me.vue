@@ -16,7 +16,7 @@
       </div>
     </div>
     <AppModal v-model="editUser"
-      ><UserProfileForm :user-id="user.id"
+      ><UserProfileForm :user-id="user.id" @close="editUser = false"
     /></AppModal>
   </AppContainer>
 </template>

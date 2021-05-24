@@ -1,6 +1,7 @@
 <template>
   <AppCard>
-    <form action="#" @submit.prevent="sendUser">
+    <AppCardTitle>Modifier mon profil</AppCardTitle>
+    <form action="#" class="grid gap-4 grid-cols-1" @submit.prevent="sendUser">
       <AppInput v-model="fieldsUser.lastName" type="text" name="lastName"
         ><template #label>Nom</template></AppInput
       >
@@ -13,17 +14,31 @@
         name="year"
         ><template #label>Année de diplomation</template></AppInput
       >
-      <ProfileSelect
-        v-model="fieldsUser.focusInterests"
-        ressource="focus_interests"
-      />
-      <ProfileSelect v-model="fieldsUser.skills" ressource="skills" />
-      <ProfileSelect
-        v-model="fieldsUser.associations"
-        ressource="associations"
-        :format="formatAssociations"
-      />
-      <div class="flex flex-row justify-end">
+      <div>
+        <AppLabel name="skills" text="Compétences" />
+
+        <ProfileSelect
+          v-model="fieldsUser.focusInterests"
+          ressource="focus_interests"
+        />
+      </div>
+      <div>
+        <AppLabel name="skills" text="Compétences" />
+        <ProfileSelect v-model="fieldsUser.skills" ressource="skills" />
+      </div>
+      <div>
+        <AppLabel name="associations" text="Associations" />
+        <ProfileSelect
+          v-model="fieldsUser.associations"
+          ressource="associations"
+          :format="formatAssociations"
+        />
+      </div>
+      <AppTextarea v-model="fieldsUser.text" placeholder="Présentation" />
+      <div class="flex flex-row justify-between">
+        <AppButton type="reset" border @click="$emit('close')"
+          >Annuler</AppButton
+        >
         <AppButton type="submit">Enregistrer</AppButton>
       </div>
     </form>
@@ -89,7 +104,7 @@ export default {
           }
         )
         this.$store.commit('auth/setUser', response.data)
-        this.editUser = false
+        this.$emit('close')
       } catch (error) {
         console.error(error)
       }

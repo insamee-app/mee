@@ -3,7 +3,7 @@
     <ImageShow
       class="w-8 h-8"
       :class="hasText ? 'mr-2' : 'ml-2'"
-      :uuid="uuid"
+      :name="uuid"
     ></ImageShow>
     <slot></slot>
   </div>

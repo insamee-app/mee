@@ -2,9 +2,9 @@
   <multiselect
     v-bind="$attrs"
     placeholder="Choisir une option"
-    select-label="Pressez entrer pour sélectionner"
-    selected-label="Sélectionné"
-    deselect-label="Pressez entrer pour enlever"
+    select-label=""
+    selected-label=""
+    deselect-label=""
     v-on="$listeners"
   />
 </template>
