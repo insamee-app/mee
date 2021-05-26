@@ -97,7 +97,7 @@ export default {
     },
   },
   mounted() {
-    this.fieldsUser = this.$store.getters['auth/toUpdateUser']
+    Object.assign(this.fieldsUser, this.$store.getters['auth/toUpdateUser'])
   },
   methods: {
     formatAssociations({ name, school }) {
