@@ -2,16 +2,25 @@
   <AppCard>
     <AppCardTitle>Modifier mon profil</AppCardTitle>
     <form action="#" class="grid gap-4 grid-cols-1" @submit.prevent="sendUser">
-      <AppInput v-model="fieldsUser.lastName" type="text" name="lastName"
+      <AppInput
+        v-model="fieldsUser.lastName"
+        type="text"
+        name="lastName"
+        autocomplete="family-name"
         ><template #label>Nom</template></AppInput
       >
-      <AppInput v-model="fieldsUser.firstName" type="text" name="firstName"
+      <AppInput
+        v-model="fieldsUser.firstName"
+        type="text"
+        name="firstName"
+        autocomplete="given-name"
         ><template #label>Prénom</template></AppInput
       >
       <AppInput
         v-model.number="fieldsUser.graduationYear"
         type="number"
         name="year"
+        autocomplete="year"
         ><template #label>Année de diplomation</template></AppInput
       >
       <div>

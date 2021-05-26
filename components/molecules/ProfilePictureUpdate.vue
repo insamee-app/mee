@@ -1,7 +1,13 @@
 <template>
   <AppLabel :for="name" class="cursor-pointer" :name="name"
     ><slot></slot>
-    <input :id="name" type="file" class="hidden" @change="previewFile" />
+    <input
+      :id="name"
+      type="file"
+      class="hidden"
+      accept="image/png, image/jpg, image/jpeg"
+      @change="previewFile"
+    />
     <div v-if="src" class="flex flex-col justify-center items-center">
       <div>Prévisualisation</div>
       <img :src="src" alt="preview de l'image" class="w-32 h-32 rounded-full" />
