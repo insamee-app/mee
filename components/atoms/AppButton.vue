@@ -55,7 +55,7 @@ export default {
       else classNames.push('py-1 px-2')
 
       if (this.border)
-        classNames.push('border border-primary-dark text-primary-base')
+        classNames.push('border border-primary-dark text-primary-base bg-white')
       else classNames.push('bg-primary-base text-white')
 
       if (this.disabled || this.loading)

@@ -15,19 +15,19 @@
         ><template #label>Année de diplomation</template></AppInput
       >
       <div>
-        <AppLabel name="skills" text="Compétences" />
-
+        <AppLabel name="focusInterests">Centres d'intérêt</AppLabel>
         <ProfileSelect
           v-model="fieldsUser.focusInterests"
           ressource="focus_interests"
         />
       </div>
       <div>
+        <AppLabel name="skills">Compétences</AppLabel>
         <AppLabel name="skills" text="Compétences" />
         <ProfileSelect v-model="fieldsUser.skills" ressource="skills" />
       </div>
       <div>
-        <AppLabel name="associations" text="Associations" />
+        <AppLabel name="associations">Associations</AppLabel>
         <ProfileSelect
           v-model="fieldsUser.associations"
           ressource="associations"

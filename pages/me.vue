@@ -5,7 +5,10 @@
       <h2 class="text-2xl font-bold mb-2">Moyen pour me contacter</h2>
       <AppContact :links="socials" />
     </section>
-    <div class="flex flex-row justify-end sticky bottom-4 mb-4">
+    <div class="flex flex-row justify-between sticky bottom-4 mb-4">
+      <AppButton large border @click="editAvatar = true"
+        >Changer la photo</AppButton
+      >
       <AppButton large @click="editUser = true">Editer le profil</AppButton>
     </div>
     <div class="mb-4">
@@ -18,6 +21,9 @@
     <AppModal v-model="editUser"
       ><UserProfileForm :user-id="user.id" @close="editUser = false"
     /></AppModal>
+    <AppModal v-model="editAvatar"
+      ><UserProfilePictureForm :user-id="user.id" @close="editAvatar = false"
+    /></AppModal>
   </AppContainer>
 </template>
 
@@ -29,6 +35,7 @@ export default {
   data() {
     return {
       editUser: false,
+      editAvatar: false,
     }
   },
   computed: {
