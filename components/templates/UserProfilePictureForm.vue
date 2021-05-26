@@ -1,5 +1,5 @@
 <template>
-  <AppCard>
+  <AppCard closable @close="$emit('close')">
     <AppCardTitle>Modifier ma photo</AppCardTitle>
     <form action="#" @submit.prevent="sendAvatar">
       <ProfilePictureUpdate name="avatar" @file="getAvatar"

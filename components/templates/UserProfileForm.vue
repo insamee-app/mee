@@ -1,5 +1,5 @@
 <template>
-  <AppCard>
+  <AppCard closable @close="$emit('close')">
     <AppCardTitle>Modifier mon profil</AppCardTitle>
     <form action="#" class="grid gap-4 grid-cols-1" @submit.prevent="sendUser">
       <AppInput
