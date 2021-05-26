@@ -1,4 +1,4 @@
-import { helpers, required, sameAs } from 'vuelidate/lib/validators'
+import { helpers, maxLength, required, sameAs } from 'vuelidate/lib/validators'
 
 const strength = helpers.regex(
   'strength',
@@ -9,6 +9,7 @@ export default {
   validations: {
     password: {
       required,
+      maxLength: maxLength(30),
       strength,
     },
     password_confirmation: {
@@ -21,6 +22,7 @@ export default {
       if (!this.$v.password.$dirty) return ''
 
       if (!this.$v.password.required) return 'Un mot de passe est requis'
+      if (!this.$v.password.maxLength) return 'Ce mot de passe est trop long'
       if (!this.$v.password.strength)
         return 'Le mot de passe doit contenir 8 caractères, une majuscule et un chiffre'
 

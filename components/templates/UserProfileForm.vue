@@ -3,21 +3,24 @@
     <AppCardTitle>Modifier mon profil</AppCardTitle>
     <form action="#" class="grid gap-4 grid-cols-1" @submit.prevent="sendUser">
       <AppInput
-        v-model="fieldsUser.lastName"
+        v-model="$v.fieldsUser.lastName.$model"
+        :error-message="lastNameMessage"
         type="text"
         name="lastName"
         autocomplete="family-name"
         ><template #label>Nom</template></AppInput
       >
       <AppInput
-        v-model="fieldsUser.firstName"
+        v-model="$v.fieldsUser.firstName.$model"
+        :error-message="firstNameMessage"
         type="text"
         name="firstName"
         autocomplete="given-name"
         ><template #label>Prénom</template></AppInput
       >
       <AppInput
-        v-model.number="fieldsUser.graduationYear"
+        v-model.number="$v.fieldsUser.graduationYear.$model"
+        :error-message="graduationYearMessage"
         type="number"
         name="year"
         autocomplete="year"
@@ -32,7 +35,6 @@
       </div>
       <div>
         <AppLabel name="skills">Compétences</AppLabel>
-        <AppLabel name="skills" text="Compétences" />
         <ProfileSelect v-model="fieldsUser.skills" ressource="skills" />
       </div>
       <div>
@@ -43,18 +45,31 @@
           :format="formatAssociations"
         />
       </div>
-      <AppTextarea v-model="fieldsUser.text" placeholder="Présentation" />
+      <!-- TODO: il faut print l'erreur de la validation (ajouter le composant) -->
+      <AppTextarea
+        v-model="$v.fieldsUser.text.$model"
+        name="presentation"
+        placeholder="Présentation"
+        :error-message="textMessage"
+        >Votre présentation</AppTextarea
+      >
       <div class="flex flex-row justify-between">
         <AppButton type="reset" border @click="$emit('close')"
           >Annuler</AppButton
         >
-        <AppButton type="submit">Enregistrer</AppButton>
+        <!-- TODO: ajouter le disable comme le login -->
+        <AppButton type="submit" :loading="loading">Enregistrer</AppButton>
       </div>
+      <AppError :errors="errors" full />
     </form>
   </AppCard>
 </template>
 
 <script>
+import { numeric, between, maxLength, url } from 'vuelidate/lib/validators'
+
+const date = new Date()
+
 export default {
   name: 'UserProfileForm',
   props: {
@@ -65,6 +80,8 @@ export default {
   },
   data() {
     return {
+      errors: [],
+      loading: false,
       fieldsUser: {
         lastName: '',
         firstName: '',
@@ -84,6 +101,40 @@ export default {
       },
     }
   },
+  validations: {
+    fieldsUser: {
+      lastName: {
+        maxLength: maxLength(30),
+      },
+      firstName: {
+        maxLength: maxLength(30),
+      },
+      text: {
+        maxLength: maxLength(2048),
+      },
+      mobile: {
+        numeric,
+        maxLength: maxLength(10),
+      },
+      graduationYear: {
+        between: between(1957, date.getFullYear() + 5),
+      },
+      socialNetworks: {
+        facebook: {
+          url,
+        },
+        instragram: {
+          url,
+        },
+        twitter: {
+          url,
+        },
+        snapchat: {
+          url,
+        },
+      },
+    },
+  },
   computed: {
     transformedUser() {
       const user = {}
@@ -95,6 +146,37 @@ export default {
 
       return user
     },
+    lastNameMessage() {
+      if (!this.$v.fieldsUser.lastName.$dirty) return ''
+
+      if (!this.$v.fieldsUser.lastName.maxLength) return 'Ce nom est trop long'
+
+      return ''
+    },
+    firstNameMessage() {
+      if (!this.$v.fieldsUser.firstName.$dirty) return ''
+
+      if (!this.$v.fieldsUser.lastName.maxLength)
+        return 'Ce prénom est trop long'
+
+      return ''
+    },
+    graduationYearMessage() {
+      if (!this.$v.fieldsUser.graduationYear.$dirty) return ''
+
+      if (!this.$v.fieldsUser.graduationYear.between)
+        return "Cette année de diplomation n'est pas valide"
+
+      return ''
+    },
+    textMessage() {
+      if (!this.$v.fieldsUser.text.$dirty) return ''
+
+      if (!this.$v.fieldsUser.text.maxLength)
+        return 'Votre présentation est trop longue'
+
+      return ''
+    },
   },
   mounted() {
     Object.assign(this.fieldsUser, this.$store.getters['auth/toUpdateUser'])
@@ -104,6 +186,7 @@ export default {
       return `${name.toUpperCase()} - ${school.name}`
     },
     async sendUser() {
+      this.loading = true
       try {
         const response = await this.$axios.patch(
           `/api/v1/users/${this.userId}`,
@@ -113,9 +196,12 @@ export default {
           }
         )
         this.$store.commit('auth/setUser', response.data)
+        this.loading = false
         this.$emit('close')
       } catch (error) {
-        console.error(error)
+        this.loading = false
+        this.errors = error.response.data.errors
+        console.error(error.response.data)
       }
     },
   },

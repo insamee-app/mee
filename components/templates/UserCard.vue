@@ -2,7 +2,7 @@
   <AppCard class="w-full" :to="{ name: 'mee-id', params: { id: user.id } }">
     <template #avatar>
       <!-- TODO: il faut se faire les avatars -->
-      <AppCardAvatar />
+      <AppCardAvatar :avatar-id="user.avatar_id" />
     </template>
     <template #title>
       <AppCardTitle>

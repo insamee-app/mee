@@ -3,14 +3,19 @@
     <AppCardTitle>Modifier ma photo</AppCardTitle>
     <form action="#" @submit.prevent="sendAvatar">
       <ProfilePictureUpdate name="avatar" @file="getAvatar"
-        >Changer sa photo de profil</ProfilePictureUpdate
-      >
-      <div class="flex flex-row justify-between">
+        ><div class="flex flex-row items-center mt-4 hover:text-primary-dark">
+          <IconUpload
+            class="w-5 h-5 text-primary-dark fill-current mr-2"
+          />Changer sa photo de profil
+        </div>
+      </ProfilePictureUpdate>
+      <div class="flex flex-row justify-between mt-4">
         <AppButton type="reset" border @click="$emit('close')"
           >Annuler</AppButton
         >
         <AppButton type="submit">Enregistrer</AppButton>
       </div>
+      <AppError :errors="errors" />
     </form>
   </AppCard>
 </template>
@@ -26,6 +31,7 @@ export default {
   },
   data() {
     return {
+      errors: [],
       avatar: undefined,
     }
   },
@@ -48,7 +54,7 @@ export default {
         this.$store.commit('auth/setUser', response.data)
         this.$emit('close')
       } catch (error) {
-        console.log(error)
+        this.errors = error.response.data.errors
       }
     },
   },

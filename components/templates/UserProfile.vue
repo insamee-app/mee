@@ -1,10 +1,14 @@
 <template>
   <div>
     <div class="flex flex-row mb-8">
-      <ImageShow
-        :name="user.avatarId"
-        class="w-32 h-32 rounded-full bg-primary-dark mr-8"
-      ></ImageShow>
+      <div
+        class="w-32 h-32 overflow-hidden rounded-full flex flex-row justify-center items-center mr-8"
+      >
+        <ImageShow
+          :name="user.avatarId"
+          :alt="`avatar de ${user.firstName} ${user.lastName}`"
+        ></ImageShow>
+      </div>
       <div class="flex flex-col justify-between">
         <AppItemLabeled>
           <template #label>NOM</template>
