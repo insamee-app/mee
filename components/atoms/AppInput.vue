@@ -12,7 +12,7 @@
       :name="name"
       :placeholder="placeholder"
       :value="value"
-      class="border border-primary-dark rounded py-1 px-2 w-full placeholder-grey-base"
+      class="border border-primary-dark rounded py-1 px-2 w-full placeholder-grey-base focus: outline-none"
       @input="$emit('input', $event.target.value)"
     />
     <div v-if="errorMessage" class="text-primary-dark text-xs">
