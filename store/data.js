@@ -2,6 +2,10 @@ export const state = () => ({
   skills: undefined,
   focusInterests: undefined,
   associations: undefined,
+  currentRoles: [
+    { id: 'étudiant', name: 'étudiant' },
+    { id: 'personnel', name: 'personnel' },
+  ],
 })
 
 export const mutations = {

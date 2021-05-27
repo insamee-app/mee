@@ -33,17 +33,12 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'FiltersUsers',
-  data() {
-    return {
-      currentRoles: [
-        { id: 'étudiant', name: 'étudiant' },
-        { id: 'personnel', name: 'personnel' },
-      ],
-    }
-  },
   computed: {
+    ...mapState({ currentRoles: (state) => state.data.currentRoles }),
     currentRole: {
       get() {
         const value = this.$store.state.filters.users.currentRole

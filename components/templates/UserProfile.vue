@@ -1,13 +1,23 @@
 <template>
   <div>
-    <div class="flex flex-row mb-8">
-      <div
-        class="w-32 h-32 overflow-hidden rounded-full flex flex-row justify-center items-center mr-8"
-      >
-        <ImageShow
-          :name="user.avatarId"
-          :alt="`avatar de ${user.firstName} ${user.lastName}`"
-        ></ImageShow>
+    <div class="flex flex-row">
+      <div class="relative w-32 h-32 mr-8">
+        <div
+          class="w-full h-full overflow-hidden rounded-full flex flex-row justify-center items-center"
+        >
+          <ImageShow
+            :name="user.avatarId"
+            :alt="`avatar de ${user.firstName} ${user.lastName}`"
+          ></ImageShow>
+        </div>
+        <div
+          v-if="user.currentRole"
+          class="absolute -right-4 bottom-0 flex flex-row"
+        >
+          <AppChip class="border-white border-2">{{
+            user.currentRole
+          }}</AppChip>
+        </div>
       </div>
       <div class="flex flex-col justify-between">
         <AppItemLabeled>
@@ -20,11 +30,11 @@
         </AppItemLabeled>
       </div>
     </div>
-    <AppItemLabeled class="mb-4">
+    <AppItemLabeled class="mt-4">
       <template #label>Adresse électronique</template>
       {{ user.email | handleUndefined }}
     </AppItemLabeled>
-    <div class="flex flex-row mb-4">
+    <div class="flex flex-row mt-4">
       <AppItemLabeled class="flex-1">
         <template #label>Ecole</template>
         {{ getSchoolName | handleUndefined }}
@@ -34,15 +44,15 @@
         {{ user.graduationYear | handleUndefined }}
       </AppItemLabeled>
     </div>
-    <AppItemLabeled v-if="user.focusInterests" class="mb-4">
+    <AppItemLabeled v-if="user.focusInterests" class="mt-4">
       <template #label>Centres d'interêt</template>
       <AppChips :texts="getTexts(user.focusInterests)" />
     </AppItemLabeled>
-    <AppItemLabeled v-if="user.skills" class="mb-4">
+    <AppItemLabeled v-if="user.skills" class="mt-4">
       <template #label>Compétences</template>
       <AppChips :texts="getTexts(user.skills)" />
     </AppItemLabeled>
-    <AppItemLabeled v-if="user.associations" class="mb-4">
+    <AppItemLabeled v-if="user.associations" class="mt-4">
       <template #label>Associations</template>
       <AppAssociation
         v-for="association in user.associations"
@@ -53,7 +63,7 @@
         {{ association.name }}
       </AppAssociation>
     </AppItemLabeled>
-    <AppItemLabeled class="mb-4 text-justify">
+    <AppItemLabeled class="mt-4 text-justify">
       <template #label>Description</template>
       {{ user.text | handleUndefined }}
     </AppItemLabeled>

@@ -18,6 +18,13 @@
         autocomplete="given-name"
         ><template #label>Prénom</template></AppInput
       >
+      <AppSelect
+        v-model="$v.fieldsUser.currentRole.$model"
+        name="currentRole"
+        :items="currentRoles"
+        label="Rôles"
+        choose-text
+      />
       <AppInput
         v-model.number="$v.fieldsUser.graduationYear.$model"
         :error-message="graduationYearMessage"
@@ -67,6 +74,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { numeric, between, maxLength, url } from 'vuelidate/lib/validators'
 
 const date = new Date()
@@ -110,6 +118,7 @@ export default {
       firstName: {
         maxLength: maxLength(30),
       },
+      currentRole: {},
       text: {
         maxLength: maxLength(2048),
       },
@@ -137,6 +146,7 @@ export default {
     },
   },
   computed: {
+    ...mapState({ currentRoles: (state) => state.data.currentRoles }),
     transformedUser() {
       const user = {}
       Object.assign(user, this.fieldsUser)
