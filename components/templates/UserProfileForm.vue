@@ -57,8 +57,9 @@
         <AppButton type="reset" border @click="$emit('close')"
           >Annuler</AppButton
         >
-        <!-- TODO: ajouter le disable comme le login -->
-        <AppButton type="submit" :loading="loading">Enregistrer</AppButton>
+        <AppButton type="submit" :loading="loading" :disabled="$v.$invalid"
+          >Enregistrer</AppButton
+        >
       </div>
       <AppError :errors="errors" full />
     </form>
