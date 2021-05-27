@@ -1,10 +1,10 @@
 <template>
   <div class="flex flex-col">
-    <AppLabel v-if="label" :name="name" :text="label" />
+    <AppLabel v-if="label" :name="name">{{ label }}</AppLabel>
     <select
       :id="name"
       :name="name"
-      class="py-1 px-2 border border-primary-dark rounded bg-grey-light"
+      class="py-1 px-2 border border-primary-dark rounded bg-grey-light focus:outline-none"
       @input="$emit('input', $event.target.value)"
     >
       <option
