@@ -14,7 +14,14 @@
     <div class="mb-4">
       <h2 class="text-2xl font-bold mb-4">Zone de danger</h2>
       <div class="flex flex-col items-center">
-        <AppButton large class="mb-4">Modifier son mot de passe</AppButton>
+        <AppButton
+          large
+          class="mb-4"
+          :disabled="loadingResetPassword"
+          :loading="loadingResetPassword"
+          @click="resetPassword"
+          >Modifier son mot de passe</AppButton
+        >
         <AppButton large border @click="deleteAccount"
           >Supprimer son compte</AppButton
         >
@@ -27,6 +34,15 @@
     <AppModal v-model="editAvatar"
       ><UserProfilePictureForm :user-id="user.id" @close="editAvatar = false"
     /></AppModal>
+    <AppModal v-model="resetPasswordInfo">
+      <AppCard closable @close="resetPasswordInfo = false">
+        <AppCardTitle>Information</AppCardTitle>
+        <AppCardText
+          >Un courriel vous a été envoyé afin de vous permettre de modifier
+          votre mot de passe.</AppCardText
+        >
+      </AppCard>
+    </AppModal>
   </AppContainer>
 </template>
 
@@ -37,9 +53,11 @@ export default {
   middleware: ['authenticated'],
   data() {
     return {
+      loadingResetPassword: false,
       errors: [],
       editUser: false,
       editAvatar: false,
+      resetPasswordInfo: false,
     }
   },
   computed: {
@@ -54,6 +72,21 @@ export default {
     },
   },
   methods: {
+    async resetPassword() {
+      this.loadingResetPassword = true
+      try {
+        await this.$axios.post(
+          '/auth/send/resetPassword',
+          { email: this.user.email },
+          { withCredentials: true }
+        )
+        this.resetPasswordInfo = true
+        this.loadingResetPassword = false
+      } catch (error) {
+        this.loading = false
+        this.errors = error.response.data.errors
+      }
+    },
     async deleteAccount() {
       const confirmed = confirm('Voulez-vous vraiment supprimer votre compte ?')
 
