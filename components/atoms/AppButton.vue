@@ -3,7 +3,7 @@
   <component
     :is="getComponentType"
     :disabled="disabled || loading"
-    class="rounded flex justify-center"
+    class="rounded flex justify-center focus:outline-none"
     :class="classButton"
     :to="to"
     :href="href"

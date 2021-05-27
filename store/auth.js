@@ -30,17 +30,17 @@ export const getters = {
   loggedIn({ user }) {
     return !!user
   },
-  toUpdateUser({ user }, getters) {
+  toUpdateUser({ user }) {
     return {
-      lastName: user.lastName,
-      firstName: user.firstName,
-      currentRole: user.currentRole,
-      text: user.text,
-      mobile: user.mobile,
+      lastName: user.lastName ?? '',
+      firstName: user.firstName ?? '',
+      currentRole: user.currentRole ?? '',
+      text: user.text ?? '',
+      mobile: user.mobile ?? '',
       skills: user.skills,
       focusInterests: user.focusInterests,
       associations: user.associations,
-      graduationYear: user.graduationYear,
+      graduationYear: user.graduationYear ?? '',
       socialNetworks: user.socialNetworks ?? {
         facebook: '',
         instagram: '',

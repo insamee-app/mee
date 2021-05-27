@@ -15,7 +15,10 @@
       <h2 class="text-2xl font-bold mb-4">Zone de danger</h2>
       <div class="flex flex-col items-center">
         <AppButton large class="mb-4">Modifier son mot de passe</AppButton>
-        <AppButton large border>Supprimer son compte</AppButton>
+        <AppButton large border @click="deleteAccount"
+          >Supprimer son compte</AppButton
+        >
+        <AppError :errors="errors" />
       </div>
     </div>
     <AppModal v-model="editUser"
@@ -34,6 +37,7 @@ export default {
   middleware: ['authenticated'],
   data() {
     return {
+      errors: [],
       editUser: false,
       editAvatar: false,
     }
@@ -47,6 +51,23 @@ export default {
       if (this.user.mobile) data.tel = this.user.mobile
 
       return data
+    },
+  },
+  methods: {
+    async deleteAccount() {
+      const confirmed = confirm('Voulez-vous vraiment supprimer votre compte ?')
+
+      if (confirmed) {
+        try {
+          await this.$axios.delete(`/api/v1/users/${this.user.id}`, {
+            withCredentials: true,
+          })
+          this.$store.dispatch('auth/logout')
+          this.$router.push({ name: 'index' })
+        } catch (error) {
+          this.errors = error.response.data.errors
+        }
+      }
     },
   },
 }

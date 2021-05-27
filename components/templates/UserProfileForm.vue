@@ -201,7 +201,6 @@ export default {
       } catch (error) {
         this.loading = false
         this.errors = error.response.data.errors
-        console.error(error.response.data)
       }
     },
   },
