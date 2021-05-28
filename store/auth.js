@@ -35,7 +35,7 @@ export const getters = {
       facebook: user.urlFacebook,
       instagram: user.urlInstagram,
       twitter: user.urlTwitter,
-      tel: user.mobile,
+      téléphone: user.mobile,
     }
   },
   toUpdateUser({ user }) {

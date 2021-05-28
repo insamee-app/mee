@@ -1,12 +1,14 @@
 <template>
-  <ul>
+  <ul class="grid grid-cols-2 gap-2">
     <li v-for="value in keys" :key="value" class="text-center">
-      <a
+      <component
+        :is="links[value] ? 'a' : 'div'"
         :href="href(value)"
         target="_blank"
         rel="noopener noreferrer"
-        class="hover:text-primary-dark text-primary-base text-xl capitalize"
-        >{{ links[value] ? value : `${value}: non renseigné` }}</a
+        class="hover:text-primary-dark text-xl capitalize"
+        :class="links[value] ? 'text-primary-base' : ''"
+        >{{ links[value] ? value : `${value}: non renseigné` }}</component
       >
     </li>
   </ul>
@@ -29,14 +31,11 @@ export default {
   },
   methods: {
     href(value) {
-      return value === 'tel' ? 'tel:' + this.links[value] : this.links[value]
+      // TODO: Use a regex to detect phone
+      return value === 'téléphone'
+        ? 'tel:' + this.links[value]
+        : this.links[value]
     },
   },
 }
 </script>
-
-<style scoped>
-ul li + li {
-  @apply mt-4;
-}
-</style>

@@ -1,34 +1,33 @@
 <template>
   <AppContainer>
-    <UserProfile :user="user" />
+    <h1 class="text-xl font-bold">Mon Profil</h1>
+    <UserProfile :user="user" class="mt-2" />
     <section class="mt-4">
-      <!-- TODO: Revoir le titre, il est immonde, mais l'organisation générale aussi -->
-      <h2 class="text-2xl font-bold mb-2">Moyen pour me contacter</h2>
+      <span class="text-grey-base font-light">Me Contacter</span>
       <AppContact :links="socials" />
     </section>
-    <div class="flex flex-row justify-between sticky bottom-4 mt-4">
+    <section class="flex flex-row justify-between sticky bottom-4 mt-8">
       <AppButton large border @click="editAvatar = true"
         >Changer la photo</AppButton
       >
       <AppButton large @click="editUser = true">Editer le profil</AppButton>
-    </div>
-    <div class="mb-4">
-      <h2 class="text-2xl font-bold mt-4">Zone de danger</h2>
+    </section>
+    <section class="mb-4">
+      <h2 class="text-xl font-bold mt-8">Paramètre du Compte</h2>
       <div class="flex flex-col items-center">
         <AppButton
-          large
           class="mt-4"
           :disabled="loadingResetPassword"
           :loading="loadingResetPassword"
           @click="resetPassword"
           >Modifier son mot de passe</AppButton
         >
-        <AppButton large border class="mt-4" @click="deleteAccount"
+        <AppButton border class="mt-4" @click="deleteAccount"
           >Supprimer son compte</AppButton
         >
         <AppError :errors="errors" class="mt-2" />
       </div>
-    </div>
+    </section>
     <AppModal v-model="editUser"
       ><UserProfileForm :user-id="user.id" @close="editUser = false"
     /></AppModal>
