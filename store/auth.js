@@ -30,6 +30,14 @@ export const getters = {
   loggedIn({ user }) {
     return !!user
   },
+  socialNetworks({ user }) {
+    return {
+      facebook: user.urlFacebook,
+      instagram: user.urlInstagram,
+      twitter: user.urlTwitter,
+      tel: user.mobile,
+    }
+  },
   toUpdateUser({ user }) {
     return {
       lastName: user.lastName ?? '',
@@ -41,12 +49,9 @@ export const getters = {
       focusInterests: user.focusInterests,
       associations: user.associations,
       graduationYear: user.graduationYear ?? '',
-      socialNetworks: user.socialNetworks ?? {
-        facebook: '',
-        instagram: '',
-        twitter: '',
-        snapchat: '',
-      },
+      urlFacebook: user.urlFacebook ?? '',
+      urlInstagram: user.urlInstagram ?? '',
+      urlTwitter: user.urlTwitter ?? '',
     }
   },
 }

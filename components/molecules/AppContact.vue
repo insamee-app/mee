@@ -2,11 +2,11 @@
   <ul>
     <li v-for="value in keys" :key="value" class="text-center">
       <a
-        :href="links[value]"
+        :href="href(value)"
         target="_blank"
         rel="noopener noreferrer"
         class="hover:text-primary-dark text-primary-base text-xl capitalize"
-        >{{ value }}</a
+        >{{ links[value] ? value : `${value}: non renseigné` }}</a
       >
     </li>
   </ul>
@@ -15,6 +15,7 @@
 <script>
 export default {
   name: 'AppContact',
+
   props: {
     links: {
       type: Object,
@@ -24,6 +25,11 @@ export default {
   computed: {
     keys() {
       return Object.keys(this.links)
+    },
+  },
+  methods: {
+    href(value) {
+      return value === 'tel' ? 'tel:' + this.links[value] : this.links[value]
     },
   },
 }

@@ -60,6 +60,35 @@
         :error-message="textMessage"
         >Votre présentation</AppTextarea
       >
+      <AppInput
+        v-model="$v.fieldsUser.urlFacebook.$model"
+        :error-message="facebookMessage"
+        type="url"
+        name="facebook"
+        ><template #label>Profil facebook</template></AppInput
+      >
+      <AppInput
+        v-model="$v.fieldsUser.urlInstagram.$model"
+        :error-message="facebookMessage"
+        type="url"
+        name="instagram"
+        ><template #label>Profil instagram</template></AppInput
+      >
+      <AppInput
+        v-model="$v.fieldsUser.urlTwitter.$model"
+        :error-message="facebookMessage"
+        type="url"
+        name="twitter"
+        ><template #label>Profil twitter</template></AppInput
+      >
+      <AppInput
+        v-model="$v.fieldsUser.mobile.$model"
+        :error-message="mobileMessage"
+        type="phone"
+        name="mobile"
+        autocomplete="phone"
+        ><template #label>Téléphone</template></AppInput
+      >
       <div class="flex flex-row justify-between">
         <AppButton type="reset" border @click="$emit('close')"
           >Annuler</AppButton
@@ -101,12 +130,9 @@ export default {
         focusInterests: [],
         associations: [],
         graduationYear: 0,
-        socialNetworks: {
-          facebook: '',
-          instragram: '',
-          twitter: '',
-          snapchat: '',
-        },
+        urlFacebook: '',
+        urlInstagram: '',
+        urlTwitter: '',
       },
     }
   },
@@ -129,19 +155,15 @@ export default {
       graduationYear: {
         between: between(1957, date.getFullYear() + 5),
       },
-      socialNetworks: {
-        facebook: {
-          url,
-        },
-        instragram: {
-          url,
-        },
-        twitter: {
-          url,
-        },
-        snapchat: {
-          url,
-        },
+      // TODO: ajouter une regex pour vérifier que c'est bien une lien de là et il faut faire de même pour le serveur
+      urlFacebook: {
+        url,
+      },
+      urlInstagram: {
+        url,
+      },
+      urlTwitter: {
+        url,
       },
     },
   },
@@ -185,6 +207,41 @@ export default {
 
       if (!this.$v.fieldsUser.text.maxLength)
         return 'Votre présentation est trop longue'
+
+      return ''
+    },
+    facebookMessage() {
+      if (!this.$v.fieldsUser.urlFacebook.$dirty) return ''
+
+      if (!this.$v.fieldsUser.urlFacebook.url)
+        return "Vous devez saisir l'url de votre profil"
+
+      return ''
+    },
+    instagramMessage() {
+      if (!this.$v.fieldsUser.urlInstagram.$dirty) return ''
+
+      if (!this.$v.fieldsUser.urlInstagram.url)
+        return "Vous devez saisir l'url de votre profil"
+
+      return ''
+    },
+    twitterMessage() {
+      if (!this.$v.fieldsUser.urlTwitter.$dirty) return ''
+
+      if (!this.$v.fieldsUser.urlTwitter.url)
+        return "Vous devez saisir l'url de votre profil"
+
+      return ''
+    },
+    mobileMessage() {
+      if (!this.$v.fieldsUser.mobile.$dirty) return ''
+
+      if (!this.$v.fieldsUser.mobile.numeric)
+        return 'Votre numéro doit contenir des chiffres'
+
+      if (!this.$v.fieldsUser.mobile.maxLength)
+        return 'Votre numéro est trop long'
 
       return ''
     },

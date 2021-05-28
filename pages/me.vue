@@ -1,7 +1,8 @@
 <template>
   <AppContainer>
     <UserProfile :user="user" />
-    <section v-if="socials.length" class="mt-4">
+    <section class="mt-4">
+      <!-- TODO: Revoir le titre, il est immonde, mais l'organisation générale aussi -->
       <h2 class="text-2xl font-bold mb-2">Moyen pour me contacter</h2>
       <AppContact :links="socials" />
     </section>
@@ -47,7 +48,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   middleware: ['authenticated'],
@@ -62,14 +63,7 @@ export default {
   },
   computed: {
     ...mapState({ user: (state) => state.auth.user }),
-    socials() {
-      const data = {
-        ...this.user.social_networks,
-      }
-      if (this.user.mobile) data.tel = this.user.mobile
-
-      return data
-    },
+    ...mapGetters({ socials: 'auth/socialNetworks' }),
   },
   methods: {
     async resetPassword() {
