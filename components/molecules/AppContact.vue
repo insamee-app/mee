@@ -4,8 +4,8 @@
       <component
         :is="links[value] ? 'a' : 'div'"
         :href="href(value)"
-        target="_blank"
-        rel="noopener noreferrer"
+        :target="links[value] ? '_blank' : undefined"
+        :rel="links[value] ? 'noopener noreferrer' : undefined"
         class="hover:text-primary-dark text-xl capitalize"
         :class="links[value] ? 'text-primary-base' : ''"
         >{{ links[value] ? value : `${value}: non renseigné` }}</component
