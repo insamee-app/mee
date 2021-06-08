@@ -9,7 +9,7 @@
           <div>Un <span class="font-bold">mot</span> gentil ?</div>
         </div>
         <div class="flex flex-row justify-center">
-          <AppButton>Nous contacter</AppButton>
+          <InsameeAppButton>Nous contacter</InsameeAppButton>
         </div>
       </div>
       <div>

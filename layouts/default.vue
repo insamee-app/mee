@@ -17,7 +17,7 @@ export default {
     }
   },
   watch: {
-    $route(a) {
+    $route() {
       this.nav = false
     },
   },

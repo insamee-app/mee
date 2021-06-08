@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mb-6">
     <TheHeroBanner />
     <HomeContainer>
       <GraphicFans class="mb-16 w-full" />
@@ -15,7 +15,7 @@
         >
       </div>
     </HomeContainer>
-    <AppHr />
+    <InsameeAppHr />
     <HomeContainer around>
       <div class="px-4">
         <HomeContainerTitle
@@ -30,7 +30,7 @@
       </div>
       <GraphicFoot />
     </HomeContainer>
-    <AppHr />
+    <InsameeAppHr />
     <HomeContainer around>
       <HomeContainerTitle class="px-4"
         >Tu as un projet formidable en tête mais tu n'a pas toutes les
@@ -43,7 +43,7 @@
         porjets les plus fous !</HomeContainerText
       >
     </HomeContainer>
-    <AppHr />
+    <InsameeAppHr />
     <HomeContainer around>
       <HomeContainerTitle class="px-4"
         >Une idée d'entreprise ou d'association ? Besoin de personnes

@@ -1,54 +1,51 @@
 <template>
   <section>
     <form action="#" @submit.prevent="signin">
-      <AppInput
+      <InsameeLabeledInput
         v-model="$v.email.$model"
         :error-message="mailMessage"
         type="email"
         name="email"
         placeholder="exemple@insamee.fr"
         class="w-full"
-      >
-        <template #label> Adresse électronique </template>
-      </AppInput>
-      <AppInput
+        label="Adresse électronique"
+      />
+      <InsameeLabeledInput
         v-model="$v.password.$model"
         :error-message="passwordMessage"
         type="password"
         name="password"
         placeholder="*******"
         class="w-full mt-2"
-      >
-        <template #label> Mot de passe </template>
-      </AppInput>
-      <AppInput
+        label="Mot de passe"
+      />
+      <InsameeLabeledInput
         v-model="$v.password_confirmation.$model"
         :error-message="passwordConfirmationMessage"
         type="password"
         name="password_confirmation"
         placeholder="*******"
         class="w-full mt-2"
-      >
-        <template #label> Vérification du mot de passe </template>
-      </AppInput>
-      <AppButton
+        label="Vérification du mot de passe"
+      />
+      <InsameeAppButton
         large
         class="w-full mt-8"
         :disabled="$v.$invalid"
         :loading="loading"
         type="submit"
-        >S'inscrire</AppButton
+        >S'inscrire</InsameeAppButton
       >
       <AppError :errors="errors" />
     </form>
-    <AppFrame class="w-full mt-8">
+    <InsameeAppFrame class="w-full mt-8">
       <span
         >Déjà un comptes ?
-        <NuxtLink class="text-primary-base" :to="{ name: 'login' }"
-          >Se connecter</NuxtLink
+        <InsameeAppLink :link="{ name: 'login' }"
+          >Se connecter</InsameeAppLink
         ></span
       >
-    </AppFrame>
+    </InsameeAppFrame>
   </section>
 </template>
 
@@ -80,6 +77,7 @@ export default {
         this.errors = []
         this.$router.push({ name: 'signin-thanks' })
       } catch (error) {
+        // TODO: il faut gérer si on a pas de response (voir si on peut pas faire un intercepteur avec axios
         this.errors = error.response.data.errors
       }
       this.loading = false

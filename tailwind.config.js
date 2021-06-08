@@ -1,4 +1,7 @@
 module.exports = {
+  purge: {
+    content: ['node_modules/insamee-components/src/components/**'],
+  },
   theme: {
     colors: {
       primary: {

@@ -2,38 +2,36 @@
   <section>
     <div v-if="ok">
       <h1 class="text-center text-2xl">Votre mot de passe a bien été changé</h1>
-      <AppButton :to="{ name: 'login' }" large class="mt-8 w-full"
-        >Se connecter</AppButton
-      >
+      <InsameeAppButton :to="{ name: 'login' }" large class="mt-8 w-full">
+        Se connecter
+      </InsameeAppButton>
     </div>
     <form v-else action="#" @submit.prevent="sendResetPassword">
-      <AppInput
+      <InsameeLabeledInput
         v-model="$v.password.$model"
         :error-message="passwordMessage"
         type="password"
         name="password"
         placeholder="*******"
-        class="w-full mb-2"
-      >
-        <template #label> Mot de passe </template>
-      </AppInput>
-      <AppInput
+        class="w-full"
+        label="Mot de passe"
+      />
+      <InsameeLabeledInput
         v-model="$v.password_confirmation.$model"
         :error-message="passwordConfirmationMessage"
         type="password"
         name="password_confirmation"
         placeholder="*******"
-        class="w-full mb-8"
-      >
-        <template #label> Confirmer le mot de passe </template>
-      </AppInput>
-      <AppButton
+        class="w-full mt-2"
+        label="Confirmer le mot de passe"
+      />
+      <InsameeAppButton
         large
-        class="w-full"
+        class="w-full mt-8"
         :disabled="$v.$invalid"
         :loading="loading"
         type="submit"
-        >Modifier son mot de passe</AppButton
+        >Modifier son mot de passe</InsameeAppButton
       >
       <AppError :errors="errors" />
     </form>

@@ -1,5 +1,6 @@
 <template>
   <!-- TODO: si c'est un href, alors c'est un a, si c'est un to, alors un nuxtlink, sinon, un button -->
+  <!-- TODO: il faut ajouter un focus pour faciliter le tab -->
   <component
     :is="getComponentType"
     :disabled="disabled || loading"

@@ -4,25 +4,23 @@
       Un mail vous a été envoyé afin de réinitialiser votre mot de passe
     </h1>
     <form v-else action="#" @submit.prevent="sendMail">
-      <AppInput
+      <InsameeLabeledInput
         v-model="$v.email.$model"
         :error-message="mailMessage"
         type="email"
         name="email"
         placeholder="exemple@insamee.fr"
-        class="w-full mb-8"
-      >
-        <template #label> Adresse électronique </template>
-      </AppInput>
-      <AppButton
-        large
         class="w-full"
+        label="Adresse électronique"
+      />
+      <InsameeAppButton
+        class="w-full mt-8"
         :disabled="$v.$invalid"
         :loading="loading"
         type="submit"
-        >Envoyer le couriel de réinitialisation</AppButton
+        >Envoyer le couriel de réinitialisation</InsameeAppButton
       >
-      <AppError :errors="errors" />
+      <InsameeAppListError :errors="errors" />
     </form>
   </section>
 </template>
