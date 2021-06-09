@@ -1,23 +1,23 @@
 <template>
-  <AppCard closable @close="$emit('close')">
-    <AppCardTitle>Modifier mon profil</AppCardTitle>
+  <InsameeAppCard closable @close="$emit('close')">
+    <template #header>Modifier mon profil</template>
     <form action="#" class="grid gap-4 grid-cols-1" @submit.prevent="sendUser">
-      <AppInput
+      <InsameeLabeledInput
         v-model="$v.fieldsUser.lastName.$model"
         :error-message="lastNameMessage"
         type="text"
         name="lastName"
         autocomplete="family-name"
-        ><template #label>Nom</template></AppInput
-      >
-      <AppInput
+        label="Nom"
+      />
+      <InsameeLabeledInput
         v-model="$v.fieldsUser.firstName.$model"
         :error-message="firstNameMessage"
         type="text"
         name="firstName"
         autocomplete="given-name"
-        ><template #label>Prénom</template></AppInput
-      >
+        label="Prénom"
+      />
       <AppSelect
         v-model="$v.fieldsUser.currentRole.$model"
         name="currentRole"
@@ -25,81 +25,85 @@
         label="Rôles"
         choose-text
       />
-      <AppInput
+      <InsameeLabeledInput
         v-model.number="$v.fieldsUser.graduationYear.$model"
         :error-message="graduationYearMessage"
         type="number"
         name="year"
         autocomplete="year"
-        ><template #label>Année de diplomation</template></AppInput
-      >
+        label="Année de diplomation"
+      />
       <div>
-        <AppLabel name="focusInterests">Centres d'intérêt</AppLabel>
+        <InsameeAppLabel name="focusInterests" label="Centre d'intérêt" input />
+
         <ProfileSelect
           v-model="fieldsUser.focusInterests"
           ressource="focus_interests"
         />
       </div>
       <div>
-        <AppLabel name="skills">Compétences</AppLabel>
+        <InsameeAppLabel name="skills" label="Comptétences" input />
         <ProfileSelect v-model="fieldsUser.skills" ressource="skills" />
       </div>
       <div>
-        <AppLabel name="associations">Associations</AppLabel>
+        <InsameeAppLabel name="associations" label="Associations" input />
         <ProfileSelect
           v-model="fieldsUser.associations"
           ressource="associations"
           :format="formatAssociations"
         />
       </div>
-      <!-- TODO: il faut print l'erreur de la validation (ajouter le composant) -->
-      <AppTextarea
+      <InsameeLabeledTextarea
         v-model="$v.fieldsUser.text.$model"
         name="presentation"
         placeholder="Présentation"
         :error-message="textMessage"
-        >Votre présentation</AppTextarea
-      >
-      <AppInput
+        label="Votre présentation"
+      />
+      <InsameeLabeledInput
         v-model="$v.fieldsUser.urlFacebook.$model"
         :error-message="facebookMessage"
         type="url"
         name="facebook"
-        ><template #label>Profil facebook</template></AppInput
-      >
-      <AppInput
+        label="Profil facebook"
+      />
+      <InsameeLabeledInput
         v-model="$v.fieldsUser.urlInstagram.$model"
         :error-message="facebookMessage"
         type="url"
         name="instagram"
-        ><template #label>Profil instagram</template></AppInput
-      >
-      <AppInput
+        label="Profil instagram"
+      />
+      <InsameeLabeledInput
         v-model="$v.fieldsUser.urlTwitter.$model"
         :error-message="facebookMessage"
         type="url"
         name="twitter"
-        ><template #label>Profil twitter</template></AppInput
-      >
-      <AppInput
+        label="Profil twitter"
+      />
+      <InsameeLabeledInput
         v-model="$v.fieldsUser.mobile.$model"
         :error-message="mobileMessage"
         type="phone"
         name="mobile"
         autocomplete="phone"
-        ><template #label>Téléphone</template></AppInput
-      >
+        label="Téléphone"
+      />
       <div class="flex flex-row justify-between">
-        <AppButton type="reset" border @click="$emit('close')"
-          >Annuler</AppButton
+        <InsameeAppButton type="reset" border @click="$emit('close')">
+          Annuler
+        </InsameeAppButton>
+        <InsameeAppButton
+          type="submit"
+          :loading="loading"
+          :disabled="$v.$invalid"
         >
-        <AppButton type="submit" :loading="loading" :disabled="$v.$invalid"
-          >Enregistrer</AppButton
-        >
+          Enregistrer
+        </InsameeAppButton>
       </div>
-      <AppError :errors="errors" full />
+      <InsameeAppListError :errors="errors" full />
     </form>
-  </AppCard>
+  </InsameeAppCard>
 </template>
 
 <script>

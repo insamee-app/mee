@@ -1,10 +1,11 @@
 <template>
   <div class="flex flex-row items-center">
-    <AppButton
+    <InsameeAppButton
       :disabled="!meta.previous_page_url"
       @click="handlePage(getPage(meta.previous_page_url))"
-      >Précédent</AppButton
     >
+      Précédent
+    </InsameeAppButton>
     <div class="flex flex-grow justify-around mx-4">
       <AppPagination
         v-for="value in pages"
@@ -15,11 +16,12 @@
         {{ page(value) }}
       </AppPagination>
     </div>
-    <AppButton
+    <InsameeAppButton
       :disabled="!meta.next_page_url"
       @click="handlePage(getPage(meta.next_page_url))"
-      >Suivant</AppButton
     >
+      Suivant
+    </InsameeAppButton>
   </div>
 </template>
 

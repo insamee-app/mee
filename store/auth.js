@@ -1,5 +1,3 @@
-import { camelCase } from 'change-case'
-
 export const state = () => ({
   user: undefined,
 })
@@ -8,11 +6,7 @@ export const mutations = {
   setUser(state, user) {
     if (!user) state.user = undefined
     else {
-      const camelUser = {}
-      for (const field in user) {
-        camelUser[camelCase(field)] = user[field]
-      }
-      state.user = camelUser
+      state.user = user
     }
   },
 }
@@ -32,26 +26,26 @@ export const getters = {
   },
   socialNetworks({ user }) {
     return {
-      facebook: user.urlFacebook,
-      instagram: user.urlInstagram,
-      twitter: user.urlTwitter,
+      facebook: user.url_facebook,
+      instagram: user.url_instagram,
+      twitter: user.url_twitter,
       téléphone: user.mobile,
     }
   },
   toUpdateUser({ user }) {
     return {
-      lastName: user.lastName ?? '',
-      firstName: user.firstName ?? '',
-      currentRole: user.currentRole ?? '',
+      last_name: user.last_name ?? '',
+      first_name: user.first_name ?? '',
+      current_role: user.current_role ?? '',
       text: user.text ?? '',
       mobile: user.mobile ?? '',
       skills: user.skills,
-      focusInterests: user.focusInterests,
+      focus_interests: user.focus_interests,
       associations: user.associations,
-      graduationYear: user.graduationYear ?? '',
-      urlFacebook: user.urlFacebook ?? '',
-      urlInstagram: user.urlInstagram ?? '',
-      urlTwitter: user.urlTwitter ?? '',
+      graduation_year: user.graduation_year ?? '',
+      url_facebook: user.url_facebook ?? '',
+      url_instagram: user.url_instagram ?? '',
+      url_twitter: user.url_twitter ?? '',
     }
   },
 }

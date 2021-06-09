@@ -1,5 +1,5 @@
 <template>
-  <AppContainer>
+  <AppContainer class="mb-4">
     <h1 class="text-xl font-bold">Mon Profil</h1>
     <UserProfile :user="user" class="mt-2" />
     <section class="mt-4">
@@ -7,42 +7,46 @@
       <AppContact :links="socials" />
     </section>
     <section class="flex flex-row justify-between sticky bottom-4 mt-8">
-      <AppButton large border @click="editAvatar = true"
-        >Changer la photo</AppButton
-      >
-      <AppButton large @click="editUser = true">Editer le profil</AppButton>
+      <InsameeAppButton large border @click="editAvatar = true">
+        Changer la photo
+      </InsameeAppButton>
+      <InsameeAppButton large @click="editUser = true">
+        Editer le profil
+      </InsameeAppButton>
     </section>
-    <section class="mb-4">
+    <section>
       <h2 class="text-xl font-bold mt-8">Paramètre du Compte</h2>
       <div class="flex flex-col items-center">
-        <AppButton
+        <InsameeAppButton
           class="mt-4"
           :disabled="loadingResetPassword"
           :loading="loadingResetPassword"
           @click="resetPassword"
-          >Modifier son mot de passe</AppButton
         >
-        <AppButton border class="mt-4" @click="deleteAccount"
-          >Supprimer son compte</AppButton
-        >
-        <AppError :errors="errors" class="mt-2" />
+          Modifier son mot de passe
+        </InsameeAppButton>
+        <InsameeAppButton border class="mt-4" @click="deleteAccount">
+          Supprimer son compte
+        </InsameeAppButton>
+        <InsameeAppListError :errors="errors" class="mt-2" />
       </div>
     </section>
-    <AppModal v-model="editUser"
+    <InsameeAppModal v-model="editUser"
       ><UserProfileForm :user-id="user.id" @close="editUser = false"
-    /></AppModal>
-    <AppModal v-model="editAvatar"
+    /></InsameeAppModal>
+    <InsameeAppModal :value="editAvatar" @outside="editAvatar = false"
       ><UserProfilePictureForm :user-id="user.id" @close="editAvatar = false"
-    /></AppModal>
-    <AppModal v-model="resetPasswordInfo">
-      <AppCard closable @close="resetPasswordInfo = false">
-        <AppCardTitle>Information</AppCardTitle>
-        <AppCardText
-          >Un courriel vous a été envoyé afin de vous permettre de modifier
-          votre mot de passe.</AppCardText
-        >
-      </AppCard>
-    </AppModal>
+    /></InsameeAppModal>
+    <InsameeAppModal
+      :value="resetPasswordInfo"
+      @outside="resetPasswordInfo = false"
+    >
+      <InsameeAppCard closable justify @close="resetPasswordInfo = false">
+        <template #header>Information</template>
+        Un courriel vous a été envoyé afin de vous permettre de modifier votre
+        mot de passe.
+      </InsameeAppCard>
+    </InsameeAppModal>
   </AppContainer>
 </template>
 

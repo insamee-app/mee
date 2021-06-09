@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="space-y-2">
     <AppSelect
       v-model="currentRole"
       name="currentRole"

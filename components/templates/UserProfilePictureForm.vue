@@ -1,23 +1,22 @@
 <template>
-  <AppCard closable @close="$emit('close')">
-    <AppCardTitle>Modifier ma photo</AppCardTitle>
+  <InsameeAppCard closable @close="$emit('close')">
+    <template #header>Modifier ma photo</template>
     <form action="#" @submit.prevent="sendAvatar">
-      <ProfilePictureUpdate name="avatar" @file="getAvatar"
-        ><div class="flex flex-row items-center mt-4 hover:text-primary-dark">
-          <IconUpload
-            class="w-5 h-5 text-primary-dark fill-current mr-2"
-          />Changer sa photo de profil
+      <ProfilePictureUpdate name="avatar" @file="getAvatar">
+        <div class="flex flex-row items-center hover:text-primary-dark">
+          <IconUpload class="w-5 h-5 text-primary-dark fill-current mr-2" />
+          Changer sa photo de profil
         </div>
       </ProfilePictureUpdate>
       <div class="flex flex-row justify-between mt-4">
-        <AppButton type="reset" border @click="$emit('close')"
-          >Annuler</AppButton
-        >
-        <AppButton type="submit">Enregistrer</AppButton>
+        <InsameeAppButton type="reset" border @click="$emit('close')">
+          Annuler
+        </InsameeAppButton>
+        <InsameeAppButton type="submit"> Enregistrer </InsameeAppButton>
       </div>
-      <AppError :errors="errors" />
+      <InsameeAppListError :errors="errors" />
     </form>
-  </AppCard>
+  </InsameeAppCard>
 </template>
 
 <script>

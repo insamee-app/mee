@@ -1,8 +1,7 @@
 <template>
   <AppCard class="w-full" :to="{ name: 'mee-id', params: { id: user.id } }">
     <template #avatar>
-      <!-- TODO: il faut se faire les avatars -->
-      <AppCardAvatar :avatar-id="user.avatar_id" />
+      <ProfileAvatar :user="user" />
     </template>
     <template #title>
       <AppCardTitle>
@@ -13,13 +12,13 @@
     <template v-if="user.associations.length" #associations>
       <AppCardAssociations :associations="user.associations" />
     </template>
-    <template #chips>
-      <AppCardActions v-if="user.skills.length"
-        ><AppChips :texts="getSkills"
-      /></AppCardActions>
+    <template v-if="user.skills.length" #chips>
+      <InsameeAppChips :texts="getSkills" />
     </template>
     <template #text>
-      <AppCardText>{{ user.text | cutText }} </AppCardText>
+      <div>
+        {{ user.text | cutText }}
+      </div>
     </template>
   </AppCard>
 </template>
@@ -46,6 +45,10 @@ export default {
       const skills = []
       this.user.skills.forEach((skill) => skills.push(skill.name))
       return skills
+    },
+    username() {
+      const name = `${this.user.first_name ?? ''} ${this.user.last_name}`
+      return name
     },
   },
 }
