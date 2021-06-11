@@ -1,23 +1,26 @@
 <template>
-  <AppCard class="w-full" :to="{ name: 'mee-id', params: { id: user.id } }">
+  <AppCard
+    class="w-full"
+    :to="{ name: 'mee-id', params: { id: profile.user_id } }"
+  >
     <template #avatar>
-      <ProfileAvatar :user="user" />
+      <ProfileAvatar :profile="profile" />
     </template>
     <template #title>
       <AppCardTitle>
-        <span>{{ user.first_name }}</span>
-        <span>{{ user.last_name }}</span>
+        <span>{{ profile.first_name }}</span>
+        <span>{{ profile.last_name }}</span>
       </AppCardTitle>
     </template>
-    <template v-if="user.associations.length" #associations>
-      <AppCardAssociations :associations="user.associations" />
+    <template v-if="profile.associations.length" #associations>
+      <AppCardAssociations :associations="profile.associations" />
     </template>
-    <template v-if="user.skills.length" #chips>
+    <template v-if="profile.skills.length" #chips>
       <InsameeAppChips :texts="getSkills" />
     </template>
     <template #text>
       <div>
-        {{ user.text | cutText }}
+        {{ profile.text | cutText }}
       </div>
     </template>
   </AppCard>
@@ -35,7 +38,7 @@ export default {
     },
   },
   props: {
-    user: {
+    profile: {
       type: Object,
       required: true,
     },
@@ -43,11 +46,11 @@ export default {
   computed: {
     getSkills() {
       const skills = []
-      this.user.skills.forEach((skill) => skills.push(skill.name))
+      this.profile.skills.forEach((skill) => skills.push(skill.name))
       return skills
     },
     username() {
-      const name = `${this.user.first_name ?? ''} ${this.user.last_name}`
+      const name = `${this.profile.first_name ?? ''} ${this.profile.last_name}`
       return name
     },
   },

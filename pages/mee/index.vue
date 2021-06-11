@@ -18,7 +18,11 @@
       <PaginateData :meta="data.meta" @change="fetch" />
       <!-- TODO: faire un skeleton avec l'animation tailwind -->
       <section class="grid grid-cols-1 gap-4">
-        <UserCard v-for="user in data.data" :key="user.id" :user="user" />
+        <UserCard
+          v-for="profile in data.data"
+          :key="profile.user_id"
+          :profile="profile"
+        />
       </section>
     </div>
     <InsameeAppModal :value="filterDialog" @outside="filterDialog = false">
@@ -50,7 +54,7 @@ export default {
     }
   },
   async fetch() {
-    const path = '/api/v1/users'
+    const path = '/api/v1/profiles'
     const params = this.$store.getters['filters/getUsersSearchParams']
     const response = await this.$axios.get(`${path}?${params}`, {
       withCredentials: true,

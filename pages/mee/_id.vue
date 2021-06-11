@@ -1,7 +1,7 @@
 <template>
   <AppContainer>
-    <template v-if="user">
-      <UserProfile :user="user" />
+    <template v-if="profile">
+      <UserProfile :profile="profile" />
       <div class="my-4 flex flex-row justify-end sticky bottom-4">
         <InsameeAppButton large @click="dialog = true">
           Contacter
@@ -21,19 +21,19 @@
 export default {
   middleware: 'authenticated',
   async asyncData({ params, $axios }) {
-    const path = '/api/v1/users'
+    const path = '/api/v1/profiles'
     const { id } = params
-    let user
+    let profile
     try {
       const response = await $axios.get(`${path}/${id}`, {
         withCredentials: true,
       })
-      user = response.data
+      profile = response.data
     } catch (error) {
       console.error(error)
     }
     return {
-      user,
+      profile,
     }
   },
   data() {
@@ -44,10 +44,10 @@ export default {
   computed: {
     socials() {
       return {
-        facebook: this.user.url_facebook,
-        instagram: this.user.url_instagram,
-        twitter: this.user.url_twitter,
-        téléphone: this.user.mobile,
+        facebook: this.profile.url_facebook,
+        instagram: this.profile.url_instagram,
+        twitter: this.profile.url_twitter,
+        téléphone: this.profile.mobile,
       }
     },
   },
