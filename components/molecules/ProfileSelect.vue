@@ -1,9 +1,9 @@
 <template>
   <div class="flex flex-col items-center">
-    <IconSpinner
+    <InsameeIconSpinner
       v-if="$fetchState.pending"
       class="animate-spin text-primary-dark fill-current h-6 w-6 my-4"
-    ></IconSpinner>
+    ></InsameeIconSpinner>
     <AppMultiselect
       v-else
       :value="value"
