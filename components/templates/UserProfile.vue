@@ -22,13 +22,16 @@
         {{ profile.graduation_year | handleUndefined }}
       </InsameeLabeledItem>
     </div>
-    <InsameeLabeledItem v-if="profile.focus_interests" label="Centre d'intérêt">
+    <InsameeLabeledItem
+      v-if="profile.focusInterests.length"
+      label="Centre d'intérêt"
+    >
       <InsameeAppChips :texts="getTexts(profile.focus_interests)" />
     </InsameeLabeledItem>
-    <InsameeLabeledItem v-if="profile.skills" label="Compétences">
+    <InsameeLabeledItem v-if="profile.skills.length" label="Compétences">
       <InsameeAppChips :texts="getTexts(profile.skills)" />
     </InsameeLabeledItem>
-    <InsameeLabeledItem v-if="profile.associations" label="Associations">
+    <InsameeLabeledItem v-if="profile.associations.length" label="Associations">
       <AppAssociation
         v-for="association in profile.associations"
         :key="association.id"
