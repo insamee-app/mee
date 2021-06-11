@@ -1,36 +1,36 @@
 <template>
   <div class="space-y-4">
     <div class="flex flex-row">
-      <ProfileAvatar :user="user" />
+      <ProfileAvatar :profile="profile" />
       <div class="flex flex-col justify-between">
         <InsameeLabeledItem label="NOM">
-          {{ user.last_name | handleUndefined }}
+          {{ profile.last_name | handleUndefined }}
         </InsameeLabeledItem>
         <InsameeLabeledItem label="Prénom">
-          {{ user.first_name | handleUndefined }}
+          {{ profile.first_name | handleUndefined }}
         </InsameeLabeledItem>
       </div>
     </div>
     <InsameeLabeledItem label="Adresse électronique">
-      {{ user.email | handleUndefined }}
+      {{ profile.user.email | handleUndefined }}
     </InsameeLabeledItem>
     <div class="flex flex-row space">
       <InsameeLabeledItem class="flex-1" label="Ecole">
         {{ getSchoolName | handleUndefined }}
       </InsameeLabeledItem>
       <InsameeLabeledItem class="flex-1" label="Année de diplomation">
-        {{ user.graduation_year | handleUndefined }}
+        {{ profile.graduation_year | handleUndefined }}
       </InsameeLabeledItem>
     </div>
-    <InsameeLabeledItem v-if="user.focus_interests" label="Centre d'intérêt">
-      <InsameeAppChips :texts="getTexts(user.focus_interests)" />
+    <InsameeLabeledItem v-if="profile.focus_interests" label="Centre d'intérêt">
+      <InsameeAppChips :texts="getTexts(profile.focus_interests)" />
     </InsameeLabeledItem>
-    <InsameeLabeledItem v-if="user.skills" label="Compétences">
-      <InsameeAppChips :texts="getTexts(user.skills)" />
+    <InsameeLabeledItem v-if="profile.skills" label="Compétences">
+      <InsameeAppChips :texts="getTexts(profile.skills)" />
     </InsameeLabeledItem>
-    <InsameeLabeledItem v-if="user.associations" label="Associations">
+    <InsameeLabeledItem v-if="profile.associations" label="Associations">
       <AppAssociation
-        v-for="association in user.associations"
+        v-for="association in profile.associations"
         :key="association.id"
         class="mb-2"
         :uuid="association.image_id"
@@ -39,28 +39,28 @@
       </AppAssociation>
     </InsameeLabeledItem>
     <InsameeLabeledItem class="text-justify" label="Description">
-      {{ user.text | handleUndefined }}
+      {{ profile.text | handleUndefined }}
     </InsameeLabeledItem>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'UserProfil',
+  name: 'UserProfile',
   filters: {
     handleUndefined(value) {
       return value || 'Non renseigné'
     },
   },
   props: {
-    user: {
+    profile: {
       type: Object,
       required: true,
     },
   },
   computed: {
     getSchoolName() {
-      return this.user.school?.name ?? undefined
+      return this.profile.school?.name ?? undefined
     },
   },
   methods: {

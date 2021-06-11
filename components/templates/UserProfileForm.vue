@@ -3,7 +3,7 @@
     <template #header>Modifier mon profil</template>
     <form action="#" class="grid gap-4 grid-cols-1" @submit.prevent="sendUser">
       <InsameeLabeledInput
-        v-model="$v.fieldsUser.lastName.$model"
+        v-model="$v.fieldsProfile.lastName.$model"
         :error-message="lastNameMessage"
         type="text"
         name="lastName"
@@ -11,7 +11,7 @@
         label="Nom"
       />
       <InsameeLabeledInput
-        v-model="$v.fieldsUser.firstName.$model"
+        v-model="$v.fieldsProfile.firstName.$model"
         :error-message="firstNameMessage"
         type="text"
         name="firstName"
@@ -19,14 +19,14 @@
         label="Prénom"
       />
       <AppSelect
-        v-model="$v.fieldsUser.currentRole.$model"
+        v-model="$v.fieldsProfile.currentRole.$model"
         name="currentRole"
         :items="currentRoles"
         label="Rôles"
         choose-text
       />
       <InsameeLabeledInput
-        v-model.number="$v.fieldsUser.graduationYear.$model"
+        v-model.number="$v.fieldsProfile.graduationYear.$model"
         :error-message="graduationYearMessage"
         type="number"
         name="year"
@@ -35,54 +35,53 @@
       />
       <div>
         <InsameeAppLabel name="focusInterests" label="Centre d'intérêt" input />
-
         <ProfileSelect
-          v-model="fieldsUser.focusInterests"
+          v-model="fieldsProfile.focusInterests"
           ressource="focus_interests"
         />
       </div>
       <div>
         <InsameeAppLabel name="skills" label="Comptétences" input />
-        <ProfileSelect v-model="fieldsUser.skills" ressource="skills" />
+        <ProfileSelect v-model="fieldsProfile.skills" ressource="skills" />
       </div>
       <div>
         <InsameeAppLabel name="associations" label="Associations" input />
         <ProfileSelect
-          v-model="fieldsUser.associations"
+          v-model="fieldsProfile.associations"
           ressource="associations"
           :format="formatAssociations"
         />
       </div>
       <InsameeLabeledTextarea
-        v-model="$v.fieldsUser.text.$model"
+        v-model="$v.fieldsProfile.text.$model"
         name="presentation"
         placeholder="Présentation"
         :error-message="textMessage"
         label="Votre présentation"
       />
       <InsameeLabeledInput
-        v-model="$v.fieldsUser.urlFacebook.$model"
+        v-model="$v.fieldsProfile.urlFacebook.$model"
         :error-message="facebookMessage"
         type="url"
         name="facebook"
         label="Profil facebook"
       />
       <InsameeLabeledInput
-        v-model="$v.fieldsUser.urlInstagram.$model"
+        v-model="$v.fieldsProfile.urlInstagram.$model"
         :error-message="facebookMessage"
         type="url"
         name="instagram"
         label="Profil instagram"
       />
       <InsameeLabeledInput
-        v-model="$v.fieldsUser.urlTwitter.$model"
+        v-model="$v.fieldsProfile.urlTwitter.$model"
         :error-message="facebookMessage"
         type="url"
         name="twitter"
         label="Profil twitter"
       />
       <InsameeLabeledInput
-        v-model="$v.fieldsUser.mobile.$model"
+        v-model="$v.fieldsProfile.mobile.$model"
         :error-message="mobileMessage"
         type="phone"
         name="mobile"
@@ -124,7 +123,7 @@ export default {
     return {
       errors: [],
       loading: false,
-      fieldsUser: {
+      fieldsProfile: {
         lastName: '',
         firstName: '',
         currentRole: '',
@@ -141,7 +140,7 @@ export default {
     }
   },
   validations: {
-    fieldsUser: {
+    fieldsProfile: {
       lastName: {
         maxLength: maxLength(30),
       },
@@ -173,85 +172,89 @@ export default {
   },
   computed: {
     ...mapState({ currentRoles: (state) => state.data.currentRoles }),
-    transformedUser() {
-      const user = {}
-      Object.assign(user, this.fieldsUser)
+    transformedProfile() {
+      const profile = {}
+      Object.assign(profile, this.fieldsProfile)
 
-      user.focusInterests = user.focusInterests.map((value) => value.id)
-      user.skills = user.skills.map((value) => value.id)
-      user.associations = user.associations.map((value) => value.id)
+      profile.focusInterests = profile.focusInterests.map((value) => value.id)
+      profile.skills = profile.skills.map((value) => value.id)
+      profile.associations = profile.associations.map((value) => value.id)
 
-      return user
+      return profile
     },
     lastNameMessage() {
-      if (!this.$v.fieldsUser.lastName.$dirty) return ''
+      if (!this.$v.fieldsProfile.lastName.$dirty) return ''
 
-      if (!this.$v.fieldsUser.lastName.maxLength) return 'Ce nom est trop long'
+      if (!this.$v.fieldsProfile.lastName.maxLength)
+        return 'Ce nom est trop long'
 
       return ''
     },
     firstNameMessage() {
-      if (!this.$v.fieldsUser.firstName.$dirty) return ''
+      if (!this.$v.fieldsProfile.firstName.$dirty) return ''
 
-      if (!this.$v.fieldsUser.lastName.maxLength)
+      if (!this.$v.fieldsProfile.lastName.maxLength)
         return 'Ce prénom est trop long'
 
       return ''
     },
     graduationYearMessage() {
-      if (!this.$v.fieldsUser.graduationYear.$dirty) return ''
+      if (!this.$v.fieldsProfile.graduationYear.$dirty) return ''
 
-      if (!this.$v.fieldsUser.graduationYear.between)
+      if (!this.$v.fieldsProfile.graduationYear.between)
         return "Cette année de diplomation n'est pas valide"
 
       return ''
     },
     textMessage() {
-      if (!this.$v.fieldsUser.text.$dirty) return ''
+      if (!this.$v.fieldsProfile.text.$dirty) return ''
 
-      if (!this.$v.fieldsUser.text.maxLength)
+      if (!this.$v.fieldsProfile.text.maxLength)
         return 'Votre présentation est trop longue'
 
       return ''
     },
     facebookMessage() {
-      if (!this.$v.fieldsUser.urlFacebook.$dirty) return ''
+      if (!this.$v.fieldsProfile.urlFacebook.$dirty) return ''
 
-      if (!this.$v.fieldsUser.urlFacebook.url)
+      if (!this.$v.fieldsProfile.urlFacebook.url)
         return "Vous devez saisir l'url de votre profil"
 
       return ''
     },
     instagramMessage() {
-      if (!this.$v.fieldsUser.urlInstagram.$dirty) return ''
+      if (!this.$v.fieldsProfile.urlInstagram.$dirty) return ''
 
-      if (!this.$v.fieldsUser.urlInstagram.url)
+      if (!this.$v.fieldsProfile.urlInstagram.url)
         return "Vous devez saisir l'url de votre profil"
 
       return ''
     },
     twitterMessage() {
-      if (!this.$v.fieldsUser.urlTwitter.$dirty) return ''
+      if (!this.$v.fieldsProfile.urlTwitter.$dirty) return ''
 
-      if (!this.$v.fieldsUser.urlTwitter.url)
+      if (!this.$v.fieldsProfile.urlTwitter.url)
         return "Vous devez saisir l'url de votre profil"
 
       return ''
     },
     mobileMessage() {
-      if (!this.$v.fieldsUser.mobile.$dirty) return ''
+      if (!this.$v.fieldsProfile.mobile.$dirty) return ''
 
-      if (!this.$v.fieldsUser.mobile.numeric)
+      if (!this.$v.fieldsProfile.mobile.numeric)
         return 'Votre numéro doit contenir des chiffres'
 
-      if (!this.$v.fieldsUser.mobile.maxLength)
+      if (!this.$v.fieldsProfile.mobile.maxLength)
         return 'Votre numéro est trop long'
 
       return ''
     },
   },
   mounted() {
-    Object.assign(this.fieldsUser, this.$store.getters['auth/toUpdateUser'])
+    Object.assign(
+      this.fieldsProfile,
+      this.$store.getters['auth/toUpdateProfile']
+    )
   },
   methods: {
     formatAssociations({ name, school }) {
@@ -261,13 +264,13 @@ export default {
       this.loading = true
       try {
         const response = await this.$axios.patch(
-          `/api/v1/users/${this.userId}`,
-          { ...this.transformedUser },
+          `/api/v1/profiles/${this.userId}`,
+          { ...this.transformedProfile },
           {
             withCredentials: true,
           }
         )
-        this.$store.commit('auth/setUser', response.data)
+        this.$store.commit('auth/setProfile', response.data)
         this.loading = false
         this.$emit('close')
       } catch (error) {

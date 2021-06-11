@@ -12,16 +12,17 @@
       "
     >
       <ImgFetch
-        :name="user.avatar_id"
-        :alt="`avatar de ${user.first_name} ${user.last_name}`"
+        class="w-full"
+        :name="profile.user.avatar_id"
+        :alt="`avatar de ${profile.first_name} ${profile.last_name}`"
       ></ImgFetch>
     </div>
     <div
-      v-if="user.current_role"
+      v-if="profile.current_role"
       class="absolute -right-4 bottom-0 flex flex-row"
     >
       <InsameeAppChip class="border-white border-2">
-        {{ user.current_role }}
+        {{ profile.current_role }}
       </InsameeAppChip>
     </div>
   </div>
@@ -31,7 +32,7 @@
 export default {
   name: 'AppCardAvatar',
   props: {
-    user: {
+    profile: {
       type: Object,
       default: () => {},
     },

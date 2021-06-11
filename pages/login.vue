@@ -92,7 +92,7 @@ export default {
     async login() {
       this.loading = true
       try {
-        const { data: user } = await this.$axios.post(
+        await this.$axios.post(
           '/auth/login',
           {
             email: this.email,
@@ -101,9 +101,12 @@ export default {
           },
           { withCredentials: true }
         )
+        const { data: profile } = await this.$axios.get('/api/v1/profiles/me', {
+          withCredentials: true,
+        })
         this.errors = []
         this.loading = false
-        this['auth/login'](user)
+        this['auth/login'](profile)
         this.$router.push({ name: 'mee' })
       } catch (error) {
         if (error.response) {

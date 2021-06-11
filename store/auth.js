@@ -1,51 +1,51 @@
 export const state = () => ({
-  user: undefined,
+  profile: undefined,
 })
 
 export const mutations = {
-  setUser(state, user) {
-    if (!user) state.user = undefined
+  setProfile(state, profile) {
+    if (!profile) state.profile = undefined
     else {
-      state.user = user
+      state.profile = profile
     }
   },
 }
 
 export const actions = {
-  login({ commit }, user) {
-    commit('setUser', user)
+  login({ commit }, profile) {
+    commit('setProfile', profile)
   },
   logout({ commit }) {
-    commit('setUser', undefined)
+    commit('setProfile', undefined)
   },
 }
 
 export const getters = {
-  loggedIn({ user }) {
-    return !!user
+  loggedIn({ profile }) {
+    return !!profile
   },
-  socialNetworks({ user }) {
+  socialNetworks({ profile }) {
     return {
-      facebook: user.url_facebook,
-      instagram: user.url_instagram,
-      twitter: user.url_twitter,
-      téléphone: user.mobile,
+      facebook: profile.url_facebook,
+      instagram: profile.url_instagram,
+      twitter: profile.url_twitter,
+      téléphone: profile.mobile,
     }
   },
-  toUpdateUser({ user }) {
+  toUpdateProfile({ profile }) {
     return {
-      last_name: user.last_name ?? '',
-      first_name: user.first_name ?? '',
-      current_role: user.current_role ?? '',
-      text: user.text ?? '',
-      mobile: user.mobile ?? '',
-      skills: user.skills,
-      focus_interests: user.focus_interests,
-      associations: user.associations,
-      graduation_year: user.graduation_year ?? '',
-      url_facebook: user.url_facebook ?? '',
-      url_instagram: user.url_instagram ?? '',
-      url_twitter: user.url_twitter ?? '',
+      last_name: profile.last_name ?? '',
+      first_name: profile.first_name ?? '',
+      current_role: profile.current_role ?? '',
+      text: profile.text ?? '',
+      mobile: profile.mobile ?? '',
+      skills: profile.skills,
+      focus_interests: profile.focus_interests,
+      associations: profile.associations,
+      graduation_year: profile.graduation_year ?? '',
+      url_facebook: profile.url_facebook ?? '',
+      url_instagram: profile.url_instagram ?? '',
+      url_twitter: profile.url_twitter ?? '',
     }
   },
 }

@@ -1,7 +1,7 @@
 <template>
   <AppContainer class="mb-4">
     <h1 class="text-xl font-bold">Mon Profil</h1>
-    <UserProfile :user="user" class="mt-2" />
+    <UserProfile :profile="profile" class="mt-2" />
     <section class="mt-4">
       <span class="text-grey-base font-light">Me Contacter</span>
       <AppContact :links="socials" />
@@ -10,7 +10,7 @@
       <InsameeAppButton large border @click="editAvatar = true">
         Changer la photo
       </InsameeAppButton>
-      <InsameeAppButton large @click="editUser = true">
+      <InsameeAppButton large @click="editProfile = true">
         Editer le profil
       </InsameeAppButton>
     </section>
@@ -31,12 +31,18 @@
         <InsameeAppListError :errors="errors" class="mt-2" />
       </div>
     </section>
-    <InsameeAppModal v-model="editUser"
-      ><UserProfileForm :user-id="user.id" @close="editUser = false"
-    /></InsameeAppModal>
-    <InsameeAppModal :value="editAvatar" @outside="editAvatar = false"
-      ><UserProfilePictureForm :user-id="user.id" @close="editAvatar = false"
-    /></InsameeAppModal>
+    <InsameeAppModal v-model="editProfile">
+      <UserProfileForm
+        :user-id="profile.user_id"
+        @close="editProfile = false"
+      />
+    </InsameeAppModal>
+    <InsameeAppModal :value="editAvatar" @outside="editAvatar = false">
+      <UserProfilePictureForm
+        :user-id="profile.user_id"
+        @close="editAvatar = false"
+      />
+    </InsameeAppModal>
     <InsameeAppModal
       :value="resetPasswordInfo"
       @outside="resetPasswordInfo = false"
@@ -59,13 +65,13 @@ export default {
     return {
       loadingResetPassword: false,
       errors: [],
-      editUser: false,
+      editProfile: false,
       editAvatar: false,
       resetPasswordInfo: false,
     }
   },
   computed: {
-    ...mapState({ user: (state) => state.auth.user }),
+    ...mapState({ profile: (state) => state.auth.profile }),
     ...mapGetters({ socials: 'auth/socialNetworks' }),
   },
   methods: {
@@ -74,7 +80,7 @@ export default {
       try {
         await this.$axios.post(
           '/auth/send/resetPassword',
-          { email: this.user.email },
+          { email: this.profile.user.email },
           { withCredentials: true }
         )
         this.resetPasswordInfo = true
@@ -89,7 +95,7 @@ export default {
 
       if (confirmed) {
         try {
-          await this.$axios.delete(`/api/v1/users/${this.user.id}`, {
+          await this.$axios.delete(`/api/v1/users/${this.profile.user_id}`, {
             withCredentials: true,
           })
           this.$store.dispatch('auth/logout')
