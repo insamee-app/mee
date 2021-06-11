@@ -9,6 +9,9 @@ export const mutations = {
       state.profile = profile
     }
   },
+  setUser(state, user) {
+    state.profile.user = user
+  },
 }
 
 export const actions = {

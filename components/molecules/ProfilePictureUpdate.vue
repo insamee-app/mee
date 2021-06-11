@@ -1,5 +1,5 @@
 <template>
-  <AppLabel :for="name" class="cursor-pointer" :name="name"
+  <InsameeAppLabel :for="name" class="cursor-pointer" :name="name"
     ><slot></slot>
     <input
       :id="name"
@@ -11,12 +11,20 @@
     <div v-if="src" class="flex flex-col justify-center items-center mt-4">
       <div>Prévisualisation</div>
       <div
-        class="w-32 h-32 overflow-hidden rounded-full flex flex-row justify-center items-center"
+        class="
+          w-32
+          h-32
+          overflow-hidden
+          rounded-full
+          flex flex-row
+          justify-center
+          items-center
+        "
       >
         <img :src="src" alt="preview de l'image" />
       </div>
     </div>
-  </AppLabel>
+  </InsameeAppLabel>
 </template>
 
 <script>
