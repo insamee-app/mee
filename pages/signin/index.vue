@@ -36,7 +36,7 @@
         type="submit"
         >S'inscrire</InsameeAppButton
       >
-      <AppError :errors="errors" />
+      <InsameeAppListError :errors="errors" />
     </form>
     <InsameeAppFrame class="w-full mt-8">
       <span
