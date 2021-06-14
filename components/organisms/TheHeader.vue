@@ -16,8 +16,6 @@
 <script>
 import { mapGetters } from 'vuex'
 
-console.log('the header')
-
 export default {
   name: 'TheHeader',
   data() {
