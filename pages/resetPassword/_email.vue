@@ -33,7 +33,7 @@
         type="submit"
         >Modifier son mot de passe</InsameeAppButton
       >
-      <AppError :errors="errors" />
+      <InsameeAppListError :errors="errors" />
     </form>
   </section>
 </template>
