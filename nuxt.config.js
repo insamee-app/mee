@@ -55,6 +55,8 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
+    // https://www.npmjs.com/package/vue-screen
+    'vue-screen/nuxt',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
