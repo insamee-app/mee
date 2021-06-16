@@ -1,20 +1,26 @@
-# web
+# Components
 
-## Build Setup
+This lib a set of components design for the app from **insamee**.
+
+## Tech Stack
+
+**Client:** Nuxtjs, Nuxt/Components, TailwindCSS
+
+## Installation
+
+This project uses `yarn`.
 
 ```bash
-# install dependencies
-$ yarn install
+    # install dependencies
+    yarn
 
-# serve with hot reload at localhost:3000
-$ yarn dev
+    # dev server
+    yarn dev
 
-# build for production and launch server
-$ yarn build
-$ yarn start
-
-# generate static project
-$ yarn generate
+    # lint files
+    yarn lint
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+## Authors
+
+- [@barbapapazes](https://www.github.com/barbapapazes)
