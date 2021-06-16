@@ -37,18 +37,18 @@ export const getters = {
   },
   toUpdateProfile({ profile }) {
     return {
-      last_name: profile.last_name ?? '',
-      first_name: profile.first_name ?? '',
-      current_role: profile.current_role ?? '',
+      lastName: profile.last_name ?? '',
+      firstName: profile.first_name ?? '',
+      currentRole: profile.current_role ?? '',
       text: profile.text ?? '',
       mobile: profile.mobile ?? '',
       skills: profile.skills,
-      focus_interests: profile.focus_interests,
+      focusInterests: profile.focusInterests,
       associations: profile.associations,
-      graduation_year: profile.graduation_year ?? '',
-      url_facebook: profile.url_facebook ?? '',
-      url_instagram: profile.url_instagram ?? '',
-      url_twitter: profile.url_twitter ?? '',
+      graduationYear: profile.graduation_year ?? '',
+      urlFacebook: profile.url_facebook ?? '',
+      urlInstagram: profile.url_instagram ?? '',
+      urlTwitter: profile.url_twitter ?? '',
     }
   },
 }
