@@ -2,15 +2,15 @@
   <InsameeNavMobile :list="nav" :value="value" @close="close">
     <template #actions>
       <template v-if="loggedIn()">
-        <InsameeAppButton @click="logout">Se déconnecter</InsameeAppButton>
+        <InsameeAppButton @click="logout"> Se déconnecter </InsameeAppButton>
       </template>
       <template v-else>
-        <InsameeAppButton class="mr-6" :to="{ name: 'login' }"
-          >Se connecter</InsameeAppButton
-        >
-        <InsameeAppButton border :to="{ name: 'signin' }"
-          >S'inscrire</InsameeAppButton
-        >
+        <InsameeAppButton class="mr-6" :to="{ name: 'login' }">
+          Se connecter
+        </InsameeAppButton>
+        <InsameeAppButton border :to="{ name: 'signin' }">
+          S'inscrire
+        </InsameeAppButton>
       </template>
     </template>
   </InsameeNavMobile>
@@ -26,25 +26,9 @@ export default {
       type: Boolean,
       required: true,
     },
-  },
-  computed: {
-    nav() {
-      const nav = [
-        {
-          name: 'Trouver des Mee',
-          path: 'mee',
-        },
-        {
-          name: 'Contact',
-          path: 'contact',
-        },
-      ]
-      nav.unshift(
-        this.loggedIn()
-          ? { name: 'Mon profil', path: 'me' }
-          : { name: 'Acceuil', path: 'index' }
-      )
-      return nav
+    nav: {
+      type: Array,
+      required: true,
     },
   },
   methods: {

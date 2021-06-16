@@ -1,7 +1,7 @@
 <template>
-  <AppContainer>
+  <AppContainer class="max-w-4xl mx-auto">
     <template v-if="profile">
-      <UserProfile :profile="profile" />
+      <UserProfile :profile="profile" class="mt-4" />
       <div class="my-4 flex flex-row justify-end sticky bottom-4">
         <InsameeAppButton large @click="dialog = true">
           Contacter

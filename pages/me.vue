@@ -1,6 +1,6 @@
 <template>
-  <AppContainer class="mb-4">
-    <h1 class="text-xl font-bold">Mon Profil</h1>
+  <AppContainer class="max-w-4xl mx-auto">
+    <h1 class="text-xl font-bold mt-4">Mon Profil</h1>
     <UserProfile :profile="profile" class="mt-2" />
     <section class="mt-4">
       <span class="text-grey-base font-light">Me Contacter</span>
@@ -31,7 +31,7 @@
         <InsameeAppListError :errors="errors" class="mt-2" />
       </div>
     </section>
-    <InsameeAppModal v-model="editProfile">
+    <InsameeAppModal v-model="editProfile" @outside="editProfile = false">
       <UserProfileForm
         :user-id="profile.user_id"
         @close="editProfile = false"

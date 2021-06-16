@@ -1,6 +1,6 @@
 <template>
   <AppContainer class="h-screen">
-    <div class="h-full text-center text-lg flex flex-col justify-center">
+    <div class="h-full text-center text-lg flex flex-col mt-6">
       <div class="mb-8">
         <div class="grid gap-2 mb-8">
           <div>Besoin <span class="font-bold">d'aide</span> ?</div>

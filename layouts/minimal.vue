@@ -3,6 +3,6 @@
     <NuxtLink :to="{ name: 'index' }">
       <InsameeIconInsamee class="w-40 mx-auto" />
     </NuxtLink>
-    <Nuxt />
+    <Nuxt class="max-w-xs mx-auto" />
   </main>
 </template>

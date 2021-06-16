@@ -2,7 +2,14 @@
   <AppContainer class="mb-4">
     <NuxtContent
       :document="content"
-      class="prose prose-sm sm:prose lg:prose-lg xl:prose-xl"
+      class="
+        prose prose-sm
+        sm:prose
+        lg:prose-lg
+        xl:prose-xl
+        mx-auto
+        text-justify
+      "
     />
   </AppContainer>
 </template>
