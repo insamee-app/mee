@@ -1,6 +1,6 @@
-# Components
+# Insamee
 
-This lib a set of components design for the app from **insamee**.
+This repo is the the major plateforme of insamee-app.
 
 ## Tech Stack
 

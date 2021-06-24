@@ -1,11 +1,20 @@
 <template>
-  <AppContainer class="max-w-4xl mx-auto">
+  <InsameeAppContainer class="max-w-4xl mx-auto">
     <h1 class="text-xl font-bold mt-4">Mon Profil</h1>
-    <UserProfile :profile="profile" class="mt-2" />
-    <section class="mt-4">
-      <span class="text-grey-base font-light">Me Contacter</span>
-      <AppContact :links="socials" />
-    </section>
+    <InsameeProfile
+      :last-name="profile.last_name"
+      :first-name="profile.first_name"
+      :email="profile.user.email"
+      :school-name="profile.school.name"
+      :graduation-year="profile.graduation_year"
+      :current-role="profile.current_role"
+      :avatar-url="profile.avatarUrl"
+      :skills="getTexts(profile.insameeProfile.skills)"
+      :focus-interests="getTexts(profile.insameeProfile.focusInterests)"
+      :associations="profile.insameeProfile.associations"
+    >
+      <InsameeProfileContact :links="socials" />
+    </InsameeProfile>
     <section class="flex flex-row justify-between sticky bottom-4 mt-8">
       <InsameeAppButton large border @click="editAvatar = true">
         Changer la photo
@@ -31,35 +40,57 @@
         <InsameeAppListError :errors="errors" class="mt-2" />
       </div>
     </section>
-    <InsameeAppModal v-model="editProfile" @outside="editProfile = false">
+    <InsameeAppModal
+      v-slot="{ size }"
+      v-model="editProfile"
+      @outside="editProfile = false"
+    >
       <UserProfileForm
+        :class="size"
         :user-id="profile.user_id"
         @close="editProfile = false"
       />
     </InsameeAppModal>
-    <InsameeAppModal :value="editAvatar" @outside="editAvatar = false">
+    <InsameeAppModal
+      v-slot="{ size }"
+      :value="editAvatar"
+      @outside="editAvatar = false"
+    >
       <UserProfilePictureForm
+        :class="size"
         :user-id="profile.user_id"
         @close="editAvatar = false"
       />
     </InsameeAppModal>
     <InsameeAppModal
+      v-slot="{ size }"
       :value="resetPasswordInfo"
       @outside="resetPasswordInfo = false"
     >
-      <InsameeAppCard closable justify @close="resetPasswordInfo = false">
-        <template #header>Information</template>
-        Un courriel vous a été envoyé afin de vous permettre de modifier votre
-        mot de passe.
+      <InsameeAppCard :class="size" justify>
+        <template #header>
+          <InsameeAppCardHeader closable @close="resetPasswordInfo = false">
+            <InsameeAppCardTitle> Information</InsameeAppCardTitle>
+          </InsameeAppCardHeader>
+        </template>
+        <div>
+          Un courriel vous a été envoyé afin de vous permettre de modifier votre
+          mot de passe.
+        </div>
       </InsameeAppCard>
     </InsameeAppModal>
-  </AppContainer>
+  </InsameeAppContainer>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex'
 
 export default {
+  filters: {
+    handleUndefined(value) {
+      return value || 'Non renseigné'
+    },
+  },
   middleware: ['authenticated'],
   data() {
     return {
@@ -75,6 +106,15 @@ export default {
     ...mapGetters({ socials: 'auth/socialNetworks' }),
   },
   methods: {
+    getTexts(tab) {
+      if (!tab || tab.length === 0) return []
+
+      const data = []
+      for (const item of tab) {
+        data.push(item.name)
+      }
+      return data
+    },
     async resetPassword() {
       this.loadingResetPassword = true
       try {

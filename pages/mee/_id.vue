@@ -1,20 +1,18 @@
 <template>
-  <AppContainer class="max-w-4xl mx-auto">
-    <template v-if="profile">
-      <UserProfile :profile="profile" class="mt-4" />
-      <div class="my-4 flex flex-row justify-end sticky bottom-4">
-        <InsameeAppButton large @click="dialog = true">
-          Contacter
-        </InsameeAppButton>
-      </div>
-      <InsameeAppModal :value="dialog" @outside="dialog = false">
-        <InsameeAppCard closable @close="dialog = false">
-          <template #header> Contacter </template>
-          <AppContact :links="socials" />
-        </InsameeAppCard>
-      </InsameeAppModal>
-    </template>
-  </AppContainer>
+  <InsameeMeeInsameeProfile
+    :last-name="profile.last_name"
+    :first-name="profile.first_name"
+    :email="profile.user.email"
+    :school-name="profile.school.name"
+    :graduation-year="profile.graduation_year"
+    :current-role="profile.current_role"
+    :avatar-url="profile.avatarUrl"
+    :text="profile.insameeProfile.text"
+    :skills="getTexts(profile.insameeProfile.skills)"
+    :focus-interests="getTexts(profile.insameeProfile.focusInterests)"
+    :associations="profile.insameeProfile.associations"
+    :socials="socials"
+  />
 </template>
 
 <script>
@@ -25,7 +23,7 @@ export default {
     const { id } = params
     let profile
     try {
-      const response = await $axios.get(`${path}/${id}`, {
+      const response = await $axios.get(`${path}/${id}?populate=insamee`, {
         withCredentials: true,
       })
       profile = response.data
@@ -49,6 +47,17 @@ export default {
         twitter: this.profile.url_twitter,
         téléphone: this.profile.mobile,
       }
+    },
+  },
+  methods: {
+    getTexts(tab) {
+      if (!tab || tab.length === 0) return []
+
+      const data = []
+      for (const item of tab) {
+        data.push(item.name)
+      }
+      return data
     },
   },
 }

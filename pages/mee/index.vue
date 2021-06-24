@@ -1,92 +1,83 @@
 <template>
-  <AppContainer class="grid grid-cols-1 lg:grid-cols-3 gap-2 lg:gap-8">
-    <div class="lg:row-span-2">
-      <div
-        class="
-          space-y-4
-          flex flex-row
-          items-center
-          lg:flex-col
-          lg:items-start
-          lg:sticky
-          lg:top-4
-        "
-      >
-        <!-- TODO: Il faut faire un labeled select -->
-        <InsameeAppCard class="w-full">
-          <div class="flex flex-row justify-between">
-            <div class="flex">
-              <span>item par page</span>
-              <AppSelect
-                v-model="itemPerPage"
-                :items="itemsPerPage"
-                name="itemsPerPage"
-              />
-            </div>
-            <client-only>
-              <InsameeAppButton v-if="mdAndDown" @click="filterDialog = true">
-                Filtrer
-              </InsameeAppButton>
-            </client-only>
+  <InsameeResponsiveList>
+    <template #filter>
+      <InsameeAppCard class="w-full">
+        <div class="flex flex-row justify-between">
+          <div class="flex">
+            <span>item par page</span>
+            <AppSelect
+              v-model="itemPerPage"
+              :items="itemsPerPage"
+              name="itemsPerPage"
+            />
           </div>
-        </InsameeAppCard>
-        <client-only>
-          <InsameeAppCard v-if="lgAndUp" class="w-full">
-            <template #header>Filtres</template>
-            <!-- TODO: il ne remet pas à la page 1 -->
-            <FiltersUsers />
-            <template #actions>
-              <div class="flex flex-row justify-end">
-                <InsameeAppButton @click="validDialog"
-                  >Valider</InsameeAppButton
-                >
-              </div>
-            </template>
-          </InsameeAppCard>
-        </client-only>
-      </div>
-    </div>
-    <div v-if="$fetchState.pending">loading...</div>
-    <div v-else-if="$fetchState.error">
-      <pre>{{ $fetchState.error }}</pre>
-    </div>
-    <div v-else class="col-span-2">
-      <!-- TODO: faire un skeleton avec l'animation tailwind -->
-      <section class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <UserCard
-          v-for="profile in data.data"
-          :key="profile.user_id"
-          :profile="profile"
+          <InsameeAppButton
+            v-if="mdAndDown"
+            variant="secondary"
+            @click="filterDialog = true"
+          >
+            Filtrer
+          </InsameeAppButton>
+        </div>
+      </InsameeAppCard>
+      <InsameeAppCard v-if="lgAndUp" class="w-full">
+        <InsameeAppCardTitle>Filtres</InsameeAppCardTitle>
+        <FiltersUsers />
+        <template #actions>
+          <div class="flex flex-row justify-end">
+            <InsameeAppButton @click="validDialog">Valider</InsameeAppButton>
+          </div>
+        </template>
+      </InsameeAppCard>
+    </template>
+    <template #cards>
+      <InsameeResponsiveListCards>
+        <InsameeProfileCard
+          v-for="profile in data"
+          :key="profile.id"
+          :user-id="profile.user_id"
+          :last-name="profile.last_name"
+          :first-name="profile.first_name"
+          :current-role="profile.current_role"
+          :skills="getTexts(profile.insameeProfile.skills)"
+          :associations="profile.insameeProfile.associations"
+          :text="profile.insameeProfile.text"
+          :link="profile.avatarUrl"
         />
-      </section>
-      <PaginateData
-        :meta="data.meta"
-        class="max-w-lg mx-auto mt-6"
-        @change="fetch"
-      />
-    </div>
-    <client-only>
-      <div>
-        <InsameeAppModal
-          v-if="mdAndDown"
-          :value="filterDialog"
-          @outside="filterDialog = false"
-        >
-          <InsameeAppCard closable @close="filterDialog = false">
-            <template #header>Filtres</template>
-            <FiltersUsers />
-            <template #actions>
-              <div class="flex flex-row justify-end">
-                <InsameeAppButton @click="validDialog"
-                  >Valider</InsameeAppButton
-                >
-              </div>
-            </template>
-          </InsameeAppCard>
-        </InsameeAppModal>
-      </div>
-    </client-only>
-  </AppContainer>
+        <template #pagination>
+          <InsameeResponsiveListPagination>
+            <InsameePagination
+              v-if="meta"
+              :small="!$screen.md"
+              :previous-page="getPage(meta.previous_page_url)"
+              :next-page="getPage(meta.next_page_url)"
+              :first-page="meta.first_page"
+              :current-page="meta.current_page"
+              :last-page="meta.last_page"
+              @pagination="fetch"
+            />
+          </InsameeResponsiveListPagination>
+        </template>
+      </InsameeResponsiveListCards>
+    </template>
+    <template #modal>
+      <InsameeAppModal
+        v-if="mdAndDown"
+        :value="filterDialog"
+        @outside="filterDialog = false"
+      >
+        <InsameeAppCard closable @close="filterDialog = false">
+          <template #header>Filtres</template>
+          <FiltersUsers />
+          <template #actions>
+            <div class="flex flex-row justify-end">
+              <InsameeAppButton @click="validDialog">Valider</InsameeAppButton>
+            </div>
+          </template>
+        </InsameeAppCard>
+      </InsameeAppModal>
+    </template>
+  </InsameeResponsiveList>
 </template>
 
 <script>
@@ -106,11 +97,14 @@ export default {
   async fetch() {
     const path = '/api/v1/profiles'
     const params = this.$store.getters['filters/getUsersSearchParams']
-    const response = await this.$axios.get(`${path}?${params}`, {
-      withCredentials: true,
-    })
-
-    this.data = response.data
+    const response = await this.$axios.get(
+      `${path}?${params}&populate=insamee`,
+      {
+        withCredentials: true,
+      }
+    )
+    this.data = response.data.data
+    this.meta = response.data.meta
   },
   computed: {
     // Exporter les fonctions dans une mixins et faire la propostion dans l'issue
@@ -148,6 +142,21 @@ export default {
   },
   fetchOnServer: false,
   methods: {
+    getPage(value) {
+      if (!value) return
+      const getNumber = /(?<number>\d+)/i
+      const { groups } = getNumber.exec(value)
+      return Number(groups.number)
+    },
+    getTexts(tab) {
+      if (!tab || tab.length === 0) return []
+
+      const data = []
+      for (const item of tab) {
+        data.push(item.name)
+      }
+      return data
+    },
     validDialog() {
       const query = this.$store.getters['filters/getUsersSearchParams']
       this.$router.push({
@@ -163,7 +172,8 @@ export default {
         })
       }
     },
-    fetch() {
+    fetch(value) {
+      this.$store.commit('filters/setUsersFilter', { name: 'page', value })
       this.$fetch()
       const query = this.$store.getters['filters/getUsersSearchParams']
       this.$router.push({

@@ -1,9 +1,9 @@
 <template>
   <section>
     <h1 class="text-2xl text-center">Votre compte a été vérifié avec succès</h1>
-    <InsameeAppButton class="mt-8" large :to="{ name: 'me' }"
-      >Accéder à la plateforme</InsameeAppButton
-    >
+    <InsameeAppButton class="mt-8" large :to="{ name: 'me' }">
+      Accéder à la plateforme
+    </InsameeAppButton>
   </section>
 </template>
 

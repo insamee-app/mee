@@ -1,6 +1,10 @@
 <template>
-  <InsameeAppCard closable @close="$emit('close')">
-    <template #header>Modifier mon profil</template>
+  <InsameeAppCard>
+    <template #header>
+      <InsameeAppCardHeader closable @close="$emit('close')">
+        <InsameeAppCardTitle> Modifier mon profil</InsameeAppCardTitle>
+      </InsameeAppCardHeader>
+    </template>
     <form action="#" class="grid gap-4 grid-cols-1" @submit.prevent="sendUser">
       <InsameeLabeledInput
         v-model="$v.fieldsProfile.lastName.$model"
@@ -264,7 +268,7 @@ export default {
       this.loading = true
       try {
         const response = await this.$axios.patch(
-          `/api/v1/profiles/${this.userId}`,
+          `/api/v1/profiles/${this.userId}?populate=insamee`,
           { ...this.transformedProfile },
           {
             withCredentials: true,

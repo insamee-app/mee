@@ -1,6 +1,8 @@
 <template>
   <InsameeFooter>
-    <NuxtLink :to="{ name: 'legal-mentions' }">Mentions légales</NuxtLink>
+    <InsameeAppButton :to="{ name: 'legal-notices' }" empty variant="secondary">
+      Mentions légales
+    </InsameeAppButton>
   </InsameeFooter>
 </template>
 

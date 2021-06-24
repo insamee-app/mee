@@ -1,5 +1,5 @@
 <template>
-  <AppContainer class="mb-4">
+  <InsameeAppContainer>
     <NuxtContent
       :document="content"
       class="
@@ -11,13 +11,13 @@
         text-justify
       "
     />
-  </AppContainer>
+  </InsameeAppContainer>
 </template>
 
 <script>
 export default {
   async asyncData({ $content }) {
-    const content = await $content('legal-mentions').fetch()
+    const content = await $content('legal-notices').fetch()
 
     return {
       content,

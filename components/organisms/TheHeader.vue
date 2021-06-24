@@ -6,7 +6,9 @@
     @open="open"
   >
     <template #nav>
-      <InsameeAppList v-if="$screen.sm" :list="nav" row />
+      <InsameeHeaderNav v-if="$screen.md">
+        <InsameeAppList :list="nav" row />
+      </InsameeHeaderNav>
     </template>
     <template #actions>
       <div class="flex flex-row space-x-4">

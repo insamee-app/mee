@@ -19,8 +19,8 @@
         class="w-full mt-2"
         label="Mot de passe"
       >
-        <template #addon
-          ><NuxtLink :to="{ name: 'sendResetPassword' }"> Oublié ?</NuxtLink>
+        <template #addon>
+          <NuxtLink :to="{ name: 'sendResetPassword' }"> Oublié ?</NuxtLink>
         </template>
       </InsameeLabeledInput>
       <InsameeLabeledCheck
@@ -44,14 +44,16 @@
     <InsameeAppFrame class="w-full mt-8">
       <span>
         Pas encore de compte ?
-        <InsameeAppLink :link="{ name: 'signin' }">S'inscire </InsameeAppLink>
+        <InsameeAppButton :to="{ name: 'signin' }" empty inline>
+          S'inscire
+        </InsameeAppButton>
       </span>
     </InsameeAppFrame>
     <div class="text-center leading-5 mt-8">
       <div class="font-light">Besoin de vérifier votre compte ?</div>
-      <InsameeAppLink :link="{ name: 'sendVerifyEmail' }">
+      <InsameeAppButton :link="{ name: 'sendVerifyEmail' }" empty inline>
         Renvoyer le couriel
-      </InsameeAppLink>
+      </InsameeAppButton>
     </div>
   </section>
 </template>

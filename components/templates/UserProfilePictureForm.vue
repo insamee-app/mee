@@ -1,6 +1,10 @@
 <template>
-  <InsameeAppCard closable @close="$emit('close')">
-    <template #header>Modifier ma photo</template>
+  <InsameeAppCard>
+    <template #header>
+      <InsameeAppCardHeader closable @close="$emit('close')">
+        <InsameeAppCardTitle> Modifier ma photo </InsameeAppCardTitle>
+      </InsameeAppCardHeader>
+    </template>
     <form action="#" @submit.prevent="sendAvatar">
       <ProfilePictureUpdate name="avatar" @file="getAvatar">
         <div class="flex flex-row items-center hover:text-primary-dark">
@@ -44,7 +48,7 @@ export default {
 
       try {
         const response = await this.$axios.patch(
-          '/api/v1/users/' + this.userId,
+          '/api/v1/profiles/' + this.userId,
           formData,
           {
             withCredentials: true,

@@ -2,7 +2,12 @@
   <div>
     <client-only>
       <TheHeader :nav="navList" @open="toggleNav" />
-      <TheNavMobile v-if="!$screen.sm" v-model="nav" :nav="navList" />
+      <TheNavMobile
+        v-if="!$screen.md"
+        :value="nav"
+        :nav="navList"
+        @close="toggleNav"
+      />
     </client-only>
     <main class="max-w-7xl mx-auto">
       <Nuxt />
@@ -25,17 +30,17 @@ export default {
       const nav = [
         {
           name: 'Trouver des mee',
-          path: 'mee',
+          to: { name: 'mee' },
         },
         {
           name: 'Contact',
-          path: 'contact',
+          to: { name: 'contact' },
         },
       ]
       nav.unshift(
         this.loggedIn()
-          ? { name: 'Mon profil', path: 'me' }
-          : { name: 'Acceuil', path: 'index' }
+          ? { name: 'Mon profil', to: { name: 'me' } }
+          : { name: 'Acceuil', to: { name: 'index' } }
       )
       return nav
     },

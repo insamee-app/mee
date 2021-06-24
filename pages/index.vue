@@ -1,71 +1,90 @@
 <template>
-  <div class="mb-6">
-    <TheHeroBanner />
-    <HomeContainer>
-      <GraphicFans class="mb-16" :class="graphicsClass" />
-      <div class="px-4">
-        <HomeContainerTitle
-          >Une passion pour le sport ou l'esport à partager ?
-        </HomeContainerTitle>
-        <HomeContainerText class="w-8/12 mt-8">
+  <div>
+    <InsameeHeroBanner>
+      <template #title>
+        <InsameeHeroBannerTitle>
+          Chercher, Trouver, Partager !
+        </InsameeHeroBannerTitle>
+      </template>
+      <template #subtitle>
+        <InsameeHeroBannerSubtitle>
+          Parce qu'être étudiant, c'est rencontrer et découvrir de nouvelles
+          personnes
+        </InsameeHeroBannerSubtitle>
+      </template>
+      <template #graphic>
+        <GraphicHeroBanner
+          class="
+            flex-1
+            mt-8
+            ml-8
+            w-[130%]
+            h-auto
+            md:m-0
+            md:w-[300%]
+            lg:w-3/4
+            md:transform
+            md:translate-x-16
+            lg:transform-none
+          "
+        />
+      </template>
+    </InsameeHeroBanner>
+    <InsameeFullContainer v-slot="{ graphicStyle }" around>
+      <GraphicFans :class="graphicStyle" />
+      <div>
+        <InsameeFullContainerTitle>
+          Une passion pour le sport ou l'esport à partager ?
+        </InsameeFullContainerTitle>
+        <InsameeFullContainerText class="w-8/12 mt-8">
           <span class="text-primary-base">INSAMEE</span> te permet de trouver
           des personnes avec qui tu vas pouvoir vibrer devant les meilleurs
           match !
-        </HomeContainerText>
+        </InsameeFullContainerText>
       </div>
-    </HomeContainer>
+    </InsameeFullContainer>
     <InsameeAppHr />
-    <HomeContainer around>
-      <div class="px-4">
-        <HomeContainerTitle>
+    <InsameeFullContainer v-slot="{ graphicStyle }" around>
+      <div>
+        <InsameeFullContainerTitle>
           Tu veux faire une partie de foot mais tu ne sais pas avec qui y aller
           ?
-        </HomeContainerTitle>
-        <HomeContainerText class="mt-8">
+        </InsameeFullContainerTitle>
+        <InsameeFullContainerText class="mt-8">
           Avec <span class="text-primary-base">INSAMEE</span>, trouve des
           équipiers parmis les étudiants et formez votre propre équipe !
-        </HomeContainerText>
+        </InsameeFullContainerText>
       </div>
-      <GraphicFoot :class="graphicsClass" />
-    </HomeContainer>
+      <GraphicFoot :class="graphicStyle" />
+    </InsameeFullContainer>
     <InsameeAppHr />
-    <HomeContainer around>
-      <HomeContainerTitle class="px-4">
+    <InsameeFullContainer v-slot="{ graphicStyle }" around>
+      <InsameeFullContainerTitle>
         Tu as un projet formidable en tête mais tu n'a pas toutes les
         compétences pour le faire ?
-      </HomeContainerTitle>
-      <GraphicTeam :class="graphicsClass" />
-      <HomeContainerText class="px-4 text-justify">
+      </InsameeFullContainerTitle>
+      <GraphicTeam :class="graphicStyle" />
+      <InsameeFullContainerText class="mt-8">
         <span class="text-primary-base">INSAMEE</span> te permet de trouver les
         collaboratuer dont tu as toujours eu besoin pour maner à bien les
         projets les plus fous !
-      </HomeContainerText>
-    </HomeContainer>
+      </InsameeFullContainerText>
+    </InsameeFullContainer>
     <InsameeAppHr />
-    <HomeContainer around>
-      <div class="px-4">
-        <HomeContainerTitle>
+    <InsameeFullContainer v-slot="{ graphicStyle }" around>
+      <div>
+        <InsameeFullContainerTitle>
           Une idée d'entreprise ou d'association ? Besoin de personnes
           talentueuses pour monter ton business ?
-        </HomeContainerTitle>
+        </InsameeFullContainerTitle>
         <div class="flex justify-end mt-8">
-          <HomeContainerText class="text-right w-8/12">
+          <InsameeFullContainerText class="text-right w-8/12">
             Avec <span class="text-primary-base">INSAMEE</span>, trouve tes
             futures associés et crée l'organisation dont tu as toujours rêvé !
-          </HomeContainerText>
+          </InsameeFullContainerText>
         </div>
       </div>
-      <GraphicBusiness :class="graphicsClass" />
-    </HomeContainer>
+      <GraphicBusiness :class="graphicStyle" />
+    </InsameeFullContainer>
   </div>
 </template>
-
-<script>
-export default {
-  computed: {
-    graphicsClass() {
-      return 'h-auto w-full md:w-1/2 mx-auto'
-    },
-  },
-}
-</script>
