@@ -1,5 +1,5 @@
 export const state = () => ({
-  users: {
+  profiles: {
     limit: '5',
     page: 1,
     currentRole: undefined,
@@ -10,17 +10,17 @@ export const state = () => ({
 })
 
 export const mutations = {
-  setUsersFilter(state, { name, value }) {
+  setFilter(state, { name, value }) {
     // Avoid unwanted value from url
-    if (Object.keys(state.users).includes(name)) state.users[name] = value
+    if (Object.keys(state.profiles).includes(name)) state.profiles[name] = value
   },
 }
 
 export const getters = {
-  getUsersSearchParams({ users }) {
+  getSearchParams({ profiles }) {
     const data = {}
-    for (const property in users) {
-      if (users[property]) data[property] = users[property]
+    for (const property in profiles) {
+      if (profiles[property]) data[property] = profiles[property]
     }
     const searchParams = new URLSearchParams(data)
     return searchParams.toString()

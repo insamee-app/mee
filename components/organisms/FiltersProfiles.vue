@@ -36,12 +36,12 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'FiltersUsers',
+  name: 'FiltersProfiles',
   computed: {
     ...mapState({ currentRoles: (state) => state.data.currentRoles }),
     currentRole: {
       get() {
-        const value = this.$store.state.filters.users.currentRole
+        const value = this.$store.state.filters.profiles.currentRole
         return value === undefined ? '' : value
       },
       set(value) {
@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     handleSelect(name, value) {
-      this.$store.commit('filters/setUsersFilter', { name, value })
+      this.$store.commit('filters/setFilter', { name, value })
     },
     associationOption(item) {
       let option = item.name

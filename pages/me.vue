@@ -2,6 +2,7 @@
   <InsameeAppContainer class="max-w-4xl mx-auto">
     <h1 class="text-xl font-bold mt-4">Mon Profil</h1>
     <InsameeProfile
+      class="mt-4"
       :last-name="profile.last_name"
       :first-name="profile.first_name"
       :email="profile.user.email"
@@ -25,7 +26,7 @@
     </section>
     <section>
       <h2 class="text-xl font-bold mt-8">Paramètre du Compte</h2>
-      <div class="flex flex-col items-center">
+      <div class="flex flex-col items-center space-y-4">
         <InsameeAppButton
           class="mt-4"
           :disabled="loadingResetPassword"
@@ -34,7 +35,19 @@
         >
           Modifier son mot de passe
         </InsameeAppButton>
-        <InsameeAppButton border class="mt-4" @click="deleteAccount">
+        <InsameeAppButton
+          :loading="loadingLogout"
+          :disabled="loadingLogout"
+          @click="logout"
+        >
+          Se déconnecter
+        </InsameeAppButton>
+        <InsameeAppButton
+          border
+          :loading="loadingDeleteAccount"
+          :disabled="loadingDeleteAccount"
+          @click="deleteAccount"
+        >
           Supprimer son compte
         </InsameeAppButton>
         <InsameeAppListError :errors="errors" class="mt-2" />
@@ -83,7 +96,8 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
+import getTexts from '@/mixins/getTexts'
 
 export default {
   filters: {
@@ -91,10 +105,13 @@ export default {
       return value || 'Non renseigné'
     },
   },
+  mixins: [getTexts],
   middleware: ['authenticated'],
   data() {
     return {
+      loadingDeleteAccount: false,
       loadingResetPassword: false,
+      loadingLogout: false,
       errors: [],
       editProfile: false,
       editAvatar: false,
@@ -106,15 +123,7 @@ export default {
     ...mapGetters({ socials: 'auth/socialNetworks' }),
   },
   methods: {
-    getTexts(tab) {
-      if (!tab || tab.length === 0) return []
-
-      const data = []
-      for (const item of tab) {
-        data.push(item.name)
-      }
-      return data
-    },
+    ...mapActions(['auth/logout']),
     async resetPassword() {
       this.loadingResetPassword = true
       try {
@@ -124,16 +133,26 @@ export default {
           { withCredentials: true }
         )
         this.resetPasswordInfo = true
-        this.loadingResetPassword = false
       } catch (error) {
-        this.loading = false
         this.errors = error.response.data.errors
       }
+      this.loadingResetPassword = false
+    },
+    async logout() {
+      this.loadingLogout = true
+      try {
+        await this['auth/logout']()
+        this.errorMessage = ''
+      } catch (error) {
+        this.errorMessage = error.message
+      }
+      this.loadingLogout = false
     },
     async deleteAccount() {
       const confirmed = confirm('Voulez-vous vraiment supprimer votre compte ?')
 
       if (confirmed) {
+        this.loadingDeleteAccount = true
         try {
           await this.$axios.delete(`/api/v1/users/${this.profile.user_id}`, {
             withCredentials: true,
@@ -143,6 +162,7 @@ export default {
         } catch (error) {
           this.errors = error.response.data.errors
         }
+        this.loadingDeleteAccount = false
       }
     },
   },

@@ -18,8 +18,10 @@ export const actions = {
   login({ commit }, profile) {
     commit('setProfile', profile)
   },
-  logout({ commit }) {
+  async logout({ commit }) {
+    await this.$axios.post('/auth/logout')
     commit('setProfile', undefined)
+    this.$router.push({ name: 'index' })
   },
 }
 

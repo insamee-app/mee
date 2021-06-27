@@ -11,22 +11,20 @@
       </InsameeHeaderNav>
     </template>
     <template #actions>
-      <div class="flex flex-row space-x-4">
-        <InsameeAppButton v-if="loggedIn()" :to="{ name: 'mee' }">
-          Trouver des mee
-        </InsameeAppButton>
-        <InsameeAppButton
-          v-if="!loggedIn() && $screen.sm"
-          empty
-          class="text-primary-base"
-          :to="{ name: 'login' }"
-        >
-          Se connecter
-        </InsameeAppButton>
-        <InsameeAppButton v-if="!loggedIn()" border :to="{ name: 'signin' }">
-          S'incrire
-        </InsameeAppButton>
-      </div>
+      <InsameeAppButton v-if="loggedIn()" :to="{ name: 'mee' }">
+        Trouver des mee
+      </InsameeAppButton>
+      <InsameeAppButton
+        v-if="!loggedIn() && $screen.sm"
+        empty
+        class="text-primary-base"
+        :to="{ name: 'login' }"
+      >
+        Se connecter
+      </InsameeAppButton>
+      <InsameeAppButton v-if="!loggedIn()" border :to="{ name: 'signin' }">
+        S'incrire
+      </InsameeAppButton>
     </template>
   </InsameeHeader>
 </template>

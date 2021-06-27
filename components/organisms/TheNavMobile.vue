@@ -2,7 +2,13 @@
   <InsameeNavMobile :list="nav" :value="value" @close="close">
     <template #actions>
       <template v-if="loggedIn()">
-        <InsameeAppButton @click="logout"> Se déconnecter </InsameeAppButton>
+        <InsameeAppButton
+          :disabled="loadingLogout"
+          :loading="loadingLogout"
+          @click="logout"
+        >
+          Se déconnecter
+        </InsameeAppButton>
       </template>
       <template v-else>
         <InsameeAppButton class="mr-6" :to="{ name: 'login' }">
@@ -31,17 +37,23 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      loadingLogout: false,
+    }
+  },
   methods: {
     ...mapGetters({ loggedIn: 'auth/loggedIn' }),
     ...mapActions(['auth/logout']),
     async logout() {
+      this.loadingLogout = true
       try {
-        await this.$axios.post('/auth/logout', {}, { withCredentials: true })
-        this['auth/logout']()
-        this.$router.push({ name: 'index' })
+        await this['auth/logout']()
+        this.errorMessage = ''
       } catch (error) {
-        console.error(error)
+        this.errorMessage = error.message
       }
+      this.loadingLogout = false
     },
     close() {
       this.$emit('input', false)

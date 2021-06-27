@@ -29,8 +29,12 @@ export default {
     navList() {
       const nav = [
         {
-          name: 'Trouver des mee',
-          to: { name: 'mee' },
+          name: 'Trouver des associations',
+          href: this.$config.associationsURL + '/associations',
+        },
+        {
+          name: 'Trouver des tutorats',
+          href: this.$config.tutoratURL + '/tutorats',
         },
         {
           name: 'Contact',

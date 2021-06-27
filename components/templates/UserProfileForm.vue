@@ -269,18 +269,14 @@ export default {
       try {
         const response = await this.$axios.patch(
           `/api/v1/profiles/${this.userId}?populate=insamee`,
-          { ...this.transformedProfile },
-          {
-            withCredentials: true,
-          }
+          { ...this.transformedProfile }
         )
         this.$store.commit('auth/setProfile', response.data)
-        this.loading = false
         this.$emit('close')
       } catch (error) {
-        this.loading = false
         this.errors = error.response.data.errors
       }
+      this.loading = false
     },
   },
 }

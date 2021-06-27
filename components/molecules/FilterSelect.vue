@@ -43,7 +43,7 @@ export default {
   computed: {
     selected: {
       get() {
-        const value = this.$store.state.filters.users[this.name]
+        const value = this.$store.state.filters.profiles[this.name]
         return value === undefined ? '' : value
       },
       set(value) {
