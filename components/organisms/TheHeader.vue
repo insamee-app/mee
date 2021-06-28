@@ -22,7 +22,7 @@
       >
         Se connecter
       </InsameeAppButton>
-      <InsameeAppButton v-if="!loggedIn()" border :to="{ name: 'signin' }">
+      <InsameeAppButton v-if="!loggedIn()" border :to="{ name: 'signup' }">
         S'incrire
       </InsameeAppButton>
     </template>

@@ -54,7 +54,7 @@ export default {
       img.onload = this.onLoad(img, picture.name, picture.size).bind(this)
     },
     onLoad(img, name, size) {
-      const SERVER_SIZE = 60_000
+      const SERVER_SIZE = 60000
       const MAX_WIDTH = 256
       const canvas = document.createElement('canvas')
       const ctx = canvas.getContext('2d')
