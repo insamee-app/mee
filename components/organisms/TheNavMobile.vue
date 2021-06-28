@@ -14,7 +14,7 @@
         <InsameeAppButton class="mr-6" :to="{ name: 'login' }">
           Se connecter
         </InsameeAppButton>
-        <InsameeAppButton border :to="{ name: 'signin' }">
+        <InsameeAppButton border :to="{ name: 'signup' }">
           S'inscrire
         </InsameeAppButton>
       </template>
