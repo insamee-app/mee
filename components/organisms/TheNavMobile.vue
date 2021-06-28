@@ -56,7 +56,7 @@ export default {
       this.loadingLogout = false
     },
     close() {
-      this.$emit('input', false)
+      this.$emit('close', false)
     },
   },
 }
