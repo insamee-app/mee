@@ -44,7 +44,7 @@
     <InsameeAppFrame class="w-full mt-8">
       <span>
         Pas encore de compte ?
-        <InsameeAppButton :to="{ name: 'signin' }" empty inline>
+        <InsameeAppButton :to="{ name: 'signup' }" empty inline>
           S'inscire
         </InsameeAppButton>
       </span>
