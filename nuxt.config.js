@@ -16,7 +16,7 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     bodyAttrs: {
-      class: ['text-black'],
+      class: ['relative bg-white-dark text-black'],
     },
   },
 

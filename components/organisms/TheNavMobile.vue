@@ -2,22 +2,34 @@
   <InsameeNavMobile :list="nav" :value="value" @close="close">
     <template #actions>
       <template v-if="loggedIn()">
-        <InsameeAppButton
-          :disabled="loadingLogout"
-          :loading="loadingLogout"
-          @click="logout"
-        >
-          Se déconnecter
-        </InsameeAppButton>
+        <div class="flex flex-col justify-center items-center">
+          <InsameeAppTeam
+            :link-tutorat="$config.tutoratURL"
+            link-evenements="/"
+            :link-associations="$config.associationsURL"
+            link-insamee="/"
+          />
+          <InsameeAppButton
+            class="mt-6"
+            :disabled="loadingLogout"
+            :loading="loadingLogout"
+            @click="logout"
+          >
+            Se déconnecter
+          </InsameeAppButton>
+        </div>
       </template>
       <template v-else>
-        <InsameeAppButton class="mr-6" :to="{ name: 'login' }">
+        <InsameeAppButton :to="{ name: 'login' }" variant="secondary">
           Se connecter
         </InsameeAppButton>
         <InsameeAppButton border :to="{ name: 'signup' }">
           S'inscrire
         </InsameeAppButton>
       </template>
+    </template>
+    <template #errors>
+      <InsameeAppError :error-message="errorMessage" />
     </template>
   </InsameeNavMobile>
 </template>
@@ -34,11 +46,12 @@ export default {
     },
     nav: {
       type: Array,
-      required: true,
+      default: () => [],
     },
   },
   data() {
     return {
+      errorMessage: '',
       loadingLogout: false,
     }
   },

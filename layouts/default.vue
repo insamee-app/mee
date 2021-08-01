@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="{ 'xl:overflow-hidden': isIndex }">
     <client-only>
       <TheHeader :nav="navList" @open="toggleNav" />
       <TheNavMobile
@@ -29,12 +29,8 @@ export default {
     navList() {
       const nav = [
         {
-          name: 'Trouver des associations',
-          href: this.$config.associationsURL + '/associations',
-        },
-        {
-          name: 'Trouver des tutorats',
-          href: this.$config.tutoratURL + '/tutorats',
+          name: 'Le concept',
+          to: { name: 'concept' },
         },
         {
           name: 'Contact',
@@ -43,10 +39,17 @@ export default {
       ]
       nav.unshift(
         this.loggedIn()
-          ? { name: 'Mon profil', to: { name: 'me' } }
+          ? {
+              name: 'Mon profil',
+              to: { name: 'me' },
+            }
           : { name: 'Acceuil', to: { name: 'index' } }
       )
+
       return nav
+    },
+    isIndex() {
+      return this.$route.name === 'index'
     },
   },
   watch: {

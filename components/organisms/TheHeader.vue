@@ -1,29 +1,41 @@
 <template>
   <InsameeHeader
-    :icon-link="iconLink"
-    :icon-nav="!$screen.sm"
-    class="max-w-7xl left-1/2 transform -translate-x-1/2"
-    @open="open"
+    :name-link="{ name: 'index' }"
+    :icon-nav="!$screen.md"
+    @open="$emit('open', $event)"
   >
+    <template #name>
+      <template v-if="$screen.md"> Insamee </template>
+      <template v-else> <InsameeIconInsamee class="w-6 h-6" /> </template>
+    </template>
     <template #nav>
       <InsameeHeaderNav v-if="$screen.md">
         <InsameeAppList :list="nav" row />
       </InsameeHeaderNav>
     </template>
     <template #actions>
-      <InsameeAppButton v-if="loggedIn()" :to="{ name: 'mee' }">
-        Trouver des mee
-      </InsameeAppButton>
+      <template v-if="loggedIn()">
+        <InsameeAppButton :to="{ name: 'mee' }">
+          Trouver des mee
+        </InsameeAppButton>
+        <InsameeAppTeam
+          v-if="$screen.md"
+          :link-tutorat="$config.tutoratURL"
+          link-evenements="/"
+          :link-associations="$config.associationsURL"
+          link-insamee="/"
+        />
+      </template>
       <InsameeAppButton
-        v-if="!loggedIn() && $screen.sm"
+        v-if="!loggedIn() && $screen.md"
         empty
-        class="text-primary-base"
+        variant="secondary"
         :to="{ name: 'login' }"
       >
         Se connecter
       </InsameeAppButton>
       <InsameeAppButton v-if="!loggedIn()" border :to="{ name: 'signup' }">
-        S'incrire
+        S'inscrire
       </InsameeAppButton>
     </template>
   </InsameeHeader>
@@ -37,19 +49,11 @@ export default {
   props: {
     nav: {
       type: Array,
-      default: () => undefined,
+      default: () => [],
     },
-  },
-  data() {
-    return {
-      iconLink: { name: 'index' },
-    }
   },
   methods: {
     ...mapGetters({ loggedIn: 'auth/loggedIn' }),
-    open() {
-      this.$emit('open', true)
-    },
   },
 }
 </script>

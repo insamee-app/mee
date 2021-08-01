@@ -1,6 +1,6 @@
 <template>
   <InsameeFooter>
-    <InsameeAppButton :to="{ name: 'legal-notices' }" empty variant="secondary">
+    <InsameeAppButton empty :to="{ name: 'legal-notices' }" variant="secondary">
       Mentions légales
     </InsameeAppButton>
   </InsameeFooter>
