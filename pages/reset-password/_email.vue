@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <InsameeAppContainer class="w-80 mx-auto">
     <div v-if="ok">
       <h1 class="text-center text-2xl">Votre mot de passe a bien été changé</h1>
       <InsameeAppButton :to="{ name: 'login' }" large class="mt-8 w-full">
@@ -31,11 +31,12 @@
         :disabled="$v.$invalid"
         :loading="loading"
         type="submit"
-        >Modifier son mot de passe</InsameeAppButton
       >
-      <InsameeAppListError :errors="errors" />
+        Modifier son mot de passe
+      </InsameeAppButton>
+      <InsameeAppError :error-message="error" />
     </form>
-  </section>
+  </InsameeAppContainer>
 </template>
 
 <script>
@@ -46,7 +47,7 @@ export default {
   layout: 'minimal',
   data() {
     return {
-      errors: [],
+      error: '',
       loading: false,
       password: '',
       password_confirmation: '',
@@ -67,10 +68,12 @@ export default {
             password_confirmation: this.password_confirmation,
           }
         )
-        this.errors = []
+        this.error = ''
         this.ok = true
       } catch (error) {
-        this.errors = error.response.data.errors
+        if (error.response.data.errors)
+          this.error = error.response.data.errors[0].message
+        else this.error = "Une erreur s'est produite"
       }
       this.loading = false
     },

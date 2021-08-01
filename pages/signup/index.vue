@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <InsameeAppContainer class="w-80 mx-auto">
     <form action="#" @submit.prevent="signin">
       <InsameeLabeledInput
         v-model="$v.email.$model"
@@ -36,17 +36,17 @@
         type="submit"
         >S'inscrire</InsameeAppButton
       >
-      <InsameeAppListError :errors="errors" />
+      <InsameeAppError :error-message="error" />
     </form>
     <InsameeAppFrame class="w-full mt-8">
       <span
         >Déjà un comptes ?
-        <InsameeAppLink :link="{ name: 'login' }"
-          >Se connecter</InsameeAppLink
+        <InsameeAppButton empty inline :to="{ name: 'login' }"
+          >Se connecter</InsameeAppButton
         ></span
       >
     </InsameeAppFrame>
-  </section>
+  </InsameeAppContainer>
 </template>
 
 <script>
@@ -58,7 +58,7 @@ export default {
   layout: 'minimal',
   data() {
     return {
-      errors: [],
+      error: '',
       loading: false,
       email: '',
       password: '',
@@ -74,11 +74,14 @@ export default {
           password: this.password,
           password_confirmation: this.password_confirmation,
         })
-        this.errors = []
+        this.error = ''
         this.$router.push({ name: 'signup-thanks' })
       } catch (error) {
-        // TODO: il faut gérer si on a pas de response (voir si on peut pas faire un intercepteur avec axios
-        this.errors = error.response.data.errors
+        if (error.response.status === 422) {
+          this.error = error.response.data.errors[0].message
+        } else {
+          this.error = 'Une erreur est survenue'
+        }
       }
       this.loading = false
     },

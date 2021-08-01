@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <InsameeAppContainer class="w-80 mx-auto">
     <h1 v-if="ok" class="text-center text-2xl">
       Un mail vous a été envoyé afin de réinitialiser votre mot de passe
     </h1>
@@ -20,9 +20,9 @@
         type="submit"
         >Envoyer le couriel de réinitialisation</InsameeAppButton
       >
-      <InsameeAppListError :errors="errors" />
+      <InsameeAppError :error-message="error" />
     </form>
-  </section>
+  </InsameeAppContainer>
 </template>
 
 <script>
@@ -33,7 +33,7 @@ export default {
   layout: 'minimal',
   data() {
     return {
-      errors: [],
+      error: '',
       loading: false,
       email: '',
       ok: false,
@@ -46,10 +46,12 @@ export default {
         await this.$axios.post('/auth/send/resetPassword', {
           email: this.email,
         })
-        this.errors = []
+        this.error = ''
         this.ok = true
       } catch (error) {
-        this.errors = error.response.data.errors
+        if (error.response.data.errors)
+          this.error = error.response.data.errors[0].message
+        else this.error = "Une erreur s'est produite"
       }
       this.loading = false
     },

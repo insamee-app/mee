@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <InsameeAppContainer class="w-80 mx-auto">
     <form action="#" @submit.prevent="login">
       <InsameeLabeledInput
         v-model="$v.email.$model"
@@ -20,7 +20,7 @@
         label="Mot de passe"
       >
         <template #addon>
-          <NuxtLink :to="{ name: 'sendResetPassword' }"> Oublié ?</NuxtLink>
+          <NuxtLink :to="{ name: 'send-reset-password' }"> Oublié ?</NuxtLink>
         </template>
       </InsameeLabeledInput>
       <InsameeLabeledCheck
@@ -51,11 +51,11 @@
     </InsameeAppFrame>
     <div class="text-center leading-5 mt-8">
       <div class="font-light">Besoin de vérifier votre compte ?</div>
-      <InsameeAppButton :link="{ name: 'sendVerifyEmail' }" empty inline>
+      <InsameeAppButton :link="{ name: 'send-verify-email' }" empty inline>
         Renvoyer le couriel
       </InsameeAppButton>
     </div>
-  </section>
+  </InsameeAppContainer>
 </template>
 
 <script>
@@ -94,28 +94,22 @@ export default {
     async login() {
       this.loading = true
       try {
-        await this.$axios.post(
-          '/auth/login',
-          {
-            email: this.email,
-            password: this.password,
-            rememberMe: this.rememberMe,
-          },
-          { withCredentials: true }
-        )
+        await this.$axios.post('/auth/login', {
+          email: this.email,
+          password: this.password,
+          rememberMe: this.rememberMe,
+        })
+
         if (this.$route.query.redirect === 'associations')
           window.location.href = this.$config.associationsURL + '/associations'
         if (this.$route.query.redirect === 'tutorat')
           window.location.href = this.$config.tutoratURL + '/tutorats'
 
         const { data: profile } = await this.$axios.get(
-          '/api/v1/profiles/me?populate=insamee',
-          {
-            withCredentials: true,
-          }
+          '/api/v1/profiles/me?populate=insamee'
         )
+
         this.errors = []
-        this.loading = false
         this['auth/login'](profile)
         this.$router.push({ name: 'mee' })
       } catch (error) {
@@ -128,8 +122,8 @@ export default {
             },
           ]
         }
-        this.loading = false
       }
+      this.loading = false
     },
   },
 }
