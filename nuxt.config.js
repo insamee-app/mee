@@ -23,15 +23,12 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],
 
-  tailwindcss: {
-    jit: true,
-  },
-
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~/plugins/getProfile.server.js',
     '~/plugins/vuelidate.js',
     '~/plugins/axios',
+    '~/plugins/vue-scroll-lock.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -50,7 +47,7 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
-    'insamee-components/nuxt',
+    '@insamee-app/components/nuxt',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -69,22 +66,13 @@ export default {
   },
 
   proxy: {
-    '/api/**': process.env.BROWSER_BASE_URL,
-    '/auth/**': process.env.BROWSER_BASE_URL,
+    '/api/**': process.env.API_URL,
+    '/auth/**': process.env.API_URL,
   },
 
   publicRuntimeConfig: {
     tutoratURL: process.env.TUTORAT_URL,
     associationsURL: process.env.ASSOCIATIONS_URL,
-    axios: {
-      browserBaseURL: process.env.BROWSER_BASE_URL,
-    },
-  },
-
-  privateRuntimeConfig: {
-    axios: {
-      baseURL: process.env.BASE_URL,
-    },
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

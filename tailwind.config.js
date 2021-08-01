@@ -1,9 +1,11 @@
 module.exports = {
   purge: {
-    content: ['node_modules/insamee-components/src/components/**'],
+    content: ['node_modules/@insamee-app/components/src/components/**'],
   },
+  mode: 'jit',
   theme: {
     colors: {
+      transparent: 'transparent',
       primary: {
         base: '#931F1C',
         dark: '#5F0000',
@@ -24,7 +26,10 @@ module.exports = {
         dark: '#182C2A',
         light: '#DEE2E2',
       },
-      white: '#FCFDFD',
+      white: {
+        base: '#FCFDFD',
+        dark: '#F7F7F7',
+      },
       black: '#000517',
       negative: '#F33C3C',
       positive: '#63ED92',

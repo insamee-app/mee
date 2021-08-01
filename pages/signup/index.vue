@@ -75,7 +75,7 @@ export default {
           password_confirmation: this.password_confirmation,
         })
         this.errors = []
-        this.$router.push({ name: 'signin-thanks' })
+        this.$router.push({ name: 'signup-thanks' })
       } catch (error) {
         // TODO: il faut gérer si on a pas de response (voir si on peut pas faire un intercepteur avec axios
         this.errors = error.response.data.errors

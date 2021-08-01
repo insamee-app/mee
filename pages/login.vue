@@ -108,9 +108,12 @@ export default {
         if (this.$route.query.redirect === 'tutorat')
           window.location.href = this.$config.tutoratURL + '/tutorats'
 
-        const { data: profile } = await this.$axios.get('/api/v1/profiles/me', {
-          withCredentials: true,
-        })
+        const { data: profile } = await this.$axios.get(
+          '/api/v1/profiles/me?populate=insamee',
+          {
+            withCredentials: true,
+          }
+        )
         this.errors = []
         this.loading = false
         this['auth/login'](profile)
