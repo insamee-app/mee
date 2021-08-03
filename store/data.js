@@ -1,21 +1,61 @@
 export const state = () => ({
-  skills: undefined,
-  focusInterests: undefined,
-  associations: undefined,
+  skills: [],
+  focusInterests: [],
+  associations: [],
   currentRoles: [
     { id: 'étudiant', name: 'étudiant' },
     { id: 'personnel', name: 'personnel' },
   ],
+  reasonsInsamee: [],
 })
 
 export const mutations = {
-  setSkills(state, skills) {
-    state.skills = skills
+  set(state, { name, value }) {
+    state[name] = value
   },
-  setFocusInterests(state, focusInterests) {
-    state.focusInterests = focusInterests
+}
+
+export const actions = {
+  async fetch({ state, commit }, name) {
+    const endpoint = name.includes('reasons')
+      ? '/api/v1/reasons?platform=insamee'
+      : `/api/v1/${name}?serialize=filter`
+    if (!state[name].length) {
+      const { data } = await this.$axios.get(endpoint)
+      commit('set', { name, value: data })
+    }
   },
-  setAssociations(state, associations) {
-    state.associations = associations
+}
+
+export const getters = {
+  skills(state) {
+    return state.skills.map((skill) => ({
+      text: skill.name,
+      value: skill.id,
+    }))
+  },
+  focusInterests(state) {
+    return state.focusInterests.map((focusInterest) => ({
+      text: focusInterest.name,
+      value: focusInterest.id,
+    }))
+  },
+  currentRoles(state) {
+    return state.currentRoles.map((role) => ({
+      text: role.name,
+      value: role.id,
+    }))
+  },
+  associations(state) {
+    return state.associations.map((association) => ({
+      text: association.name,
+      value: association.id,
+    }))
+  },
+  reasonsInsamee(state) {
+    return state.reasonsInsamee.map((reason) => ({
+      text: reason.name,
+      value: reason.id,
+    }))
   },
 }

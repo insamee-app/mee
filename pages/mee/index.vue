@@ -1,122 +1,113 @@
 <template>
-  <InsameeResponsiveList>
-    <template #filter>
-      <InsameeAppCard class="w-full">
-        <div class="flex flex-row justify-between">
-          <div class="flex">
-            <span>item par page</span>
-            <AppSelect
-              v-model="itemPerPage"
-              :items="itemsPerPage"
-              name="itemsPerPage"
-            />
-          </div>
-          <InsameeAppButton
-            v-if="mdAndDown"
-            variant="secondary"
-            @click="filterDialog = true"
-          >
-            Filtrer
-          </InsameeAppButton>
-        </div>
-      </InsameeAppCard>
-      <InsameeAppCard v-if="lgAndUp" class="w-full">
-        <InsameeAppCardTitle>Filtres</InsameeAppCardTitle>
-        <FiltersProfiles />
-        <template #actions>
-          <div class="flex flex-row justify-end">
-            <InsameeAppButton @click="validFilter">Valider</InsameeAppButton>
-          </div>
-        </template>
-      </InsameeAppCard>
+  <InsameeResponsiveList
+    :full-filters="lgAndUp"
+    :action-filters="mdAndDown"
+    :total-pagination="paginationTotal"
+    :loading="$fetchState.pending"
+  >
+    <template #filters-full="{ classNames }">
+      <FiltersCard :class="classNames" @submit="refreshFilters" />
     </template>
-    <template #cards>
-      <InsameeResponsiveListCards>
-        <template v-if="$fetchState.pending">
+    <template #cards="{ loading }">
+      <InsameeResponsiveListCards :loading="loading">
+        <template #skeletons>
           <InsameeSkeletonCard
-            v-for="value in +$store.state.filters.profiles.limit"
+            v-for="value in 20"
             :key="value"
+            variant="profile"
           />
         </template>
-        <template v-else>
+        <template #cards>
           <InsameeProfileCard
             v-for="profile in profiles"
-            :key="profile.id"
+            :key="profile.user_id"
+            :user-id="profile.user_id"
             :last-name="profile.last_name"
             :first-name="profile.first_name"
             :current-role="profile.current_role"
-            :user-id="profile.user_id"
-            :text="profile.insameeProfile.text"
-            :skills="getTexts(profile.insameeProfile.skills)"
-            :associations="profile.insameeProfile.associations"
-            :link="profile.link"
+            :focus-interests="getTexts(profile.insamee_profile.focus_interests)"
+            :associations="profile.insamee_profile.associations"
+            :text="profile.insamee_profile.short_text"
+            :link="profile.avatar_url"
           />
-        </template>
-        <template #pagination>
-          <InsameeResponsiveListPagination>
-            <InsameePagination
-              v-if="!$fetchState.pending"
-              :small="!$screen.lg"
-              :previous-page="
-                pagination.previous_page_url
-                  ? pagination.current_page - 1
-                  : undefined
-              "
-              :next-page="
-                pagination.next_page_url
-                  ? pagination.current_page + 1
-                  : undefined
-              "
-              :first-page="pagination.first_page"
-              :current-page="pagination.current_page"
-              :last-page="pagination.last_page"
-              @pagination="refresh"
-            />
-          </InsameeResponsiveListPagination>
         </template>
       </InsameeResponsiveListCards>
     </template>
-    <template #modal>
-      <InsameeAppModal
-        v-if="mdAndDown"
-        :value="filterDialog"
-        @outside="filterDialog = false"
+    <template #error>
+      <div class="space-y-2 mt-4">
+        <p class="font-bold">
+          Désolé, aucune profile ne correspond à ta recherche...
+        </p>
+        <p>
+          Mais si tu penses que c’est une erreur de notre part, tu peux nous
+          contacter pour palier à ce problème.
+        </p>
+      </div>
+      <div class="mt-8">
+        <InsameeAppButton empty :to="{ name: 'contact' }">
+          Nous contacter ?
+        </InsameeAppButton>
+      </div>
+    </template>
+    <template #filters-action>
+      <InsameeAppButton
+        shadow
+        variant="secondary"
+        class="mt-6"
+        @click="modalFilters = true"
       >
-        <InsameeAppCard closable @close="filterDialog = false">
-          <template #header>Filtres</template>
-          <FiltersProfiles />
-          <template #actions>
-            <div class="flex flex-row justify-end">
-              <InsameeAppButton @click="validFilter">Valider</InsameeAppButton>
-            </div>
-          </template>
-        </InsameeAppCard>
-      </InsameeAppModal>
+        {{ filterMessage }}
+      </InsameeAppButton>
+      <Portal>
+        <InsameeAppModal :value="modalFilters" @outside="modalFilters = $event">
+          <FiltersCard
+            closable
+            @submit="refreshFilters"
+            @close="modalFilters = !$event"
+          />
+        </InsameeAppModal>
+      </Portal>
+    </template>
+    <template #pagination="{ classNames }">
+      <InsameeResponsiveListPagination :class="classNames">
+        <InsameePagination
+          :small="mdAndDown"
+          :previous-page="
+            pagination.previous_page_url
+              ? pagination.current_page - 1
+              : undefined
+          "
+          :next-page="
+            pagination.next_page_url ? pagination.current_page + 1 : undefined
+          "
+          :first-page="pagination.first_page"
+          :current-page="pagination.current_page"
+          :last-page="pagination.last_page"
+          @pagination="refreshPagination"
+        />
+      </InsameeResponsiveListPagination>
     </template>
   </InsameeResponsiveList>
 </template>
 
 <script>
 import getTexts from '@/mixins/getTexts'
+import { Portal } from '@linusborg/vue-simple-portal'
 
 export default {
+  components: { Portal },
   mixins: [getTexts],
   middleware: 'authenticated',
   data() {
     return {
+      modalFilters: false,
       profiles: [],
-      meta: undefined,
-      filterDialog: false,
-      itemsPerPage: [
-        { name: '5', id: 5 },
-        { name: '10', id: 10 },
-        { name: '20', id: 20 },
-      ],
+      pagination: undefined,
     }
   },
   async fetch() {
-    const query = this.$store.getters['filters/getSearchParams']
-    const path = '/api/v1/profiles?populate=insamee&' + query
+    const query = this.$store.getters['filters/getProfilesSearchParams']
+    const path = `/api/v1/profiles?${query}&serialize=card&populate=insamee`
 
     const { data } = await this.$axios.get(path)
 
@@ -130,54 +121,66 @@ export default {
     lgAndUp() {
       return this.$screen.lg
     },
-    itemPerPage: {
-      get() {
-        return this.$store.state.filters.profiles.limit
-      },
-      set(value) {
-        this.$store.commit('filters/setFilter', { name: 'page', value: 1 })
-        this.$store.commit('filters/setFilter', {
-          name: 'limit',
-          value,
-        })
-        this.setRoute()
-      },
+    paginationTotal() {
+      return this.pagination ? this.pagination.total : 0
+    },
+    filterMessage() {
+      return this.paginationTotal
+        ? 'Rechercher par filtres'
+        : "Essayer d'autres filtres"
     },
   },
   watch: {
     '$route.query'() {
       this.parseUrl()
       this.$fetch()
-      this.setRoute()
     },
   },
   beforeMount() {
     this.parseUrl()
   },
-  fetchOnServer: false,
   methods: {
-    validFilter() {
-      this.setRoute()
-      this.filterDialog = false
+    parseUrl() {
+      this.$store.commit('filters/resetFilters')
+      for (const query in this.$route.query) {
+        const value = this.$route.query[query]
+        this.$store.commit('filters/setPagination', {
+          pagination: 'profiles',
+          name: query,
+          value,
+        })
+
+        this.$store.commit('filters/setFilters', {
+          filter: 'profiles',
+          name: query,
+          // With one number, *[] value is a single value and not an array, so we need to convert it
+          value:
+            query.includes('[]') && !Array.isArray(value) ? [value] : value,
+        })
+      }
     },
-    refresh(value) {
-      this.$store.commit('filters/setFilter', {
+    refreshPagination(value) {
+      this.$store.commit('filters/setPagination', {
+        pagination: 'profiles',
         name: 'page',
         value,
       })
       this.setRoute()
     },
-    parseUrl() {
-      for (const query in this.$route.query) {
-        const value = this.$route.query[query]
-        this.$store.commit('filters/setFilter', {
-          name: query,
+    refreshFilters(data) {
+      this.modalFilters = false
+      for (const iterator in data) {
+        const value = data[iterator]
+        this.$store.commit('filters/setFilters', {
+          filter: 'profiles',
+          name: iterator,
           value,
         })
       }
+      this.setRoute()
     },
     setRoute() {
-      const query = this.$store.getters['filters/getSearchParams']
+      const query = this.$store.getters['filters/getProfilesSearchParams']
       this.$router.push({
         path: `/mee?${query}`,
       })
