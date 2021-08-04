@@ -6,7 +6,7 @@ export const state = () => ({
     { id: 'étudiant', name: 'étudiant' },
     { id: 'personnel', name: 'personnel' },
   ],
-  reasonsInsamee: [],
+  reasonsProfiles: [],
 })
 
 export const mutations = {
@@ -52,8 +52,8 @@ export const getters = {
       value: association.id,
     }))
   },
-  reasonsInsamee(state) {
-    return state.reasonsInsamee.map((reason) => ({
+  reasonsProfiles(state) {
+    return state.reasonsProfiles.map((reason) => ({
       text: reason.name,
       value: reason.id,
     }))

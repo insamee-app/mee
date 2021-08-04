@@ -6,13 +6,21 @@
     :graduation-year="profile.graduation_year"
     :email="profile.user.email"
     :school-name="profile.school.name"
-    :text="profile.insameeProfile.text"
-    :focus-interests="getTexts(profile.insameeProfile.focusInterests)"
-    :skills="getTexts(profile.insameeProfile.skills)"
-    :associations="profile.insameeProfile.associations"
+    :text="profile.insamee_profile.text"
+    :focus-interests="getTexts(profile.insamee_profile.focus_interests)"
+    :skills="getTexts(profile.insamee_profile.skills)"
+    :associations="profile.insamee_profile.associations"
     :socials="socials"
-    :avatar-url="profile.avatarUrl"
-  />
+    :avatar-url="profile.avatar_url"
+  >
+    <template #report>
+      <Report v-slot="{ on }" type="profiles">
+        <InsameeAppButton empty variant="secondary" v-on="on">
+          Signaler le mee
+        </InsameeAppButton>
+      </Report>
+    </template>
+  </InsameeMeeInsameeProfile>
 </template>
 
 <script>
