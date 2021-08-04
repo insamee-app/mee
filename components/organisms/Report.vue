@@ -17,7 +17,7 @@
       </template>
     </div>
     <slot v-else :on="{ click: onClick }"></slot>
-    <Portal>
+    <Portal v-if="modal">
       <InsameeAppModal :value="modal" @outside="modal = $event">
         <InsameeReport
           :loading="loading"

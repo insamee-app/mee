@@ -20,11 +20,9 @@
             ml-8
             w-[130%]
             h-auto
-            md:m-0
-            md:w-[300%]
+            md:m-0 md:w-[300%]
             lg:w-3/4
-            md:transform
-            md:translate-x-16
+            md:transform md:translate-x-16
             lg:transform-none
           "
         />
