@@ -42,7 +42,7 @@
       </div>
     </InsameeFullContainer>
     <InsameeAppHr />
-    <InsameeFullContainer v-slot="{ graphicStyle }" around>
+    <InsameeFullContainer v-slot="{ graphicStyle }" around type="top-left">
       <div>
         <InsameeFullContainerTitle>
           Tu veux faire une partie de foot mais tu ne sais pas avec qui y aller
@@ -56,7 +56,7 @@
       <GraphicFoot :class="graphicStyle" />
     </InsameeFullContainer>
     <InsameeAppHr />
-    <InsameeFullContainer v-slot="{ graphicStyle }" around>
+    <InsameeFullContainer v-slot="{ graphicStyle }" around type="right">
       <InsameeFullContainerTitle>
         Tu as un projet formidable en tête mais tu n'a pas toutes les
         compétences pour le faire ?
