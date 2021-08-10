@@ -91,14 +91,14 @@
       />
       <InsameeLabeledInput
         v-model="$v.fieldsProfile.urlInstagram.$model"
-        :error-message="facebookMessage"
+        :error-message="instagramMessage"
         type="url"
         name="instagram"
         label="Profil instagram"
       />
       <InsameeLabeledInput
         v-model="$v.fieldsProfile.urlTwitter.$model"
-        :error-message="facebookMessage"
+        :error-message="twitterMessage"
         type="url"
         name="twitter"
         label="Profil twitter"
@@ -129,7 +129,19 @@
 </template>
 
 <script>
-import { numeric, between, maxLength, url } from 'vuelidate/lib/validators'
+import {
+  numeric,
+  between,
+  maxLength,
+  url,
+  helpers,
+} from 'vuelidate/lib/validators'
+
+// Used to check if a value is in the item
+const mustContain = (value) => {
+  const regex = new RegExp(value, 'i')
+  return helpers.regex('mustContain', regex)
+}
 
 const date = new Date()
 
@@ -180,15 +192,17 @@ export default {
       graduationYear: {
         between: between(1957, date.getFullYear() + 5),
       },
-      // TODO: ajouter une regex pour vérifier que c'est bien une lien de là et il faut faire de même pour le serveur
       urlFacebook: {
         url,
+        mustContain: mustContain('facebook'),
       },
       urlInstagram: {
         url,
+        mustContain: mustContain('instagram'),
       },
       urlTwitter: {
         url,
+        mustContain: mustContain('twitter'),
       },
       focusInterests: {},
       skills: {},
@@ -248,6 +262,9 @@ export default {
       if (!this.$v.fieldsProfile.urlFacebook.url)
         return "Vous devez saisir l'url de votre profil"
 
+      if (!this.$v.fieldsProfile.urlFacebook.mustContain)
+        return 'Vous devez saisir une url provenant de Facebook'
+
       return ''
     },
     instagramMessage() {
@@ -256,6 +273,9 @@ export default {
       if (!this.$v.fieldsProfile.urlInstagram.url)
         return "Vous devez saisir l'url de votre profil"
 
+      if (!this.$v.fieldsProfile.urlInstagram.mustContain)
+        return "Vous devez saisir une url provenant d'Instagram"
+
       return ''
     },
     twitterMessage() {
@@ -263,6 +283,9 @@ export default {
 
       if (!this.$v.fieldsProfile.urlTwitter.url)
         return "Vous devez saisir l'url de votre profil"
+
+      if (!this.$v.fieldsProfile.urlTwitter.mustContain)
+        return 'Vous devez saisir une url provenant de Twitter'
 
       return ''
     },
