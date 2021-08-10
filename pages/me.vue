@@ -1,6 +1,6 @@
 <template>
   <InsameeAppContainer class="max-w-4xl mx-auto">
-    <h1 class="text-xl font-bold mt-4">Mon Profil</h1>
+    <!-- <h1 class="text-xl font-bold mt-4">Mon Profil</h1> -->
     <InsameeProfile
       class="mt-4"
       :last-name="profile.last_name"
@@ -9,10 +9,10 @@
       :school-name="profile.school.name"
       :graduation-year="profile.graduation_year"
       :current-role="profile.current_role"
-      :avatar-url="profile.avatarUrl"
-      :skills="getTexts(profile.insameeProfile.skills)"
-      :focus-interests="getTexts(profile.insameeProfile.focusInterests)"
-      :associations="profile.insameeProfile.associations"
+      :avatar-url="profile.avatar_url"
+      :skills="getTexts(profile.insamee_profile.skills)"
+      :focus-interests="getTexts(profile.insamee_profile.focus_interests)"
+      :associations="profile.insamee_profile.associations"
     >
       <InsameeProfileContact :links="socials" />
     </InsameeProfile>
