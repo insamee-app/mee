@@ -58,7 +58,7 @@
       >
         {{ filterMessage }}
       </InsameeAppButton>
-      <Portal>
+      <Portal v-if="modalFilters">
         <InsameeAppModal :value="modalFilters" @outside="modalFilters = $event">
           <FiltersCard
             closable
