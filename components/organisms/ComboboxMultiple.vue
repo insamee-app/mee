@@ -13,7 +13,11 @@
       :placeholder="placeholder"
       :value="value"
       @selected="$emit('selected', $event)"
-    />
+    >
+      <template #selectItem="props">
+        <slot name="selectItem" :item="props.item"></slot>
+      </template>
+    </InsameeComboboxMultiple>
   </div>
 </template>
 

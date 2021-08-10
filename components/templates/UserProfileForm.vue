@@ -73,7 +73,11 @@
           :value="$v.fieldsProfile.associations.$model"
           @selected="$v.fieldsProfile.associations.$model = $event"
           @update="updateCombobox"
-        />
+        >
+          <template #selectItem="{ item }">
+            {{ item.text }} - {{ item.school.name }}
+          </template>
+        </ComboboxMultiple>
       </InsameeLabeledItem>
       <InsameeLabeledTextarea
         v-model="$v.fieldsProfile.text.$model"

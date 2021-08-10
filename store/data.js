@@ -50,6 +50,7 @@ export const getters = {
     return state.associations.map((association) => ({
       text: association.name,
       value: association.id,
+      school: association.school,
     }))
   },
   reasonsProfiles(state) {
