@@ -12,6 +12,20 @@
           Changer sa photo de profil
         </div>
       </ProfilePictureUpdate>
+      <button
+        class="
+          flex flex-row
+          items-center
+          text-grey-base
+          hover:text-primary-dark
+          mt-2
+        "
+      >
+        <InsameeIconDismiss
+          class="w-5 h-5 text-primary-dark fill-current mr-2"
+        />
+        Supprimer sa photo de profil
+      </button>
       <div class="flex flex-row justify-between mt-4">
         <InsameeAppButton type="reset" border @click="$emit('close')">
           Annuler
@@ -35,12 +49,12 @@ export default {
   data() {
     return {
       errors: [],
-      avatar: undefined,
+      avatar: null,
     }
   },
   methods: {
     getAvatar(value) {
-      this.avatar = value
+      this.avatar = value || null
     },
     async sendAvatar() {
       const formData = new FormData()
@@ -48,13 +62,10 @@ export default {
 
       try {
         const response = await this.$axios.patch(
-          '/api/v1/profiles/' + this.userId,
-          formData,
-          {
-            withCredentials: true,
-          }
+          `/api/v1/profiles/${this.userId}/profiles-pictures`,
+          this.avatar ? formData : {}
         )
-        this.$store.commit('auth/setUser', response.data)
+        this.$store.commit('auth/setProfile', response.data)
         this.$emit('close')
       } catch (error) {
         this.errors = error.response.data.errors

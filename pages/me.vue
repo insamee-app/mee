@@ -1,6 +1,7 @@
 <template>
   <InsameeAppContainer class="max-w-4xl mx-auto">
     <!-- <h1 class="text-xl font-bold mt-4">Mon Profil</h1> -->
+    <pre>{{ profile }}</pre>
     <InsameeProfile
       class="mt-4"
       :last-name="profile.last_name"
