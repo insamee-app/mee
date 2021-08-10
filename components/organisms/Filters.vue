@@ -6,7 +6,7 @@
       class="mt-2"
       class-name="text-base"
     >
-      <FiltersComboboxMultiple
+      <ComboboxMultiple
         name="skills"
         variant="secondary"
         placeholder="Sélectionner une / des compétences"
@@ -21,7 +21,7 @@
       class="mt-2"
       class-name="text-base"
     >
-      <FiltersComboboxMultiple
+      <ComboboxMultiple
         name="focusInterests"
         variant="secondary"
         placeholder="Sélectionner un / des centres d'intérêt"
@@ -36,7 +36,7 @@
       class="mt-2"
       class-name="text-base"
     >
-      <FiltersComboboxMultiple
+      <ComboboxMultiple
         name="associations"
         variant="secondary"
         placeholder="Sélectionner une / des associations"
@@ -118,7 +118,6 @@ export default {
       })
     },
     updateFilters() {
-      // this.updateInput()
       this.updateSelect()
       this.updateComboboxMultiple('skills')
       this.updateComboboxMultiple('focusInterests')
@@ -134,10 +133,6 @@ export default {
       const data = this.$store.getters['data/currentRoles']
       this.filters.currentRole = data.find((el) => el.value === filter) ?? {}
     },
-    // updateInput() {
-    //   const filter = this.$store.getters[`filters/name`]
-    //   this.filters.name = filter
-    // },
   },
 }
 </script>

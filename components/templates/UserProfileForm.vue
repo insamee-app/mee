@@ -22,13 +22,21 @@
         autocomplete="given-name"
         label="Prénom"
       />
-      <AppSelect
-        v-model="$v.fieldsProfile.currentRole.$model"
-        name="currentRole"
-        :items="currentRoles"
-        label="Rôles"
-        choose-text
-      />
+      <InsameeLabeledItem
+        label="Le rôle"
+        variant="secondary"
+        class="mt-2"
+        class-name="text-base"
+      >
+        <InsameeSelect
+          :value="$v.fieldsProfile.currentRole.$model"
+          :dismiss-value="dismissSelect"
+          :items="$store.getters['data/currentRoles']"
+          placeholder="Sélectionner un rôle"
+          variant="primary"
+          @selected="$v.fieldsProfile.currentRole.$model = $event"
+        />
+      </InsameeLabeledItem>
       <InsameeLabeledInput
         v-model.number="$v.fieldsProfile.graduationYear.$model"
         :error-message="graduationYearMessage"
@@ -37,25 +45,36 @@
         autocomplete="year"
         label="Année de diplomation"
       />
-      <div>
-        <InsameeAppLabel name="focusInterests" label="Centre d'intérêt" input />
-        <ProfileSelect
-          v-model="fieldsProfile.focusInterests"
-          ressource="focus_interests"
+      <InsameeLabeledItem label="Les centres d'intérêt" class-name="text-base">
+        <ComboboxMultiple
+          variant="primary"
+          placeholder="Selectionner un / des centres d'intérêts"
+          name="focusInterests"
+          :value="$v.fieldsProfile.focusInterests.$model"
+          @selected="$v.fieldsProfile.focusInterests.$model = $event"
+          @update="updateCombobox"
         />
-      </div>
-      <div>
-        <InsameeAppLabel name="skills" label="Comptétences" input />
-        <ProfileSelect v-model="fieldsProfile.skills" ressource="skills" />
-      </div>
-      <div>
-        <InsameeAppLabel name="associations" label="Associations" input />
-        <ProfileSelect
-          v-model="fieldsProfile.associations"
-          ressource="associations"
-          :format="formatAssociations"
+      </InsameeLabeledItem>
+      <InsameeLabeledItem label="Les compétences" class-name="text-base">
+        <ComboboxMultiple
+          variant="primary"
+          placeholder="Selectionner une / des compétences"
+          name="skills"
+          :value="$v.fieldsProfile.skills.$model"
+          @selected="$v.fieldsProfile.skills.$model = $event"
+          @update="updateCombobox"
         />
-      </div>
+      </InsameeLabeledItem>
+      <InsameeLabeledItem label="Les associations" class-name="text-base">
+        <ComboboxMultiple
+          variant="primary"
+          placeholder="Selectionner une / des associations"
+          name="associations"
+          :value="$v.fieldsProfile.associations.$model"
+          @selected="$v.fieldsProfile.associations.$model = $event"
+          @update="updateCombobox"
+        />
+      </InsameeLabeledItem>
       <InsameeLabeledTextarea
         v-model="$v.fieldsProfile.text.$model"
         name="presentation"
@@ -110,7 +129,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import { numeric, between, maxLength, url } from 'vuelidate/lib/validators'
 
 const date = new Date()
@@ -130,7 +148,7 @@ export default {
       fieldsProfile: {
         lastName: '',
         firstName: '',
-        currentRole: '',
+        currentRole: {},
         text: '',
         mobile: '',
         skills: [],
@@ -172,19 +190,25 @@ export default {
       urlTwitter: {
         url,
       },
+      focusInterests: {},
+      skills: {},
+      associations: {},
     },
   },
   computed: {
-    ...mapState({ currentRoles: (state) => state.data.currentRoles }),
     transformedProfile() {
       const profile = {}
       Object.assign(profile, this.fieldsProfile)
 
-      profile.focusInterests = profile.focusInterests.map((value) => value.id)
-      profile.skills = profile.skills.map((value) => value.id)
-      profile.associations = profile.associations.map((value) => value.id)
+      profile.focusInterests = profile.focusInterests.map((el) => el.value)
+      profile.skills = profile.skills.map((el) => el.value)
+      profile.associations = profile.associations.map((el) => el.value)
+      profile.currentRole = profile.currentRole.value
 
       return profile
+    },
+    dismissSelect() {
+      return this.fieldsProfile.currentRole.value ?? ''
     },
     lastNameMessage() {
       if (!this.$v.fieldsProfile.lastName.$dirty) return ''
@@ -259,8 +283,20 @@ export default {
       this.fieldsProfile,
       this.$store.getters['auth/toUpdateProfile']
     )
+
+    const profileData = this.$store.getters['auth/currentRole']
+    const data = this.$store.getters['data/currentRoles']
+    this.fieldsProfile.currentRole =
+      data.find((el) => el.value === profileData) ?? {}
   },
   methods: {
+    updateCombobox(name) {
+      const profileData = this.$store.getters[`auth/${name}`]
+      const data = this.$store.getters[`data/${name}`]
+      this.$v.fieldsProfile[name].$model = data.filter((el) =>
+        profileData.includes(el.value)
+      )
+    },
     formatAssociations({ name, school }) {
       return `${name.toUpperCase()} - ${school.name}`
     },

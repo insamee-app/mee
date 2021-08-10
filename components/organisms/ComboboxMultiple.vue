@@ -3,11 +3,12 @@
     <div v-if="error">Une erreur est survenue</div>
     <InsameeIconSpinner
       v-else-if="!items.length"
-      class="animate-spin text-secondary-base fill-current mx-auto"
+      class="animate-spin fill-current mx-auto"
+      :class="classSpinner"
     />
     <InsameeComboboxMultiple
       v-else
-      variant="secondary"
+      :variant="variant"
       :items="items"
       :placeholder="placeholder"
       :value="value"
@@ -18,7 +19,7 @@
 
 <script>
 export default {
-  name: 'FiltersComboboxMultiple',
+  name: 'ComboboxMultiple',
   props: {
     value: {
       type: Array,
@@ -45,6 +46,14 @@ export default {
   computed: {
     items() {
       return this.$store.getters[`data/${this.name}`]
+    },
+    classSpinner() {
+      const classNames = []
+
+      if (this.isPrimary) classNames.push('text-primary-base')
+      else if (this.isSecondary) classNames.push('text-secondary-base')
+
+      return classNames.join(' ')
     },
   },
   async created() {

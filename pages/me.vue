@@ -13,6 +13,7 @@
       :skills="getTexts(profile.insamee_profile.skills)"
       :focus-interests="getTexts(profile.insamee_profile.focus_interests)"
       :associations="profile.insamee_profile.associations"
+      :text="profile.insamee_profile.text"
     >
       <InsameeProfileContact :links="socials" />
     </InsameeProfile>
@@ -53,53 +54,48 @@
         <InsameeAppListError :errors="errors" class="mt-2" />
       </div>
     </section>
-    <InsameeAppModal
-      v-slot="{ size }"
-      v-model="editProfile"
-      @outside="editProfile = false"
-    >
-      <UserProfileForm
-        :class="size"
-        :user-id="profile.user_id"
-        @close="editProfile = false"
-      />
-    </InsameeAppModal>
-    <InsameeAppModal
-      v-slot="{ size }"
-      :value="editAvatar"
-      @outside="editAvatar = false"
-    >
-      <UserProfilePictureForm
-        :class="size"
-        :user-id="profile.user_id"
-        @close="editAvatar = false"
-      />
-    </InsameeAppModal>
-    <InsameeAppModal
-      v-slot="{ size }"
-      :value="resetPasswordInfo"
-      @outside="resetPasswordInfo = false"
-    >
-      <InsameeAppCard :class="size" justify>
-        <template #header>
-          <InsameeAppCardHeader closable @close="resetPasswordInfo = false">
-            <InsameeAppCardTitle> Information</InsameeAppCardTitle>
-          </InsameeAppCardHeader>
-        </template>
-        <div>
-          Un courriel vous a été envoyé afin de vous permettre de modifier votre
-          mot de passe.
-        </div>
-      </InsameeAppCard>
-    </InsameeAppModal>
+    <Portal v-if="editProfile || editAvatar || resetPasswordInfo">
+      <InsameeAppModal
+        v-slot="{ size }"
+        v-model="editProfile"
+        overflow
+        @outside="editProfile = false"
+      >
+        <UserProfileForm
+          :class="size"
+          :user-id="profile.user_id"
+          @close="editProfile = false"
+        />
+      </InsameeAppModal>
+      <InsameeAppModal
+        v-slot="{ size }"
+        :value="editAvatar"
+        @outside="editAvatar = false"
+      >
+        <UserProfilePictureForm
+          :class="size"
+          :user-id="profile.user_id"
+          @close="editAvatar = false"
+        />
+      </InsameeAppModal>
+      <InsameeAppModal
+        v-slot="{ size }"
+        :value="resetPasswordInfo"
+        @outside="resetPasswordInfo = false"
+      >
+        <ResetPasswordCard :class="size" @close="resetPasswordInfo = false" />
+      </InsameeAppModal>
+    </Portal>
   </InsameeAppContainer>
 </template>
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
 import getTexts from '@/mixins/getTexts'
+import { Portal } from '@linusborg/vue-simple-portal'
 
 export default {
+  components: { Portal },
   filters: {
     handleUndefined(value) {
       return value || 'Non renseigné'
