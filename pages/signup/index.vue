@@ -36,6 +36,12 @@
         type="submit"
         >S'inscrire</InsameeAppButton
       >
+      <div class="text-sm text-center text-grey-base">
+        En cliquant sur S’inscrire, vous acceptez nos
+        <InsameeAppButton empty inline :to="{ name: 'terms-of-use' }">
+          Conditions Générales d'Utilisation.</InsameeAppButton
+        >
+      </div>
       <InsameeAppError :error-message="error" />
     </form>
     <InsameeAppFrame class="w-full mt-8">
