@@ -25,7 +25,7 @@
             :last-name="profile.last_name"
             :first-name="profile.first_name"
             :current-role="profile.current_role"
-            :focus-interests="getTexts(profile.insamee_profile.focus_interests)"
+            :skills="getTexts(profile.insamee_profile.skills)"
             :associations="profile.insamee_profile.associations"
             :text="profile.insamee_profile.short_text"
             :link="profile.avatar_url"
