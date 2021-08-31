@@ -36,7 +36,7 @@
     <template #error>
       <div class="space-y-2 mt-4">
         <p class="font-bold">
-          Désolé, aucune profile ne correspond à ta recherche...
+          Désolé, aucun profil ne correspond à ta recherche...
         </p>
         <p>
           Mais si tu penses que c’est une erreur de notre part, tu peux nous
