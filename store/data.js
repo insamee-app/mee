@@ -1,6 +1,6 @@
 export const state = () => ({
   skills: [],
-  focusInterests: [],
+  focus_interests: [],
   associations: [],
   currentRoles: [
     { id: 'étudiant', name: 'étudiant' },
@@ -19,7 +19,7 @@ export const actions = {
   async fetch({ state, commit }, name) {
     const endpoint = name.includes('reasons')
       ? '/api/v1/reasons?platform=insamee'
-      : `/api/v1/${name}?serialize=filter`
+      : `/api/v1/${name}?serialize=filter&platform=insamee`
     if (!state[name].length) {
       const { data } = await this.$axios.get(endpoint)
       commit('set', { name, value: data })
@@ -34,8 +34,8 @@ export const getters = {
       value: skill.id,
     }))
   },
-  focusInterests(state) {
-    return state.focusInterests.map((focusInterest) => ({
+  focus_interests(state) {
+    return state.focus_interests.map((focusInterest) => ({
       text: focusInterest.name,
       value: focusInterest.id,
     }))

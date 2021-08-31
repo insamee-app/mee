@@ -107,7 +107,7 @@ export default {
   },
   async fetch() {
     const query = this.$store.getters['filters/getProfilesSearchParams']
-    const path = `/api/v1/profiles?${query}&serialize=card&populate=insamee`
+    const path = `/api/v1/profiles?${query}&serialize=card&populate=insamee&platform=insamee`
 
     const { data } = await this.$axios.get(path)
 
