@@ -9,7 +9,7 @@ export const state = () => ({
       // text: '',
       currentRole: {},
       'skills[]': [],
-      'focusInterests[]': [],
+      'focus_interests[]': [],
       'associations[]': [],
     },
   },
@@ -34,7 +34,7 @@ export const mutations = {
       // text: '',
       currentRole: {},
       'skills[]': [],
-      'focusInterests[]': [],
+      'focus_interests[]': [],
       'associations[]': [],
     }
   },
@@ -68,8 +68,8 @@ export const getters = {
   skills({ filters: { profiles } }) {
     return profiles['skills[]']
   },
-  focusInterests({ filters: { profiles } }) {
-    return profiles['focusInterests[]']
+  focus_interests({ filters: { profiles } }) {
+    return profiles['focus_interests[]']
   },
   associations({ filters: { profiles } }) {
     return profiles['associations[]']

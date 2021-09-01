@@ -49,7 +49,7 @@ export const getters = {
       urlTwitter: profile.url_twitter ?? '',
     }
   },
-  focusInterests({ profile }) {
+  focus_interests({ profile }) {
     return profile.insamee_profile.focus_interests.map((el) => el.id)
   },
   skills({ profile }) {

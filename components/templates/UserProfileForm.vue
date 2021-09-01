@@ -49,9 +49,9 @@
         <ComboboxMultiple
           variant="primary"
           placeholder="Selectionner un / des centres d'intérêts"
-          name="focusInterests"
-          :value="$v.fieldsProfile.focusInterests.$model"
-          @selected="$v.fieldsProfile.focusInterests.$model = $event"
+          name="focus_interests"
+          :value="$v.fieldsProfile.focus_interests.$model"
+          @selected="$v.fieldsProfile.focus_interests.$model = $event"
           @update="updateCombobox"
         />
       </InsameeLabeledItem>
@@ -168,7 +168,7 @@ export default {
         text: '',
         mobile: '',
         skills: [],
-        focusInterests: [],
+        focus_interests: [],
         associations: [],
         graduationYear: 0,
         urlFacebook: '',
@@ -208,7 +208,7 @@ export default {
         url,
         mustContain: mustContain('twitter'),
       },
-      focusInterests: {},
+      focus_interests: {},
       skills: {},
       associations: {},
     },
@@ -218,7 +218,7 @@ export default {
       const profile = {}
       Object.assign(profile, this.fieldsProfile)
 
-      profile.focusInterests = profile.focusInterests.map((el) => el.value)
+      profile.focusInterests = profile.focus_interests.map((el) => el.value)
       profile.skills = profile.skills.map((el) => el.value)
       profile.associations = profile.associations.map((el) => el.value)
       profile.currentRole = profile.currentRole.value

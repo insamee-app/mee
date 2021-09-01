@@ -22,11 +22,11 @@
       class-name="text-base"
     >
       <ComboboxMultiple
-        name="focusInterests"
+        name="focus_interests"
         variant="secondary"
         placeholder="Sélectionner un / des centres d'intérêt"
-        :value="filters['focusInterests[]']"
-        @selected="filters['focusInterests[]'] = $event"
+        :value="filters['focus_interests[]']"
+        @selected="filters['focus_interests[]'] = $event"
         @update="updateComboboxMultiple"
       />
     </InsameeLabeledItem>
@@ -79,7 +79,7 @@ export default {
       filters: {
         currentRole: {},
         'skills[]': [],
-        'focusInterests[]': [],
+        'focus_interests[]': [],
         'associations[]': [],
       },
     }
@@ -102,7 +102,7 @@ export default {
       this.filters = {
         currentRole: {},
         'skills[]': [],
-        'focusInterests[]': [],
+        'focus_interests[]': [],
         'associations[]': [],
       }
       this.submit()
@@ -111,7 +111,7 @@ export default {
       this.$emit('submit', {
         currentRole: this.filters.currentRole.value,
         'skills[]': this.filters['skills[]'].map((el) => el.value),
-        'focusInterests[]': this.filters['focusInterests[]'].map(
+        'focus_interests[]': this.filters['focus_interests[]'].map(
           (el) => el.value
         ),
         'associations[]': this.filters['associations[]'].map((el) => el.value),
@@ -120,7 +120,7 @@ export default {
     updateFilters() {
       this.updateSelect()
       this.updateComboboxMultiple('skills')
-      this.updateComboboxMultiple('focusInterests')
+      this.updateComboboxMultiple('focus_interests')
       this.updateComboboxMultiple('associations')
     },
     updateComboboxMultiple(name) {

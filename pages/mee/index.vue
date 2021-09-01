@@ -25,7 +25,7 @@
             :last-name="profile.last_name"
             :first-name="profile.first_name"
             :current-role="profile.current_role"
-            :focus-interests="getTexts(profile.insamee_profile.focus_interests)"
+            :skills="getTexts(profile.insamee_profile.skills)"
             :associations="profile.insamee_profile.associations"
             :text="profile.insamee_profile.short_text"
             :link="profile.avatar_url"
@@ -36,7 +36,7 @@
     <template #error>
       <div class="space-y-2 mt-4">
         <p class="font-bold">
-          Désolé, aucune profile ne correspond à ta recherche...
+          Désolé, aucun profil ne correspond à ta recherche...
         </p>
         <p>
           Mais si tu penses que c’est une erreur de notre part, tu peux nous
@@ -107,7 +107,7 @@ export default {
   },
   async fetch() {
     const query = this.$store.getters['filters/getProfilesSearchParams']
-    const path = `/api/v1/profiles?${query}&serialize=card&populate=insamee`
+    const path = `/api/v1/profiles?${query}&serialize=card&populate=insamee&platform=insamee`
 
     const { data } = await this.$axios.get(path)
 
