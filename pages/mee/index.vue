@@ -28,7 +28,7 @@
             :skills="getTexts(profile.insamee_profile.skills)"
             :associations="profile.insamee_profile.associations"
             :text="profile.insamee_profile.short_text"
-            :link="profile.avatar_url"
+            :link="profile.url_picture"
           />
         </template>
       </InsameeResponsiveListCards>

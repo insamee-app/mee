@@ -11,7 +11,7 @@
     :skills="getTexts(profile.insamee_profile.skills)"
     :associations="profile.insamee_profile.associations"
     :socials="socials"
-    :avatar-url="profile.avatar_url"
+    :avatar-url="profile.url_picture"
   >
     <template #report>
       <Report v-slot="{ on }" type="profiles">

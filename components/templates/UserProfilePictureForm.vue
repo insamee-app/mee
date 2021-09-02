@@ -58,11 +58,11 @@ export default {
     },
     async sendAvatar() {
       const formData = new FormData()
-      formData.append('avatar', this.avatar)
+      formData.append('picture', this.avatar)
 
       try {
         const response = await this.$axios.patch(
-          `/api/v1/profiles/${this.userId}/profiles-pictures`,
+          `/api/v1/profiles/${this.userId}/picture`,
           this.avatar ? formData : {}
         )
         this.$store.commit('auth/setProfile', response.data)

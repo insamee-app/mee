@@ -9,7 +9,7 @@
       :school-name="profile.school.name"
       :graduation-year="profile.graduation_year"
       :current-role="profile.current_role"
-      :avatar-url="profile.avatar_url"
+      :avatar-url="profile.url_picture"
       :skills="getTexts(profile.insamee_profile.skills)"
       :focus-interests="getTexts(profile.insamee_profile.focus_interests)"
       :associations="profile.insamee_profile.associations"
