@@ -1,9 +1,10 @@
 <template>
-  <InsameeAppContainer class="w-80 mx-auto">
+  <section class="w-80 mx-auto">
     <form action="#" @submit.prevent="signin">
       <InsameeLabeledInput
         v-model="$v.email.$model"
         :error-message="mailMessage"
+        border
         type="email"
         name="email"
         placeholder="exemple@insamee.fr"
@@ -13,6 +14,7 @@
       <InsameeLabeledInput
         v-model="$v.password.$model"
         :error-message="passwordMessage"
+        border
         type="password"
         name="password"
         placeholder="*******"
@@ -22,6 +24,7 @@
       <InsameeLabeledInput
         v-model="$v.password_confirmation.$model"
         :error-message="passwordConfirmationMessage"
+        border
         type="password"
         name="password_confirmation"
         placeholder="*******"
@@ -44,15 +47,20 @@
       </div>
       <InsameeAppError :error-message="error" />
     </form>
-    <InsameeAppFrame class="w-full mt-8">
-      <span
-        >Déjà un comptes ?
-        <InsameeAppButton empty inline :to="{ name: 'login' }"
-          >Se connecter</InsameeAppButton
-        ></span
+    <InsameeAppFrame class="w-full mt-8" variant="secondary">
+      <span>
+        Déjà un comptes ?
+        <InsameeAppButton
+          empty
+          inline
+          :to="{ name: 'login' }"
+          variant="secondary"
+        >
+          Se connecter
+        </InsameeAppButton></span
       >
     </InsameeAppFrame>
-  </InsameeAppContainer>
+  </section>
 </template>
 
 <script>

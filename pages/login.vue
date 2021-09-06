@@ -1,9 +1,10 @@
 <template>
-  <InsameeAppContainer class="w-80 mx-auto">
+  <section class="w-80 mx-auto">
     <form action="#" @submit.prevent="login">
       <InsameeLabeledInput
         v-model="$v.email.$model"
         :error-message="mailMessage"
+        border
         type="email"
         name="email"
         placeholder="exemple@insamee.fr"
@@ -13,6 +14,7 @@
       <InsameeLabeledInput
         v-model="$v.password.$model"
         :error-message="passwordMessage"
+        border
         type="password"
         name="password"
         placeholder="*******"
@@ -41,21 +43,26 @@
       </InsameeAppButton>
       <InsameeAppListError :errors="errors" />
     </form>
-    <InsameeAppFrame class="w-full mt-8">
+    <InsameeAppFrame class="w-full mt-8" variant="secondary">
       <span>
         Pas encore de compte ?
-        <InsameeAppButton :to="{ name: 'signup' }" empty inline>
+        <InsameeAppButton
+          :to="{ name: 'signup' }"
+          empty
+          inline
+          variant="secondary"
+        >
           S'inscire
         </InsameeAppButton>
       </span>
     </InsameeAppFrame>
-    <div class="text-center leading-5 mt-8">
-      <div class="font-light">Besoin de vérifier votre compte ?</div>
-      <InsameeAppButton :link="{ name: 'send-verify-email' }" empty inline>
-        Renvoyer le couriel
+    <div class="text-center leading-5 mt-8 font-light">
+      <div class="">Besoin de vérifier votre compte ?</div>
+      <InsameeAppButton :to="{ name: 'send-verify-email' }" empty inline>
+        Renvoyer le couriel de vérification
       </InsameeAppButton>
     </div>
-  </InsameeAppContainer>
+  </section>
 </template>
 
 <script>

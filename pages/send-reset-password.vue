@@ -1,5 +1,5 @@
 <template>
-  <InsameeAppContainer class="w-80 mx-auto">
+  <section class="w-80 mx-auto">
     <h1 v-if="ok" class="text-center text-2xl">
       Un mail vous a été envoyé afin de réinitialiser votre mot de passe
     </h1>
@@ -7,6 +7,7 @@
       <InsameeLabeledInput
         v-model="$v.email.$model"
         :error-message="mailMessage"
+        border
         type="email"
         name="email"
         placeholder="exemple@insamee.fr"
@@ -14,15 +15,17 @@
         label="Adresse électronique"
       />
       <InsameeAppButton
+        large
         class="w-full mt-8"
         :disabled="$v.$invalid"
         :loading="loading"
         type="submit"
-        >Envoyer le couriel de réinitialisation</InsameeAppButton
       >
+        Envoyer le couriel de réinitialisation
+      </InsameeAppButton>
       <InsameeAppError :error-message="error" />
     </form>
-  </InsameeAppContainer>
+  </section>
 </template>
 
 <script>

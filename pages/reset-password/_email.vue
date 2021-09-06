@@ -1,5 +1,5 @@
 <template>
-  <InsameeAppContainer class="w-80 mx-auto">
+  <section class="w-80 mx-auto">
     <div v-if="ok">
       <h1 class="text-center text-2xl">Votre mot de passe a bien été changé</h1>
       <InsameeAppButton :to="{ name: 'login' }" large class="mt-8 w-full">
@@ -10,6 +10,7 @@
       <InsameeLabeledInput
         v-model="$v.password.$model"
         :error-message="passwordMessage"
+        border
         type="password"
         name="password"
         placeholder="*******"
@@ -19,6 +20,7 @@
       <InsameeLabeledInput
         v-model="$v.password_confirmation.$model"
         :error-message="passwordConfirmationMessage"
+        border
         type="password"
         name="password_confirmation"
         placeholder="*******"
@@ -36,7 +38,7 @@
       </InsameeAppButton>
       <InsameeAppError :error-message="error" />
     </form>
-  </InsameeAppContainer>
+  </section>
 </template>
 
 <script>
