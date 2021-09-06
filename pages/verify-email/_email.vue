@@ -1,10 +1,10 @@
 <template>
-  <InsameeAppContainer class="w-80 mx-auto">
+  <section class="w-80 mx-auto">
     <h1 class="text-2xl text-center">Votre compte a été vérifié avec succès</h1>
     <InsameeAppButton class="mt-8" large :to="{ name: 'me' }">
       Accéder à la plateforme
     </InsameeAppButton>
-  </InsameeAppContainer>
+  </section>
 </template>
 
 <script>
