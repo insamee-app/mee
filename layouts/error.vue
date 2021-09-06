@@ -1,7 +1,7 @@
 <template>
   <section class="text-center">
     <template v-if="error.statusCode === 404">
-      <Insamee404 :error="error" :to="{ name: 'associations' }">
+      <Insamee404 :error="error" :to="{ name: 'mee' }">
         Trouver un mee ?
       </Insamee404>
     </template>
@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  layout: 'minimal',
+  layout: 'minimal-overflow',
   props: {
     error: {
       type: Object,
