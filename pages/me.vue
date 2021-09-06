@@ -2,7 +2,6 @@
   <InsameeAppContainer class="max-w-4xl mx-auto">
     <!-- <h1 class="text-xl font-bold mt-4">Mon Profil</h1> -->
     <InsameeProfile
-      class="mt-4"
       :last-name="profile.last_name"
       :first-name="profile.first_name"
       :email="profile.user.email"
@@ -18,16 +17,16 @@
       <InsameeProfileContact :links="socials" />
     </InsameeProfile>
     <section class="flex flex-row justify-between sticky bottom-4 mt-8">
-      <InsameeAppButton large border @click="editAvatar = true">
+      <InsameeAppButton large border shadow @click="editAvatar = true">
         Changer la photo
       </InsameeAppButton>
-      <InsameeAppButton large @click="editProfile = true">
+      <InsameeAppButton large border shadow @click="editProfile = true">
         Editer le profil
       </InsameeAppButton>
     </section>
     <section>
       <h2 class="text-xl font-bold mt-8">Paramètre du Compte</h2>
-      <div class="flex flex-col items-center space-y-4">
+      <div class="flex flex-col items-end space-y-4">
         <InsameeAppButton
           class="mt-4"
           :disabled="loadingResetPassword"
@@ -37,19 +36,12 @@
           Modifier son mot de passe
         </InsameeAppButton>
         <InsameeAppButton
-          :loading="loadingLogout"
-          :disabled="loadingLogout"
-          @click="logout"
-        >
-          Se déconnecter
-        </InsameeAppButton>
-        <InsameeAppButton
           border
           :loading="loadingDeleteAccount"
           :disabled="loadingDeleteAccount"
           @click="deleteAccount"
         >
-          Supprimer son compte
+          Fermer son compte
         </InsameeAppButton>
         <InsameeAppListError :errors="errors" class="mt-2" />
       </div>
@@ -96,11 +88,6 @@ import { Portal } from '@linusborg/vue-simple-portal'
 
 export default {
   components: { Portal },
-  filters: {
-    handleUndefined(value) {
-      return value || 'Non renseigné'
-    },
-  },
   mixins: [getTexts],
   middleware: ['authenticated'],
   data() {
@@ -133,16 +120,6 @@ export default {
         this.errors = error.response.data.errors
       }
       this.loadingResetPassword = false
-    },
-    async logout() {
-      this.loadingLogout = true
-      try {
-        await this['auth/logout']()
-        this.errorMessage = ''
-      } catch (error) {
-        this.errorMessage = error.message
-      }
-      this.loadingLogout = false
     },
     async deleteAccount() {
       const confirmed = confirm('Voulez-vous vraiment supprimer votre compte ?')
