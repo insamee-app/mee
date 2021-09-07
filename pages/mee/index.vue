@@ -51,12 +51,7 @@
       </div>
     </template>
     <template #filters-action>
-      <InsameeAppButton
-        shadow
-        variant="secondary"
-        class="mt-6"
-        @click="modalFilters = true"
-      >
+      <InsameeAppButton shadow variant="secondary" @click="modalFilters = true">
         {{ filterMessage }}
       </InsameeAppButton>
       <Portal v-if="modalFilters">
