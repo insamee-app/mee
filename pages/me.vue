@@ -37,6 +37,14 @@
         </InsameeAppButton>
         <InsameeAppButton
           border
+          :loading="loadingLogout"
+          :disabled="loadingLogout"
+          @click="logout"
+        >
+          Se déconnecter
+        </InsameeAppButton>
+        <InsameeAppButton
+          border
           :loading="loadingDeleteAccount"
           :disabled="loadingDeleteAccount"
           @click="deleteAccount"
@@ -120,6 +128,16 @@ export default {
         this.errors = error.response.data.errors
       }
       this.loadingResetPassword = false
+    },
+    async logout() {
+      this.loadingLogout = true
+      try {
+        await this['auth/logout']()
+        this.errorMessage = ''
+      } catch (error) {
+        this.errorMessage = error.message
+      }
+      this.loadingLogout = false
     },
     async deleteAccount() {
       const confirmed = confirm('Voulez-vous vraiment supprimer votre compte ?')
