@@ -1,30 +1,25 @@
 <template>
   <div>
     <InsameeIconSpinner
-      v-if="loadingReasons"
-      class="h-6 w-6 text-secondary-base fill-current animate-spin"
+      v-if="$fetchState.pending"
+      class="h-6 w-6 text-grey-secondary-base fill-current animate-spin"
     />
     <div
-      v-else-if="errorReasons || report"
+      v-else-if="report || errorReport"
       class="text-sm text-grey-secondary-base"
     >
-      <template v-if="errorReasons"> Une erreur est survenue </template>
-      <template v-else-if="!report.already">
-        Merci de votre signalement
-      </template>
-      <template v-else-if="report.already">
-        {{ alreadyReported }}
-      </template>
+      <template v-if="errorReport"> {{ errorReport }} </template>
+      <template v-else-if="report.already"> {{ alreadyReported }} </template>
+      <template v-else> Merci de votre signalement </template>
     </div>
+
     <slot v-else :on="{ click: onClick }"></slot>
     <Portal v-if="modal">
       <InsameeAppModal :value="modal" @outside="modal = $event">
-        <InsameeReport
-          :loading="loading"
-          :items="reasons"
-          :error-message="errorReport"
+        <ReportCard
+          :type="type"
           @close="modal = !$event"
-          @send="send"
+          @report="report = $event"
         />
       </InsameeAppModal>
     </Portal>
@@ -51,23 +46,23 @@ export default {
   data() {
     return {
       modal: false,
-      loading: false,
       report: undefined,
-      loadingReasons: false,
-      errorReasons: false,
       errorReport: '',
     }
   },
+  async fetch() {
+    const { id } = this.$route.params
+    try {
+      const response = await this.$axios.get(
+        `/api/v1/reports/${this.type}/${id}`
+      )
+      this.report = response.data
+    } catch (error) {
+      if (error.response.status === 404) return
+      this.errorReport = 'Une erreur est survenue'
+    }
+  },
   computed: {
-    reasons() {
-      return this.$store.getters[`data/${this.nameReason}`]
-    },
-    nameReason() {
-      if (this.type === 'profiles') return 'reasonsProfiles'
-      else if (this.type === 'associations') return 'reasonsAssociations'
-
-      return ''
-    },
     alreadyReported() {
       if (this.type === 'profiles') return 'Vous avez déjà signalé ce profil'
       else if (this.type === 'associations')
@@ -75,41 +70,9 @@ export default {
       return ''
     },
   },
-  async created() {
-    this.loadingReasons = true
-    try {
-      await this.$store.dispatch('data/fetch', this.nameReason)
-    } catch (error) {
-      this.errorReasons = true
-    }
-    this.loadingReasons = false
-  },
   methods: {
     onClick() {
       this.modal = true
-    },
-    async send(data) {
-      this.loading = true
-      const id = this.$route.params.id
-      try {
-        const response = await this.$axios.post(
-          `/api/v1/${this.type}/${id}/reports`,
-          {
-            reason: data.report.value,
-            description: data.details,
-          }
-        )
-        this.modal = false
-        this.report = response.data
-      } catch (error) {
-        if ('errors' in error.response.data) {
-          this.errorReport = error.response.data.errors[0].message
-        } else {
-          this.errorReport =
-            "Une erreur est survenue. N'hésitez pas à nous contacter."
-        }
-      }
-      this.loading = false
     },
   },
 }

@@ -14,11 +14,13 @@
     :avatar-url="profile.url_picture"
   >
     <template #report>
-      <Report v-slot="{ on }" type="profiles">
-        <InsameeAppButton empty variant="secondary" v-on="on">
-          Signaler le mee
-        </InsameeAppButton>
-      </Report>
+      <client-only>
+        <Report v-slot="{ on }" type="profiles">
+          <InsameeAppButton empty variant="grey-secondary" v-on="on">
+            Signaler le mee
+          </InsameeAppButton>
+        </Report>
+      </client-only>
     </template>
   </InsameeMeeInsameeProfile>
 </template>
