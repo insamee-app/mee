@@ -1,5 +1,5 @@
 <template>
-  <InsameeAppCard border>
+  <InsameeAppCard border reduced>
     <InsameeAppCardHeader :closable="closable" @close="$emit('close', $event)">
       <InsameeAppCardTitle>Filtres</InsameeAppCardTitle>
     </InsameeAppCardHeader>

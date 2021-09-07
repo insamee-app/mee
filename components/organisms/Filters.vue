@@ -3,7 +3,6 @@
     <InsameeLabeledItem
       label="Les compétences"
       variant="secondary"
-      class="mt-2"
       class-name="text-base"
     >
       <ComboboxMultiple
