@@ -49,7 +49,7 @@ export default {
         facebook: this.profile.url_facebook,
         instagram: this.profile.url_instagram,
         twitter: this.profile.url_twitter,
-        téléphone: this.profile.mobile,
+        mobile: this.profile.mobile,
       }
     },
   },
