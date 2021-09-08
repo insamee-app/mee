@@ -18,12 +18,12 @@ Une fois la bonne personne trouvée, tu pourras facilement la contacter et comme
 
 > L'écosystème de mise en relation étudiante
 
-TEAM, c'est quatre plateformes pour mettre en lien l'ensemble du campus.
+**TEAM**, c'est quatre plateformes pour mettre en lien l'ensemble du campus, **I**nsamee, **A**ssociations, **T**utorat et **É**vènements.
 
-Avec TEAM, tu peux trouver les profils dont tu as besoins pour tes projets ou qui va t'accompagner dans tes idées les plus folles, trouver l'association qui va te permettre de t'épanouir et d'en apprendre plus chaque jour !
+Avec **TEAM**, tu peux trouver les profils dont tu as besoin pour tes projets ou ceux qui vont t'accompagner dans tes idées les plus folles, trouver l'association qui va te permettre de t'épanouir et d'en apprendre plus chaque jour !
 
-Mais TEAM, c'est aussi un outil pour te permettre de recevoir de l'air là où tu as du mal, pour surmonter ensemble les difficultés. Mais tu pourras aussi aider les autres étudiants du campus en proposant des tutorats, qui te permettront à toi aussi de progresser !
+Mais **TEAM**, c'est aussi un outil pour te permettre de recevoir de l'aide là où tu as le plus de difficultés, pour surmonter à plusieurs les difficultés. Mais tu pourras aussi aider les autres étudiants du campus en proposant des tutorats, qui te permettront à toi aussi de progresser !
 
-Et enfin, avec TEAM, tu vas pouvoir découvrir l'ensemble des évènements de ton campus et de la vie étudiante des autres écoles du groupe ! Toujours au courant de ce qu'il va se passer et en participant aux évènements proposés par ton campus, c'est un très bon moyen pour découvrir de nouvelles personnes et faire de belles rencontres !
+Et enfin, avec **TEAM**, tu vas pouvoir découvrir l'ensemble des évènements de ton campus et de la vie étudiante des autres écoles du groupe ! Toujours au courant de ce qu'il va se passer et participer aux évènements proposés par ton campus, c'est un très bon moyen pour découvrir de nouvelles personnes et faire de belles rencontres !
 
-TEAM, c'est le meilleur moyen de découvrir et d'agir sur et pour ton campus, pour les étudiants et pour que chacun puisse réaliser ses ambitions et s'épanouir !
+**TEAM**, c'est le meilleur moyen de découvrir et d'agir sur et pour ton campus, pour les étudiants et pour que chacun puisse réaliser ses ambitions et s'épanouir !
