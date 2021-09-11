@@ -1,6 +1,6 @@
 <template>
-  <InsameeAppContainer class="max-w-4xl mx-auto">
-    <!-- <h1 class="text-xl font-bold mt-4">Mon Profil</h1> -->
+  <InsameeAppContainer class="max-w-4xl mx-auto space-y-8">
+    <h1 class="text-xl font-bold">Mon Profil</h1>
     <InsameeProfile
       :last-name="profile.last_name"
       :first-name="profile.first_name"
@@ -16,7 +16,7 @@
     >
       <InsameeProfileContact :links="socials" />
     </InsameeProfile>
-    <section class="flex flex-row justify-between sticky bottom-4 mt-8">
+    <section class="flex flex-row justify-between sticky bottom-4">
       <InsameeAppButton large border shadow @click="editAvatar = true">
         Changer la photo
       </InsameeAppButton>
@@ -24,11 +24,10 @@
         Editer le profil
       </InsameeAppButton>
     </section>
-    <section>
-      <h2 class="text-xl font-bold mt-8">Paramètre du Compte</h2>
+    <section class="space-y-4">
+      <h2 class="text-xl font-bold">Paramètre du Compte</h2>
       <div class="flex flex-col items-end space-y-4">
         <InsameeAppButton
-          class="mt-4"
           :disabled="loadingResetPassword"
           :loading="loadingResetPassword"
           @click="resetPassword"
@@ -51,7 +50,7 @@
         >
           Fermer son compte
         </InsameeAppButton>
-        <InsameeAppListError :errors="errors" class="mt-2" />
+        <InsameeAppListError :errors="errors" />
       </div>
     </section>
     <Portal v-if="editProfile || editAvatar || resetPasswordInfo">
