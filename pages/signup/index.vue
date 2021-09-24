@@ -31,6 +31,14 @@
         class="w-full mt-2"
         label="Vérification du mot de passe"
       />
+      <InsameeLabeledCheck
+        :value="receiveEmail"
+        class="mt-2"
+        name="receiveEmail"
+        label="J'accepte de recevoir des mails pour prolonger l'expérience TEAM"
+        title="TEAM ne vous enverra pas d'emails promotionnels ni de spams"
+        @change="receiveEmail = $event"
+      />
       <InsameeAppButton
         large
         class="w-full mt-8"
@@ -77,6 +85,7 @@ export default {
       email: '',
       password: '',
       password_confirmation: '',
+      receiveEmail: false,
     }
   },
   methods: {
@@ -87,6 +96,7 @@ export default {
           email: this.email,
           password: this.password,
           password_confirmation: this.password_confirmation,
+          receiveEmail: this.receiveEmail,
         })
         this.error = ''
         this.$router.push({ name: 'signup-thanks' })
