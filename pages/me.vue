@@ -53,48 +53,44 @@
         <InsameeAppListError :errors="errors" />
       </div>
     </section>
-    <Portal v-if="editProfile || editAvatar || resetPasswordInfo">
-      <InsameeAppModal
-        v-slot="{ size }"
-        v-model="editProfile"
-        overflow
-        @outside="editProfile = false"
-      >
-        <UserProfileForm
-          :class="size"
-          :user-id="profile.user_id"
-          @close="editProfile = false"
-        />
-      </InsameeAppModal>
-      <InsameeAppModal
-        v-slot="{ size }"
-        :value="editAvatar"
-        @outside="editAvatar = false"
-      >
-        <UserProfilePictureForm
-          :class="size"
-          :user-id="profile.user_id"
-          @close="editAvatar = false"
-        />
-      </InsameeAppModal>
-      <InsameeAppModal
-        v-slot="{ size }"
-        :value="resetPasswordInfo"
-        @outside="resetPasswordInfo = false"
-      >
-        <ResetPasswordCard :class="size" @close="resetPasswordInfo = false" />
-      </InsameeAppModal>
-    </Portal>
+    <InsameeAppModal
+      v-slot="{ size }"
+      v-model="editProfile"
+      overflow
+      @outside="editProfile = false"
+    >
+      <UserProfileForm
+        :class="size"
+        :user-id="profile.user_id"
+        @close="editProfile = false"
+      />
+    </InsameeAppModal>
+    <InsameeAppModal
+      v-slot="{ size }"
+      :value="editAvatar"
+      @outside="editAvatar = false"
+    >
+      <UserProfilePictureForm
+        :class="size"
+        :user-id="profile.user_id"
+        @close="editAvatar = false"
+      />
+    </InsameeAppModal>
+    <InsameeAppModal
+      v-slot="{ size }"
+      :value="resetPasswordInfo"
+      @outside="resetPasswordInfo = false"
+    >
+      <ResetPasswordCard :class="size" @close="resetPasswordInfo = false" />
+    </InsameeAppModal>
   </InsameeAppContainer>
 </template>
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
 import getTexts from '@/mixins/getTexts'
-import { Portal } from '@linusborg/vue-simple-portal'
 
 export default {
-  components: { Portal },
   mixins: [getTexts],
   middleware: ['authenticated'],
   data() {

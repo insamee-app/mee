@@ -14,26 +14,19 @@
     </div>
 
     <slot v-else :on="{ click: onClick }"></slot>
-    <Portal v-if="modal">
-      <InsameeAppModal :value="modal" @outside="modal = $event">
-        <ReportCard
-          :type="type"
-          @close="modal = !$event"
-          @report="report = $event"
-        />
-      </InsameeAppModal>
-    </Portal>
+    <InsameeAppModal :value="modal" @outside="modal = $event">
+      <ReportCard
+        :type="type"
+        @close="modal = !$event"
+        @report="report = $event"
+      />
+    </InsameeAppModal>
   </div>
 </template>
 
 <script>
-import { Portal } from '@linusborg/vue-simple-portal'
-
 export default {
   name: 'Report',
-  components: {
-    Portal,
-  },
   props: {
     type: {
       type: String,
