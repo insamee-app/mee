@@ -29,16 +29,19 @@ import getTexts from '@/mixins/getTexts'
 export default {
   mixins: [getTexts],
   middleware: 'authenticated',
-  async asyncData({ params, $axios }) {
+  async asyncData({ params, $axios, error }) {
     const path = '/api/v1/profiles'
     const { id } = params
 
-    const { data: profile } = await $axios.get(
-      `${path}/${id}?populate=insamee&platform=insamee&serialize=full`
-    )
-
-    return {
-      profile,
+    try {
+      const { data: profile } = await $axios.get(
+        `${path}/${id}?populate=insamee&platform=insamee&serialize=full`
+      )
+      return {
+        profile,
+      }
+    } catch (e) {
+      error(e.response.data)
     }
   },
   computed: {
