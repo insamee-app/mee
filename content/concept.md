@@ -4,7 +4,7 @@
 
 > La plateforme de mise en relation des profils étudiants
 
-Insamee est le cœur d'un écosystème. Insamee est la plateforme centrale permettant de mettre en relation les différents profils étudiants présents dans nos écoles !
+Insamee est le cœur d'un écosystème. Insamee, c'est la plateforme centrale permettant de mettre en relation les différents profils étudiants présents dans nos écoles !
 
 La crise sanitaire nous a montré que les liens inter-étudiants étaient essentielles dans la réussite de nos études. Cela sur le plan du travail personnel comme sur le plan du travail en association.
 
