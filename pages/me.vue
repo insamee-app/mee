@@ -14,8 +14,8 @@
       :associations="profile.insamee_profile.associations"
       :text="profile.insamee_profile.text"
     >
-      <InsameeProfileContact :links="socials" />
     </InsameeProfile>
+    <InsameeProfileContact :links="socials" />
     <section class="flex flex-row justify-between sticky bottom-4">
       <InsameeAppButton large border shadow @click="editAvatar = true">
         Changer la photo

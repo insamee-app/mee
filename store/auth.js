@@ -35,6 +35,7 @@ export const getters = {
       instagram: profile.url_instagram,
       twitter: profile.url_twitter,
       mobile: profile.mobile,
+      email: profile.user.email,
     }
   },
   toUpdateProfile({ profile }) {

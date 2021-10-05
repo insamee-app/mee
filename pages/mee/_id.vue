@@ -51,6 +51,7 @@ export default {
         instagram: this.profile.url_instagram,
         twitter: this.profile.url_twitter,
         mobile: this.profile.mobile,
+        email: this.profile.user.email,
       }
     },
   },
