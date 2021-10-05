@@ -958,10 +958,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.0.tgz#87de7af9c231826fdd68ac7258f77c429e0e5fcf"
   integrity sha512-wdppn25U8z/2yiaT6YGquE6X8sSv7hNMWSXYSSU1jGv/yd6XqjXgTDJ8KP4NgjTXfJ3GbRjeeb8RTV7a/VpM+w==
 
-"@insamee-app/components@^0.1.18":
-  version "0.1.18"
-  resolved "https://registry.yarnpkg.com/@insamee-app/components/-/components-0.1.18.tgz#f53b92870d6beca41e51a3fc1110af470d704011"
-  integrity sha512-lS0uAL38FzAY6RrH/5kVYvBv/9n6tS7UElQ69a5MXW3ViMgfw4ksP7+cb+oLK+qkukKV+FLNkSwxyZBDu9quWg==
+"@insamee-app/components@^0.1.19":
+  version "0.1.19"
+  resolved "https://registry.yarnpkg.com/@insamee-app/components/-/components-0.1.19.tgz#7b2a14aab3f79eb638b883373afb847f0659fde7"
+  integrity sha512-gMnsb3bxTsDLiXfAbfXJAY4wZREBoR7vKyWO+yhu6fvI9h88XHxBpFwQSSdQPw7cyAqUS7g+tH0ayCtIQGHqSQ==
   dependencies:
     "@linusborg/vue-simple-portal" "^0.1.5"
     focus-trap "^6.7.1"
