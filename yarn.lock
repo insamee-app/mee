@@ -958,10 +958,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.0.tgz#87de7af9c231826fdd68ac7258f77c429e0e5fcf"
   integrity sha512-wdppn25U8z/2yiaT6YGquE6X8sSv7hNMWSXYSSU1jGv/yd6XqjXgTDJ8KP4NgjTXfJ3GbRjeeb8RTV7a/VpM+w==
 
-"@insamee-app/components@^0.1.19":
-  version "0.1.19"
-  resolved "https://registry.yarnpkg.com/@insamee-app/components/-/components-0.1.19.tgz#7b2a14aab3f79eb638b883373afb847f0659fde7"
-  integrity sha512-gMnsb3bxTsDLiXfAbfXJAY4wZREBoR7vKyWO+yhu6fvI9h88XHxBpFwQSSdQPw7cyAqUS7g+tH0ayCtIQGHqSQ==
+"@insamee-app/components@^0.1.20":
+  version "0.1.20"
+  resolved "https://registry.yarnpkg.com/@insamee-app/components/-/components-0.1.20.tgz#3235d6aa1062a9f7b2db41cb3d80a553e84a35bd"
+  integrity sha512-EPhrl0MXYgm5WuRHH9j8V0Q3jjubx10OukBeY3Filn6rl3/u7OjcRsDIWdtInMJ5EztRJVuM68LMz3SP78sQlw==
   dependencies:
     "@linusborg/vue-simple-portal" "^0.1.5"
     focus-trap "^6.7.1"
@@ -3450,10 +3450,10 @@ core-js@^2.6.5:
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.12.tgz#d9333dfa7b065e347cc5682219d6f690859cc2ec"
   integrity sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==
 
-core-js@^3.18.1:
-  version "3.18.1"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.18.1.tgz#289d4be2ce0085d40fc1244c0b1a54c00454622f"
-  integrity sha512-vJlUi/7YdlCZeL6fXvWNaLUPh/id12WXj3MbkMw5uOyF0PfWPBNOCNbs53YqgrvtujLNlt9JQpruyIKkUZ+PKA==
+core-js@^3.18.2:
+  version "3.18.2"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.18.2.tgz#63a551e8a29f305cd4123754846e65896619ba5b"
+  integrity sha512-zNhPOUoSgoizoSQFdX1MeZO16ORRb9FFQLts8gSYbZU5FcgXhp24iMWMxnOQo5uIaIG7/6FA/IqJPwev1o9ZXQ==
 
 core-util-is@~1.0.0:
   version "1.0.3"
