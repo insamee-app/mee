@@ -9,7 +9,7 @@ export default {
     :link-tutorat="$config.tutoratURL"
     :link-evenements="$config.evenementsURL"
     :link-associations="$config.associationsURL"
-    link-insamee="/"
+    link-mee="/"
   >
     <template #tutorat="{ classIcon }">
       <NuxtImg

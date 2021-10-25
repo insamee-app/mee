@@ -35,9 +35,8 @@
           Une passion pour le sport ou l'esport à partager ?
         </InsameeFullContainerTitle>
         <InsameeFullContainerText class="w-8/12 mt-8">
-          <span class="text-primary-base">INSAMEE</span> te permet de trouver
-          des personnes avec qui tu vas pouvoir vibrer devant les meilleurs
-          match !
+          <span class="text-primary-base">MEE</span> te permet de trouver des
+          personnes avec qui tu vas pouvoir vibrer devant les meilleurs match !
         </InsameeFullContainerText>
       </div>
     </InsameeFullContainer>
@@ -49,8 +48,8 @@
           ?
         </InsameeFullContainerTitle>
         <InsameeFullContainerText class="mt-8">
-          Avec <span class="text-primary-base">INSAMEE</span>, trouve des
-          équipiers parmis les étudiants et formez votre propre équipe !
+          Avec <span class="text-primary-base">MEE</span>, trouve des équipiers
+          parmis les étudiants et formez votre propre équipe !
         </InsameeFullContainerText>
       </div>
       <GraphicFoot :class="graphicStyle" />
@@ -63,7 +62,7 @@
       </InsameeFullContainerTitle>
       <GraphicTeam :class="graphicStyle" />
       <InsameeFullContainerText class="mt-8">
-        <span class="text-primary-base">INSAMEE</span> te permet de trouver les
+        <span class="text-primary-base">MEE</span> te permet de trouver les
         collaboratuer dont tu as toujours eu besoin pour maner à bien les
         projets les plus fous !
       </InsameeFullContainerText>
@@ -77,8 +76,8 @@
         </InsameeFullContainerTitle>
         <div class="flex justify-end mt-8">
           <InsameeFullContainerText class="text-right w-8/12">
-            Avec <span class="text-primary-base">INSAMEE</span>, trouve tes
-            futures associés et crée l'organisation dont tu as toujours rêvé !
+            Avec <span class="text-primary-base">MEE</span>, trouve tes futures
+            associés et crée l'organisation dont tu as toujours rêvé !
           </InsameeFullContainerText>
         </div>
       </div>

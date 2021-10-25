@@ -18,7 +18,7 @@
           />
         </template>
         <template #cards>
-          <InsameeProfileCard
+          <InsameeMeeProfileCard
             v-for="profile in profiles"
             :key="profile.user_id"
             :user-id="profile.user_id"

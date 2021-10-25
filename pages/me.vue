@@ -1,7 +1,7 @@
 <template>
   <InsameeAppContainer class="max-w-4xl mx-auto space-y-8">
     <h1 class="text-xl font-bold">Mon Profil</h1>
-    <InsameeProfile
+    <InsameeMeeProfile
       :last-name="profile.last_name"
       :first-name="profile.first_name"
       :email="profile.user.email"
@@ -14,7 +14,7 @@
       :associations="profile.insamee_profile.associations"
       :text="profile.insamee_profile.text"
     >
-    </InsameeProfile>
+    </InsameeMeeProfile>
     <InsameeProfileContact :links="socials" />
     <section class="flex flex-row justify-between sticky bottom-4">
       <InsameeAppButton large border shadow @click="editAvatar = true">

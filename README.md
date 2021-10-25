@@ -1,6 +1,6 @@
-# Insamee
+# Mee
 
-This repo is the the major plateforme of insamee-app.
+This repo is the the major platform of TEAM.
 
 ## Tech Stack
 
