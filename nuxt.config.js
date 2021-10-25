@@ -9,14 +9,42 @@ export default {
   target: 'server',
 
   head: {
-    title: 'insamee',
+    title: 'Chercher, Trouver, Partager',
+    titleTemplate: 'Mee - %s',
     htmlAttrs: {
       lang: 'fr',
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'La plateforme de mise en relation des profils étudiants',
+      },
+      { hid: 'og:site_name', property: 'og:site_name', content: 'Mee' },
+      { hid: 'og:type', property: 'og:type', content: 'website' },
+      {
+        hid: 'og:image',
+        property: 'og:image',
+        content: 'https://mee.insamee.fr/img/social/mee.png',
+      },
+      {
+        hid: 'og:image:alt',
+        property: 'og:image:alt',
+        content: 'Bannière du site Mee',
+      },
+      {
+        hid: 'twitter:card',
+        name: 'twitter:card',
+        content: 'summary_large_image',
+      },
+      { hid: 'twitter:site', name: 'twitter:site', content: '' },
+      {
+        hid: 'twitter:image',
+        property: 'og:image',
+        content: 'https://mee.insamee.fr/img/social/mee.png',
+      },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     bodyAttrs: {
