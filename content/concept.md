@@ -1,14 +1,14 @@
 # Concept
 
-## Insamee
+## Mee
 
 > La plateforme de mise en relation des profils étudiants
 
-Insamee est le cœur d'un écosystème. Insamee, c'est la plateforme centrale permettant de mettre en relation les différents profils étudiants présents dans nos écoles !
+Mee est le cœur d'un écosystème. Mee, c'est la plateforme centrale permettant de mettre en relation les différents profils étudiants présents dans nos écoles !
 
 La crise sanitaire nous a montré que les liens inter-étudiants étaient essentielles dans la réussite de nos études. Cela sur le plan du travail personnel comme sur le plan du travail en association.
 
-Avec Insamee, trouver des personnes pour partager un bon moment, pour former la futur équipe de sport, vidéo ou non, de l'école. Mais tu peux aussi y trouver des personnes avec qui collaborer pour un projet personnel ou pour une association de l'école, pour un projet ambitieux qui a besoin des meilleurs et d'étudiants aux compétences diverses !
+Avec Mee, trouver des personnes pour partager un bon moment, pour former la futur équipe de sport, vidéo ou non, de l'école. Mais tu peux aussi y trouver des personnes avec qui collaborer pour un projet personnel ou pour une association de l'école, pour un projet ambitieux qui a besoin des meilleurs et d'étudiants aux compétences diverses !
 
 Et ces personnes, tu les trouveras facilement grâce aux puissants filtres présents sur la plateforme ! Un besoin particulier, avec cet outil, tu trouveras la personne qu'il te faut.
 

@@ -20,5 +20,10 @@ export default {
     )
     this.$store.commit('auth/setUser', response.data)
   },
+  head() {
+    return {
+      title: 'Vérifier son email',
+    }
+  },
 }
 </script>

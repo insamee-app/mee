@@ -82,6 +82,11 @@ export default {
       loading: false,
     }
   },
+  head() {
+    return {
+      title: 'Se connecter',
+    }
+  },
   validations: {
     password: {
       required,

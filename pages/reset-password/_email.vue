@@ -56,6 +56,11 @@ export default {
       ok: false,
     }
   },
+  head() {
+    return {
+      title: 'Réinitialiser son mot de passe',
+    }
+  },
   methods: {
     async sendResetPassword() {
       const { email } = this.$route.params

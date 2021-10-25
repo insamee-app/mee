@@ -25,5 +25,10 @@ export default {
       default: () => {},
     },
   },
+  head() {
+    return {
+      title: this.error.statusCode === 404 ? 'Page introuvable' : 'Erreur',
+    }
+  },
 }
 </script>

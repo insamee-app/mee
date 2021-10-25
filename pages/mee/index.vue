@@ -18,7 +18,7 @@
           />
         </template>
         <template #cards>
-          <InsameeProfileCard
+          <InsameeMeeProfileCard
             v-for="profile in profiles"
             :key="profile.user_id"
             :user-id="profile.user_id"
@@ -95,6 +95,11 @@ export default {
       modalFilters: false,
       profiles: [],
       pagination: undefined,
+    }
+  },
+  head() {
+    return {
+      title: 'Les profils',
     }
   },
   async fetch() {

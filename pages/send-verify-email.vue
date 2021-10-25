@@ -41,6 +41,11 @@ export default {
       ok: false,
     }
   },
+  head() {
+    return {
+      title: 'Vérifier son email',
+    }
+  },
   methods: {
     async sendMail() {
       this.loading = true

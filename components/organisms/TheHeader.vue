@@ -5,8 +5,14 @@
     @open="$emit('open', $event)"
   >
     <template #name>
-      <template v-if="$screen.md"> Insamee </template>
-      <template v-else> <InsameeIconInsamee class="w-6 h-6" /> </template>
+      <template v-if="$screen.md"> Mee </template>
+      <template v-else>
+        <NuxtImg
+          src="/logos/mee.png"
+          height="24"
+          alt="logo de la plateforme mee"
+        />
+      </template>
     </template>
     <template #nav>
       <InsameeHeaderNav v-if="$screen.md">
@@ -18,13 +24,7 @@
         <InsameeAppButton :to="{ name: 'mee' }">
           Trouver des mee
         </InsameeAppButton>
-        <InsameeAppTeam
-          v-if="$screen.md"
-          :link-tutorat="$config.tutoratURL"
-          link-evenements="/"
-          :link-associations="$config.associationsURL"
-          link-insamee="/"
-        />
+        <AppTeam v-if="$screen.md" />
       </template>
       <InsameeAppButton
         v-if="!loggedIn() && $screen.md"

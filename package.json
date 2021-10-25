@@ -1,5 +1,5 @@
 {
-  "name": "web",
+  "name": "mee",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -19,7 +19,7 @@
     }
   },
   "dependencies": {
-    "@insamee-app/components": "^0.1.21",
+    "@insamee-app/components": "^0.1.22",
     "@nuxt/content": "^1.14.0",
     "@nuxtjs/axios": "^5.13.6",
     "@tailwindcss/typography": "^0.4.1",
@@ -29,6 +29,7 @@
     "vue-screen": "^1.5.6"
   },
   "devDependencies": {
+    "@nuxt/image": "^0.6.0",
     "@nuxtjs/eslint-config": "^6.0.1",
     "@nuxtjs/eslint-module": "^3.0.2",
     "@nuxtjs/tailwindcss": "^4.2.1",
