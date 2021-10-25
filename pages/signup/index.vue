@@ -88,6 +88,11 @@ export default {
       receiveEmail: false,
     }
   },
+  head() {
+    return {
+      title: "S'inscrire",
+    }
+  },
   methods: {
     async signin() {
       this.loading = true

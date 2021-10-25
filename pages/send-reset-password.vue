@@ -42,6 +42,11 @@ export default {
       ok: false,
     }
   },
+  head() {
+    return {
+      title: 'Réinitialiser son mot de passe',
+    }
+  },
   methods: {
     async sendMail() {
       this.loading = true

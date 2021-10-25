@@ -44,6 +44,11 @@ export default {
       error(e.response.data)
     }
   },
+  head() {
+    return {
+      title: `Profil de ${this.profile.first_name}`,
+    }
+  },
   computed: {
     socials() {
       return {

@@ -23,5 +23,10 @@
 <script>
 export default {
   layout: 'minimal',
+  head() {
+    return {
+      title: 'Merci de votre inscription',
+    }
+  },
 }
 </script>

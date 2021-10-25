@@ -16,5 +16,10 @@ export default {
       content,
     }
   },
+  head() {
+    return {
+      title: "Conditions Générales d'Utiliation",
+    }
+  },
 }
 </script>

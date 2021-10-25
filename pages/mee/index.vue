@@ -97,6 +97,11 @@ export default {
       pagination: undefined,
     }
   },
+  head() {
+    return {
+      title: 'Les profils',
+    }
+  },
   async fetch() {
     const query = this.$store.getters['filters/getProfilesSearchParams']
     const path = `/api/v1/profiles?${query}&serialize=card&populate=insamee&platform=insamee`

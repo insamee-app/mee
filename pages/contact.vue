@@ -8,7 +8,12 @@
 export default {
   data() {
     return {
-      mail: 'mailto:',
+      mail: 'mailto:contact@insamee.fr',
+    }
+  },
+  head() {
+    return {
+      title: 'Nous contacter',
     }
   },
 }

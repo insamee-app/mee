@@ -16,5 +16,10 @@ export default {
       content,
     }
   },
+  head() {
+    return {
+      title: 'Politique de confidentialité',
+    }
+  },
 }
 </script>
