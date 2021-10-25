@@ -51,6 +51,7 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    // https://github.com/insamee-app/components
     '@insamee-app/components/nuxt',
   ],
 
@@ -62,6 +63,8 @@ export default {
     '@nuxt/content',
     // https://www.npmjs.com/package/vue-screen
     'vue-screen/nuxt',
+    // https://image.nuxtjs.org/
+    '@nuxt/image',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -77,6 +80,7 @@ export default {
   publicRuntimeConfig: {
     tutoratURL: process.env.TUTORAT_URL,
     associationsURL: process.env.ASSOCIATIONS_URL,
+    evenementsURL: process.env.EVENEMENTS_URL,
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

@@ -3,12 +3,7 @@
     <template #actions>
       <template v-if="loggedIn()">
         <div class="flex flex-col justify-center items-center">
-          <InsameeAppTeam
-            :link-tutorat="$config.tutoratURL"
-            link-evenements="/"
-            :link-associations="$config.associationsURL"
-            link-insamee="/"
-          />
+          <AppTeam />
           <InsameeAppButton
             class="mt-6"
             :disabled="loadingLogout"
